@@ -53,3 +53,32 @@ Continuation added a writable project copy, subject-level checkpointing, reduced
 - `PhysionetMI_dev10_reliability_flags_ci.csv`: failure-rate estimates with exact binomial confidence intervals
 
 Important limitation: n=10 is a development run, not the final manuscript sample. Full analysis should scale to all accessible subjects and then repeat on at least one additional dataset.
+
+
+## update: intervention recommendation layer
+
+This repository now includes a stronger publishable layer beyond robustness curves:
+
+1. **Subject risk cards** from real PhysioNetMI n=10 development results.
+2. **Intervention recommendations**: whether a subject should use a reduced montage first, require recalibration/dropout-aware training, or be screened out for this paradigm.
+3. **Interactive dashboards**:
+   - `reports/PhysionetMI_dev10_interactive_dashboard.html`
+   - `reports/PhysionetMI_dev10_intervention_recommendations.html`
+4. **New benchmark hooks**:
+   - optional Riemannian tangent-space logistic regression baseline (`riemann_lr`, requires `pyriemann`);
+   - named motor-region dropout (`left_motor_strip`, `midline_motor_strip`, `right_motor_strip`) for spatially clustered channel-failure stress tests.
+
+Run after a benchmark completes:
+
+```bash
+python scripts/analyze_robustness.py --results-dir results --prefix PhysionetMI_dev10 --reports-dir reports
+python scripts/recommend_interventions.py --results-dir results --reports-dir reports --prefix PhysionetMI_dev10
+```
+
+Next benchmark run with new hooks:
+
+```bash
+python scripts/run_benchmark.py   --config configs/benchmark.yaml   --download-and-run   --dataset PhysionetMI   --subjects 1 2 3 4 5 6 7 8 9 10   --include-reduced-montage   --include-region-dropout   --pipeline csp_lda   --suffix dev10_region
+```
+
+Current evidence is a development run only (n=10). 
