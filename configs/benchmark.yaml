@@ -1,6 +1,6 @@
 project_name: bci_prosthesis_robustness_benchmark
-moabb_data_dir: /workspace/bci_project_dev/moabb_data
-results_dir: /workspace/bci_project_dev/results
+moabb_data_dir: moabb_data
+results_dir: results
 random_seed: 20260709
 datasets:
 - name: PhysionetMI
@@ -55,3 +55,10 @@ statistics:
   primary_model: mixed_effects_subject_random_intercept
   multiple_comparisons: benjamini_hochberg_fdr
   alpha: 0.05
+analysis:
+  clean_working_auc_threshold: 0.6
+  failure_auc_threshold: 0.6
+  primary_dropout_fraction: 0.3
+  risk_levels:
+    high: 0.5
+    moderate: 0.2
