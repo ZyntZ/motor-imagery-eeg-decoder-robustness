@@ -18,6 +18,7 @@ Default plan uses MOABB datasets and can begin with PhysioNet EEG Motor Movement
 - configuration file created
 - benchmark CLI scaffold created
 - statistical analysis plan written
+- PDF project plan generated in `reports/`
 
 ## Quick start
 
@@ -133,3 +134,25 @@ Key CSV outputs:
 - No subject exclusions are hard-coded. Any inaccessible subject should be reported by the runner, not silently excluded.
 - Fold/repeat rows are technical resampling units only. Inferential CSVs aggregate to subject level first.
 - Offline EEG benchmark results do not support causal claims about online neuroprosthetic control.
+
+## Added publication-support package
+
+The repository now includes journal-facing support files generated from saved real-data CSVs:
+
+- `scripts/generate_publication_artifacts.py`
+- `results/publication_key_results_table.csv`
+- `results/publication_bnci_decoder_comparison.csv`
+- `results/publication_dropout_slope_summary.csv`
+- `results/publication_dataset_inventory.csv`
+- `results/publication_reproducibility_hash_manifest.csv`
+- `reports/publication_statistical_analysis_plan.md`
+- `reports/publication_methods_draft.md`
+- `reports/publication_data_dictionary.md`
+- `reports/publication_claims_guardrails.md`
+- `reports/publication_reviewer_risk_precheck.md`
+
+Run `make publication-artifacts` to regenerate these files from the saved CSV tables.
+
+## Target journal: Journal of Neuroscience Methods
+
+The current target journal is *Journal of Neuroscience Methods*. The planned route is subscription publication: the official journal page lists a subscription option with no publication fee charged to authors, while open access has a separate APC. Journal-specific submission materials are in `reports/jnm_*.md`; official-source evidence is stored in `results/jnm_target_journal_evidence.csv`.

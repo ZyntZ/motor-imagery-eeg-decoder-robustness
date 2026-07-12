@@ -29,4 +29,13 @@ recommendations-dev10:
 final-stats-dev10:
 	$(PYTHON) scripts/final_statistics.py --results-dir $(RESULTS_DIR) --prefix PhysionetMI_dev10
 
-all-dev10: analyze-dev10 recommendations-dev10 final-stats-dev10
+all-dev10: analyze-dev10 recommendations-dev10 final-stats-dev10 publication-artifacts
+
+.PHONY: publication-artifacts
+publication-artifacts:
+	$(PYTHON) scripts/generate_publication_artifacts.py --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR)
+	$(PYTHON) scripts/generate_submission_package.py --repo-root . --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR)
+
+.PHONY: jnm-package
+jnm-package:
+	$(PYTHON) scripts/generate_jnm_submission_package.py --repo-root . --results-dir $(RESULTS_DIR)
