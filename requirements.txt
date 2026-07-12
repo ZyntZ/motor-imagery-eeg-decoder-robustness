@@ -1,4 +1,5 @@
-# Reproducible benchmark dependencies
+# Reproducible benchmark dependencies. Pin exact versions for archival runs if required by the target journal.
+numpy
 pandas
 scipy
 scikit-learn
