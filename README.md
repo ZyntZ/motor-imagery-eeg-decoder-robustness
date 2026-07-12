@@ -18,7 +18,6 @@ Default plan uses MOABB datasets and can begin with PhysioNet EEG Motor Movement
 - configuration file created
 - benchmark CLI scaffold created
 - statistical analysis plan written
-- PDF project plan generated in `reports/`
 
 ## Quick start
 
