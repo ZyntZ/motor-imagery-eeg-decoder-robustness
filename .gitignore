@@ -1,0 +1,69 @@
+# Python compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Editor directories and files
+.vscode/
+.idea/
+*.iml
+
+# macOS
+.DS_Store
+
+# Environment files
+.env
+.env.local
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Temp files
+tmp/
+temp/
+*.tmp
+
+# Project outputs to ignore
+results/
+reports/
+
+# Coverage and profiling
+coverage.xml
+*.prof
+
+# Other
+*.egg
+*.whl
