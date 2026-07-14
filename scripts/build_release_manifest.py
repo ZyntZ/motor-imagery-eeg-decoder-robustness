@@ -20,7 +20,8 @@ DEFAULT_PREFIXES = [
     "BNCI2014-001_BNCI2014_001_all_csp_lda",
     "BNCI2014-001_BNCI2014_001_all_riemann_lr",
 ]
-HASH_SUFFIXES = {".py", ".md", ".toml", ".yml", ".yaml", ".txt", ".csv", ".json", ".cff"}
+METHODS_FIGURE_PREFIXES = ["BNCI2014-001_BNCI2014_001_all_riemann_lr"]
+HASH_SUFFIXES = {".py", ".md", ".toml", ".yml", ".yaml", ".txt", ".csv", ".json", ".cff", ".png", ".svg", ".tex"}
 EXCLUDE_PARTS = {".git", "__pycache__", ".pytest_cache", "checkpoints"}
 PACKAGE_NAMES = ["numpy", "pandas", "scipy", "scikit-learn", "statsmodels", "pytest", "PyYAML"]
 EXPECTED_STAT_OUTPUT_SUFFIXES = [
@@ -35,6 +36,15 @@ EXPECTED_STAT_OUTPUT_SUFFIXES = [
     "statistical_report_manifest.json",
 ]
 EXPECTED_REPORT_SUFFIXES = ["statistical_report_table.tex", "statistical_report_summary.md"]
+EXPECTED_METHODS_FIGURE_SUFFIXES = [
+    "methods_pipeline_schematic.png",
+    "methods_pipeline_schematic.svg",
+    "methods_robustness_degradation_roc_auc.png",
+    "methods_robustness_degradation_roc_auc.svg",
+    "methods_intervention_class_counts.png",
+    "methods_intervention_class_counts.svg",
+    "methods_figures_manifest.json",
+]
 
 
 def sha256_file(path: Path) -> str:
@@ -92,6 +102,10 @@ def expected_outputs(root: Path, results_dir: Path, reports_dir: Path, prefixes:
         for suffix in ["validation_checks.csv", "validation_summary.json"]:
             path = reports_dir / f"{prefix}_{suffix}"
             rows.append({"prefix": prefix, "path": display_path(path, root), "exists": path.exists()})
+    for fig_prefix in METHODS_FIGURE_PREFIXES:
+        for suffix in EXPECTED_METHODS_FIGURE_SUFFIXES:
+            path = reports_dir / f"{fig_prefix}_{suffix}"
+            rows.append({"prefix": fig_prefix, "path": display_path(path, root), "exists": path.exists()})
     return rows
 
 

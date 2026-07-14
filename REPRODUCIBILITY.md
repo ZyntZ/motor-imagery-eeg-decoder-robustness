@@ -74,3 +74,8 @@ python scripts/run_benchmark.py --config configs/benchmark.yaml --download-and-r
 Use `--skip-failed` only for exploratory continuation. It writes `*_failed_subjects.csv` and `*_failed_subjects.json`; outputs from skipped-subject runs are incomplete until those subjects are rerun successfully.
 
 Post-processing scripts rebuild `{prefix}_subject_wide.csv` from the current `{prefix}_subject_summary.csv` by default. Use `--use-cached-wide` only when intentionally reusing a previous wide table.
+
+
+## CI note for release manifest generation
+
+The `release-manifest` target intentionally depends on `validate-results`, `statistical-reports`, and `methods-figures`. This lets CI call `make release-manifest` directly after checkout while still generating all outputs required by `reports/release_manifest.json`.

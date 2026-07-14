@@ -150,6 +150,24 @@ Repository metadata included for commit readiness:
 - `.github/workflows/ci.yml`: continuous-integration workflow for compile, tests, validation, and manifest generation.
 - `MANUSCRIPT_PLACEHOLDER.md`: explicit placeholder because manuscript/paper sources are intentionally not included in this snapshot.
 
+
+
+## Methods-paper figures
+
+Generate the three included methods figures directly from existing CSV outputs:
+
+```bash
+make methods-figures
+```
+
+The target writes PNG and SVG versions of:
+
+- `reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_pipeline_schematic.*`
+- `reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_robustness_degradation_roc_auc.*`
+- `reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_intervention_class_counts.*`
+
+The figure manifest is `reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_figures_manifest.json`. Figures are generated only from repository CSV outputs; no synthetic benchmark observations are created.
+
 ## Main outputs
 
 For a run prefix such as `PhysionetMI_dev10`, the pipeline writes:

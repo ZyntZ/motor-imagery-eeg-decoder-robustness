@@ -61,3 +61,8 @@ These files do not add observations. They summarize existing subject-level resul
 ## Commit hygiene
 
 Generated report files are reproducible from the CSV summaries and can be regenerated with the command above. Keep source scripts, tests, configuration, and selected reference CSV outputs under version control; keep local caches, checkpoints, bytecode, and one-off dashboards out of commits.
+
+
+## Figure outputs
+
+`scripts/generate_methods_figures.py` creates three methods-paper figures from existing CSV results: a pipeline schematic, a paired channel-dropout degradation plot, and intervention/risk-class counts. The bar chart is descriptive only and must not be interpreted causally.
