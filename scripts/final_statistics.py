@@ -158,10 +158,10 @@ def intervention_classes(wide: pd.DataFrame, clean_thr: float = 0.60, fail_thr: 
             cls = "B_rescue_candidate"
         elif clean_working and pd.notna(worst_delta) and worst_delta <= -0.20:
             cls = "B_fragile"
-        elif not clean_working:
-            cls = "D_low_clean"
+        elif clean_working:
+            cls = "C_ok_dev"
         else:
-            cls = "A_high" if clean_working else "D_low_clean"
+            cls = "D_low_clean"
         rows.append({
             "subject": int(r["subject"]),
             "clean_auc": clean_auc,
@@ -183,7 +183,7 @@ def intervention_classes(wide: pd.DataFrame, clean_thr: float = 0.60, fail_thr: 
 def intervention_class_rates(classes: pd.DataFrame) -> pd.DataFrame:
     n = len(classes)
     rows = []
-    for cls in ["A_high", "B_rescue_candidate", "B_fragile", "D_low_clean"]:
+    for cls in ["A_high", "B_rescue_candidate", "B_fragile", "C_ok_dev", "D_low_clean"]:
         k = int((classes["intervention_class"] == cls).sum())
         lo, hi = exact_binom_ci(k, n)
         rows.append({"metric": f"class_{cls}", "numerator": k, "denominator": n, "rate": k / n if n else np.nan, "ci_low": lo, "ci_high": hi})

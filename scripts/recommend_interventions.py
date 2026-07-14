@@ -25,12 +25,39 @@ def exact_binom_ci(k: int, n: int, alpha: float = 0.05) -> tuple[float, float]:
     return float(lo), float(hi)
 
 
+def _normalize_wide_columns(wide: pd.DataFrame) -> pd.DataFrame:
+    """Accept subject-wide outputs from either analysis script.
+
+    `analyze_robustness.py` writes `clean_bal`/`bal_*` columns, while
+    `final_statistics.py` writes `clean_balanced_accuracy`/
+    `balanced_accuracy_*`. Recommendation rules use AUC columns only, but this
+    normalization keeps downstream exports consistent.
+    """
+    rename = {
+        "clean_balanced_accuracy": "clean_bal",
+        "balanced_accuracy_motor_core": "bal_motor_core",
+        "balanced_accuracy_motor_extended": "bal_motor_extended",
+    }
+    for col in list(wide.columns):
+        if col.startswith("balanced_accuracy_dropout_"):
+            frac = col.replace("balanced_accuracy_dropout_", "")
+            rename[col] = f"bal_dropout_{frac}"
+    return wide.rename(columns={k: v for k, v in rename.items() if k in wide.columns})
+
+
 def load_inputs(results_dir: Path, prefix: str) -> tuple[pd.DataFrame, pd.DataFrame | None]:
-    wide_path = results_dir / f"{prefix}_subject_wide.csv"
+    candidate_paths = [
+        results_dir / f"{prefix}_subject_wide.csv",
+        results_dir / f"{prefix}_final_subject_wide_metrics.csv",
+    ]
+    wide_path = next((p for p in candidate_paths if p.exists()), None)
     cards_path = results_dir / f"{prefix}_subject_risk_cards.csv"
-    if not wide_path.exists():
-        raise FileNotFoundError(f"Missing required subject-wide file: {wide_path}")
-    wide = pd.read_csv(wide_path)
+    if wide_path is None:
+        raise FileNotFoundError(
+            "Missing subject-wide file. Expected one of: "
+            + ", ".join(str(p) for p in candidate_paths)
+        )
+    wide = _normalize_wide_columns(pd.read_csv(wide_path))
     cards = pd.read_csv(cards_path) if cards_path.exists() else None
     return wide, cards
 
@@ -187,5 +214,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    import argparse
     main()

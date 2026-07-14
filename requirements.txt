@@ -1,13 +1,20 @@
-# Benchmark dependencies.
-numpy
-pandas
-scipy
-scikit-learn
-statsmodels
-mne
-moabb
-pyriemann
-PyYAML
-matplotlib
-seaborn
-plotly
+# Core benchmark dependencies
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10
+scikit-learn>=1.3
+statsmodels>=0.14
+PyYAML>=6.0
+
+# EEG/runtime dependencies
+mne>=1.5
+moabb>=1.0
+pyriemann>=0.6
+
+# Reporting
+matplotlib>=3.7
+seaborn>=0.13
+plotly>=5.18
+
+# Development checks
+pytest>=8.0

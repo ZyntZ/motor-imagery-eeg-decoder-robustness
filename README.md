@@ -4,6 +4,17 @@ A reproducible benchmark for motor-imagery EEG decoders under deployment stresso
 
 The project uses open EEG datasets available through MOABB and MNE. The benchmark reports subject-level outcomes, uncertainty estimates, paired stressor-vs-baseline comparisons, calibration metrics when probabilities are available, and subject-level intervention recommendations.
 
+
+## Quality checks
+
+The repository is installable as a `src/`-layout Python package and includes lightweight tests for core array utilities, summary-schema stability, and intervention-class rules.
+
+```bash
+python -m pip install -e .
+python -m compileall -q scripts src
+python -m pytest
+```
+
 ## Included components
 
 - Benchmark runner for MOABB datasets: `scripts/run_benchmark.py`.
@@ -22,7 +33,6 @@ results/                 Example benchmark outputs and derived statistics
 reports/                 Figures and HTML reports generated from results
 DATA_PROVENANCE.md       Dataset/result provenance notes
 REPRODUCIBILITY.md       Commands for reproducing analyses
-RELEASE_CHECKLIST.md     Items to complete before a public archive or manuscript release
 ```
 
 ## Installation
@@ -51,6 +61,21 @@ python scripts/run_benchmark.py --config configs/benchmark.yaml --dry-run
 python scripts/run_benchmark.py --config configs/benchmark.yaml --dataset PhysionetMI --list-subjects
 ```
 
+
+## Long-run resume and transient download failures
+
+Full MOABB/PhysioNet runs are subject-level resumable. Completed subjects are stored in `results/checkpoints/` and are reused on the next run unless `--overwrite` is supplied.
+
+For transient network failures, the runner retries each subject before failing:
+
+```bash
+python scripts/run_benchmark.py --config configs/benchmark.yaml --download-and-run --dataset PhysionetMI --subjects 29 --include-reduced-montage --include-region-dropout --pipeline csp_lda --max-retries 5 --retry-wait-seconds 60
+```
+
+To continue past subjects that still fail after all retries, add `--skip-failed`. The runner writes `results/{dataset}_{suffix}_failed_subjects.csv` and `.json`. Treat skipped-subject outputs as incomplete until the failed subjects are rerun successfully.
+
+If a checkpoint was created before optional stressors were requested, the runner now detects the missing stressor rows and recomputes that subject instead of silently reusing an incompatible checkpoint.
+
 ## Running benchmarks
 
 Development run on selected PhysioNetMI subjects:
@@ -72,6 +97,18 @@ make physionet-full
 ```
 
 These commands may take substantial time because MOABB downloads and processes raw EEG data.
+
+
+## Statistical reporting
+
+For completed runs, generate methods-audit tables, paired subject-level effects, channel-dropout slopes, and compact CSV/LaTeX result tables:
+
+```bash
+python scripts/generate_statistical_report.py --results-dir results --reports-dir reports --prefix PhysionetMI_PhysionetMI_all_riemann_lr
+```
+
+See `STATISTICAL_REPORTING.md` for output definitions and statistical conventions.
+
 
 ## Post-processing
 
@@ -111,6 +148,6 @@ Inference is performed after collapsing fold/repeat outputs to subject-level sum
 - Metrics based on predicted probabilities, such as Brier score and expected calibration error, are available only when the fitted pipeline exposes usable probability estimates.
 - Raw EEG downloads are intentionally not included in this repository.
 
-## Release status
+## Technical status
 
-Before public release, choose a license, add citation metadata if the repository will be archived, and confirm dataset citation requirements. See `RELEASE_CHECKLIST.md`.
+This repository snapshot is for technical development of the benchmark code, result-processing scripts, and example outputs. Non-technical metadata and writing-stage materials are intentionally not included in this archive.

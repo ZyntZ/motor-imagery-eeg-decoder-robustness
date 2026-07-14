@@ -1,59 +1,29 @@
-# Python compiled files
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
-
-# C extensions
-*.so
-
-# Distribution / packaging
-build/
-dist/
-*.egg-info/
-.eggs/
-*.egg
-*.whl
-
-# Test / coverage
 .pytest_cache/
-.coverage
-.coverage.*
-coverage.xml
-htmlcov/
-.tox/
-.nox/
-*.prof
-
-# Virtual environments
+*.egg-info/
 .venv/
-venv/
-ENV/
-env/
-env.bak/
-venv.bak/
-
-# Jupyter and editors
-.ipynb_checkpoints/
-.vscode/
-.idea/
-*.iml
-
-# OS files
-.DS_Store
-
-# Local configuration and secrets
 .env
-.env.local
 
-# Logs and local databases
-*.log
-*.sqlite3
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
 
-# Temporary files
-tmp/
-temp/
-*.tmp
-
-# Raw EEG cache; raw datasets should not be committed
+# Local data/cache paths
 moabb_data/
-MNE-*/
+mne_data/
+
+# Generated benchmark run state
+results/checkpoints/
+results/*_statistical_*.csv
+results/*_statistical_*.json
+reports/*_statistical_*.tex
+reports/*_statistical_*.md
+reports/*.html
+reports/*.png
+
+# Local logs and notebooks
+*.log
+*.ipynb_checkpoints/

@@ -244,7 +244,18 @@ def evaluate_subject_reduced_montages(
 
 
 def subject_level_summary(results: pd.DataFrame) -> pd.DataFrame:
-    """Average folds/repeats within subject before population summaries."""
+    """Average folds/repeats within subject before population summaries.
+
+    Legacy benchmark outputs may lack probability-calibration columns. Missing
+    optional metrics are carried forward as NaN so downstream summary code keeps
+    a stable schema without fabricating values.
+    """
+    results = results.copy()
+    for optional in ["brier_score", "ece"]:
+        if optional not in results.columns:
+            results[optional] = np.nan
+    if "n_dropped_channels" not in results.columns:
+        results["n_dropped_channels"] = np.nan
     group_cols = ["dataset", "subject", "pipeline", "stressor", "montage", "dropout_fraction"]
     present = [c for c in group_cols if c in results.columns]
     return (

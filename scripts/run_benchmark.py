@@ -11,6 +11,8 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import time
+import traceback
 from pathlib import Path
 
 import pandas as pd
@@ -97,6 +99,52 @@ def pipeline_config(config: dict, pipeline_name: str) -> dict:
         if item.get("name") == pipeline_name:
             return item
     return {}
+
+
+def requested_stressors(include_reduced_montage: bool, include_region_dropout: bool, include_cross_session: bool) -> set[str]:
+    """Return stressors expected in a checkpoint for the requested run options."""
+    needed = {"clean", "channel_dropout"}
+    if include_reduced_montage:
+        needed.add("reduced_montage")
+    if include_region_dropout:
+        needed.add("region_dropout")
+    # Cross-session may be absent for datasets without usable session metadata, so it is not mandatory.
+    return needed
+
+
+def checkpoint_is_compatible(
+    df: pd.DataFrame,
+    include_reduced_montage: bool,
+    include_region_dropout: bool,
+    include_cross_session: bool,
+) -> tuple[bool, str]:
+    """Check whether an existing checkpoint contains all mandatory requested stressors.
+
+    Older checkpoints may lack optional stressors, for example region dropout. Reusing
+    them would silently omit requested outputs. Cross-session is not mandatory because
+    some datasets/subjects do not expose usable session metadata.
+    """
+    if "stressor" not in df.columns:
+        return False, "missing stressor column"
+    present = set(df["stressor"].dropna().astype(str))
+    needed = requested_stressors(include_reduced_montage, include_region_dropout, include_cross_session)
+    missing = sorted(needed - present)
+    if missing:
+        return False, f"missing requested stressors: {missing}"
+    return True, "ok"
+
+
+def write_failure_log(results_dir: Path, dataset_name: str, suffix: str, failures: list[dict]) -> Path | None:
+    """Write skipped subject failures to CSV and JSON for resuming/debugging."""
+    if not failures:
+        return None
+    results_dir.mkdir(parents=True, exist_ok=True)
+    stem = f"{dataset_name}_{suffix}_failed_subjects"
+    csv_path = results_dir / f"{stem}.csv"
+    json_path = results_dir / f"{stem}.json"
+    pd.DataFrame(failures).to_csv(csv_path, index=False)
+    json_path.write_text(json.dumps(failures, indent=2), encoding="utf-8")
+    return csv_path
 
 
 def available_subjects(dataset_name: str, config: dict) -> list[int]:
@@ -210,13 +258,18 @@ def run_one_subject(
 def run_real_data(
     config: dict,
     dataset_name: str,
-    subjects: list[int],
+    subjects: list[int] | None,
     max_subjects: int | None,
     include_reduced_montage: bool,
     include_region_dropout: bool,
     include_cross_session: bool,
     pipeline_name: str,
     overwrite: bool,
+    max_retries: int = 2,
+    retry_wait_seconds: float = 15.0,
+    skip_failed: bool = False,
+    max_consecutive_failures: int = 5,
+    suffix: str = "robustness",
 ) -> pd.DataFrame:
     set_download_dir(config["moabb_data_dir"])
     dataset = instantiate_dataset(dataset_name, subjects=subjects if subjects else None)
@@ -225,21 +278,79 @@ def run_real_data(
         subject_list = subject_list[:max_subjects]
 
     paradigm = LeftRightImagery(fmin=8, fmax=32, resample=128)
-    checkpoint_dir = Path(config["results_dir"]) / "checkpoints"
+    results_dir = Path(config["results_dir"])
+    checkpoint_dir = results_dir / "checkpoints"
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
     all_rows = []
+    failures: list[dict] = []
+    max_retries = max(0, int(max_retries))
+    attempts_total = max_retries + 1
+    max_consecutive_failures = max(0, int(max_consecutive_failures))
+    consecutive_failures = 0
+
     for subject in subject_list:
         ckpt = checkpoint_dir / f"{dataset_name}_{pipeline_name}_subject-{subject:03d}_robustness.csv"
+        df = None
         if ckpt.exists() and not overwrite:
-            print(f"Reusing checkpoint: {ckpt}")
-            df = pd.read_csv(ckpt)
-        else:
-            print(f"Loading subject {subject} from {dataset.code}...")
-            df = run_one_subject(dataset, paradigm, subject, config, include_reduced_montage, include_region_dropout, include_cross_session, pipeline_name)
-            df.to_csv(ckpt, index=False)
-            print(f"  wrote checkpoint {ckpt}")
+            candidate = pd.read_csv(ckpt)
+            ok, reason = checkpoint_is_compatible(candidate, include_reduced_montage, include_region_dropout, include_cross_session)
+            if ok:
+                print(f"Reusing checkpoint: {ckpt}")
+                df = candidate
+                consecutive_failures = 0
+            else:
+                print(f"Checkpoint {ckpt} is incompatible with requested run ({reason}); recomputing subject {subject}.")
+
+        if df is None:
+            last_exc: Exception | None = None
+            for attempt in range(1, attempts_total + 1):
+                try:
+                    print(f"Loading subject {subject} from {dataset.code} (attempt {attempt}/{attempts_total})...")
+                    df = run_one_subject(dataset, paradigm, subject, config, include_reduced_montage, include_region_dropout, include_cross_session, pipeline_name)
+                    df.to_csv(ckpt, index=False)
+                    print(f"  wrote checkpoint {ckpt}")
+                    consecutive_failures = 0
+                    break
+                except Exception as exc:
+                    last_exc = exc
+                    print(f"  subject {subject} failed on attempt {attempt}/{attempts_total}: {type(exc).__name__}: {exc}")
+                    if attempt < attempts_total:
+                        print(f"  waiting {retry_wait_seconds:g}s before retry...")
+                        time.sleep(float(retry_wait_seconds))
+            if df is None:
+                failure = {
+                    "dataset": dataset_name,
+                    "pipeline": pipeline_name,
+                    "subject": int(subject),
+                    "error_type": type(last_exc).__name__ if last_exc else "UnknownError",
+                    "error_message": str(last_exc) if last_exc else "unknown failure",
+                    "traceback_tail": "".join(traceback.format_exception(type(last_exc), last_exc, last_exc.__traceback__))[-4000:] if last_exc else "",
+                }
+                failures.append(failure)
+                if skip_failed:
+                    consecutive_failures += 1
+                    print(f"  skipping failed subject {subject}; see failed-subject log after run.")
+                    if max_consecutive_failures and consecutive_failures >= max_consecutive_failures:
+                        write_failure_log(results_dir, dataset_name, suffix, failures)
+                        raise RuntimeError(
+                            f"Stopped after {consecutive_failures} consecutive failed subject(s). "
+                            "This usually indicates that the data host or network is unavailable, not that all subjects are invalid. "
+                            "Rerun later to resume from completed checkpoints, or increase --max-consecutive-failures to keep skipping."
+                        ) from last_exc
+                    continue
+                write_failure_log(results_dir, dataset_name, suffix, failures)
+                raise RuntimeError(
+                    f"Subject {subject} failed after {attempts_total} attempt(s). "
+                    f"Completed checkpoints remain reusable; rerun the command to resume, or add --skip-failed to continue past this subject."
+                ) from last_exc
         all_rows.append(df)
+
+    failure_path = write_failure_log(results_dir, dataset_name, suffix, failures)
+    if failure_path is not None:
+        print(f"Wrote failed-subject log: {failure_path}")
+    if not all_rows:
+        raise RuntimeError("No subject results were produced. Check failed-subject logs and input subject list.")
     return pd.concat(all_rows, ignore_index=True)
 
 
@@ -271,6 +382,10 @@ def main() -> None:
     parser.add_argument("--list-subjects", action="store_true", help="Print available MOABB subject IDs for the dataset and exit.")
     parser.add_argument("--pipeline", default="csp_lda", choices=["csp_lda", "riemann_lr", "tangent_space_lr"], help="Decoder pipeline to benchmark.")
     parser.add_argument("--overwrite", action="store_true", help="Recompute existing subject checkpoints.")
+    parser.add_argument("--max-retries", type=int, default=2, help="Per-subject retry count after the first failed attempt, useful for transient MOABB/PhysioNet download errors.")
+    parser.add_argument("--retry-wait-seconds", type=float, default=15.0, help="Seconds to wait between per-subject retry attempts.")
+    parser.add_argument("--skip-failed", action="store_true", help="Continue after subjects that fail after all retry attempts and write a failed-subjects log.")
+    parser.add_argument("--max-consecutive-failures", type=int, default=5, help="Stop after this many skipped subjects in a row. Set 0 to keep skipping indefinitely.")
     parser.add_argument("--suffix", default="robustness", help="Output filename suffix.")
     args = parser.parse_args()
 
@@ -292,6 +407,11 @@ def main() -> None:
         include_cross_session=args.include_cross_session,
         pipeline_name=args.pipeline,
         overwrite=args.overwrite,
+        max_retries=args.max_retries,
+        retry_wait_seconds=args.retry_wait_seconds,
+        skip_failed=args.skip_failed,
+        max_consecutive_failures=args.max_consecutive_failures,
+        suffix=args.suffix,
     )
     raw_path, subject_path, summary_path = write_outputs(results, config, args.dataset, args.suffix)
     print("\nPopulation summary:")

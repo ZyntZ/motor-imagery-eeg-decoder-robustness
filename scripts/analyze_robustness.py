@@ -37,22 +37,33 @@ def bootstrap_ci(x: np.ndarray, n_resamples: int = 5000, seed: int = 42) -> tupl
     return float(res.confidence_interval.low), float(res.confidence_interval.high)
 
 
-def load_wide(results_dir: Path, prefix: str) -> pd.DataFrame:
+def load_wide(results_dir: Path, prefix: str, use_cached: bool = False, write_cache: bool = True) -> pd.DataFrame:
+    """Load or build a subject-wide table from the current subject summary.
+
+    By default this rebuilds from `{prefix}_subject_summary.csv` so reruns that
+    update checkpoints/results cannot silently reuse an older wide CSV. Set
+    `use_cached=True` only when intentionally reusing a previously generated
+    `{prefix}_subject_wide.csv`.
+    """
     wide_path = results_dir / f'{prefix}_subject_wide.csv'
-    if wide_path.exists():
+    if use_cached and wide_path.exists():
         return pd.read_csv(wide_path)
     subj_path = results_dir / f'{prefix}_subject_summary.csv'
     if not subj_path.exists():
+        if wide_path.exists():
+            raise FileNotFoundError(f'Missing current subject summary: {subj_path}. Use --use-cached-wide to read {wide_path}.')
         raise FileNotFoundError(f'Missing {wide_path} and {subj_path}')
     subj = pd.read_csv(subj_path)
     clean = subj[(subj.stressor == 'clean') & (subj.montage == 'all_channels')][['subject','roc_auc','balanced_accuracy']].rename(columns={'roc_auc':'clean_auc','balanced_accuracy':'clean_bal'})
     wide = clean.copy()
-    for frac in sorted(subj.loc[subj.stressor == 'channel_dropout', 'dropout_fraction'].unique()):
+    for frac in sorted(subj.loc[subj.stressor == 'channel_dropout', 'dropout_fraction'].dropna().unique()):
         d = subj[(subj.stressor == 'channel_dropout') & (subj.dropout_fraction == frac)][['subject','roc_auc','balanced_accuracy']].rename(columns={'roc_auc':f'auc_dropout_{frac:g}','balanced_accuracy':f'bal_dropout_{frac:g}'})
         wide = wide.merge(d, on='subject', how='left')
-    for montage in sorted(subj.loc[subj.stressor == 'reduced_montage', 'montage'].unique()):
+    for montage in sorted(subj.loc[subj.stressor == 'reduced_montage', 'montage'].dropna().unique()):
         d = subj[(subj.stressor == 'reduced_montage') & (subj.montage == montage)][['subject','roc_auc','balanced_accuracy']].rename(columns={'roc_auc':f'auc_{montage}','balanced_accuracy':f'bal_{montage}'})
         wide = wide.merge(d, on='subject', how='left')
+    if write_cache:
+        wide.to_csv(wide_path, index=False)
     return wide
 
 
@@ -207,9 +218,10 @@ def main() -> None:
     ap.add_argument('--clean-working-threshold', type=float, default=0.60)
     ap.add_argument('--failure-threshold', type=float, default=0.60)
     ap.add_argument('--reports-dir', type=Path, default=Path('reports'))
+    ap.add_argument('--use-cached-wide', action='store_true', help='Reuse existing {prefix}_subject_wide.csv instead of rebuilding from the current subject summary.')
     args = ap.parse_args()
     args.reports_dir.mkdir(parents=True, exist_ok=True)
-    wide = load_wide(args.results_dir, args.prefix)
+    wide = load_wide(args.results_dir, args.prefix, use_cached=args.use_cached_wide)
     cards = risk_cards(wide, args.clean_working_threshold, args.failure_threshold)
     paired = paired_stats(wide)
     failure = failure_rates(wide, args.clean_working_threshold, args.failure_threshold)

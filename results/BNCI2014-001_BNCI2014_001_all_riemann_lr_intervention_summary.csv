@@ -1,0 +1,6 @@
+metric,numerator,denominator,rate,ci_low,ci_high
+clean_working,9.0,9,1.0,0.6637328831200572,1.0
+dropout_failure_among_all,2.0,9,0.2222222222222222,0.028144973477898197,0.600093573716312
+montage_rescue_among_all,0.0,9,0.0,0.0,0.3362671168799428
+montage_rescue_among_dropout_failures,0.0,2,0.0,0.0,0.841886116991581
+mean_deployability_score,,9,0.8169890342185231,,
