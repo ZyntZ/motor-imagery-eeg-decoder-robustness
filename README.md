@@ -99,6 +99,18 @@ make physionet-full
 These commands may take substantial time because MOABB downloads and processes raw EEG data.
 
 
+
+## Submission-readiness check
+
+For a methods-journal submission package, run the repository-level readiness gate after validation, statistical tables, and methods figures have been regenerated:
+
+```bash
+make publication-check
+make release-archive
+```
+
+The readiness gate writes `SUBMISSION_READINESS.md`, `reports/submission_readiness_checks.csv`, and `reports/submission_readiness_summary.json`. These files check metadata, provenance, reproducibility, validation artifacts, statistical-report artifacts, methods figures, release manifest status, filename hygiene, and absence of raw EEG/data-cache directories. They are derived from repository files only and do not create or modify benchmark observations.
+
 ## Statistical reporting
 
 Before using result tables for manuscript statistics, run the deterministic CSV validation checks. These checks verify required schemas, metric ranges, duplicate evaluation keys, channel-count/dropout consistency, clean-baseline pairing, and agreement between fold-level results and subject-level summaries:

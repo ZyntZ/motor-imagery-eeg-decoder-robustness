@@ -22,13 +22,17 @@ REQUIRED_FILES = [
     "REPRODUCIBILITY.md",
     "STATISTICAL_REPORTING.md",
     "MANUSCRIPT_PLACEHOLDER.md",
+    "SUBMISSION_READINESS.md",
     ".github/workflows/ci.yml",
     "scripts/validate_results.py",
     "scripts/generate_statistical_report.py",
     "scripts/generate_methods_figures.py",
     "scripts/build_release_manifest.py",
     "scripts/build_release_archive.py",
+    "scripts/generate_submission_readiness.py",
     "reports/release_manifest.json",
+    "reports/submission_readiness_checks.csv",
+    "reports/submission_readiness_summary.json",
 ]
 REQUIRED_FIGURE_SUFFIXES = [
     "methods_pipeline_schematic.png",
@@ -100,7 +104,7 @@ def build_archive(root: Path, output: Path, top_level_name: str | None = None) -
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--root", type=Path, default=Path("."))
-    ap.add_argument("--output", type=Path, default=Path("dist/JNM_release_polish_update.zip"))
+    ap.add_argument("--output", type=Path, default=Path("dist/JNM_submission_readiness_update.zip"))
     ap.add_argument("--audit-only", action="store_true")
     args = ap.parse_args()
     root = args.root.resolve()

@@ -78,10 +78,13 @@ methods-figures:
 release-manifest: validate-results statistical-reports methods-figures
 	$(PYTHON) scripts/build_release_manifest.py --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR) --output $(REPORTS_DIR)/release_manifest.json
 
-archive-audit: release-manifest
+submission-readiness: release-manifest
+	$(PYTHON) scripts/generate_submission_readiness.py --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR)
+
+archive-audit: submission-readiness
 	$(PYTHON) scripts/build_release_archive.py --audit-only
 
 release-archive: archive-audit
-	$(PYTHON) scripts/build_release_archive.py --output dist/JNM_release_polish_update.zip
+	$(PYTHON) scripts/build_release_archive.py --output dist/JNM_submission_readiness_update.zip
 
-publication-check: compile-check test release-manifest archive-audit
+publication-check: compile-check test submission-readiness archive-audit
