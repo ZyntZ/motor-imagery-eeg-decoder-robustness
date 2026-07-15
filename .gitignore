@@ -27,3 +27,10 @@ reports/*.png
 # Local logs and notebooks
 *.log
 *.ipynb_checkpoints/
+
+dist/
+*.zip
+__pycache__/
+.pytest_cache/
+*.pyc
+*.pyo
