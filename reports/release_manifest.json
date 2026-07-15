@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-07-14T18:56:08.912354+00:00",
+  "generated_at_utc": "2026-07-15T12:57:13.868789+00:00",
   "python": "3.13.7",
   "platform": "Linux-4.4.0-x86_64-with-glibc2.36",
   "package_versions": {
@@ -362,8 +362,8 @@
     },
     {
       "path": "reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_figures_manifest.json",
-      "sha256": "0cf652d5f4f8503dedec72278a8ffe9ba670d9f3b6c5ceafa4bdb9ec2141daa2",
-      "bytes": 1853
+      "sha256": "d25ac29baee27479fc87eff40d4914f45245f1bc46b114b36a351ee49507bd66",
+      "bytes": 1725
     },
     {
       "path": "reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_intervention_class_counts.png",
@@ -372,7 +372,7 @@
     },
     {
       "path": "reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_intervention_class_counts.svg",
-      "sha256": "37035f021676e245790d5de4b70cbc49f925f930555e20e9b4744a17381c4cf4",
+      "sha256": "dd3f861cd230e8ef58ba4a548646cb1b4a45af73e9149997fdb77989c4e90210",
       "bytes": 32810
     },
     {
@@ -382,7 +382,7 @@
     },
     {
       "path": "reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_pipeline_schematic.svg",
-      "sha256": "fd4f47c1c7c1155cfbad7f2692893cc2b751154caa472d6a5d55dcae074c021f",
+      "sha256": "9fa81f0ba0cbaa173c002f169a62bc0dc79d6824b22a45a9389ad51cc4c3c475",
       "bytes": 55439
     },
     {
@@ -392,7 +392,7 @@
     },
     {
       "path": "reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_robustness_degradation_roc_auc.svg",
-      "sha256": "76ca545d4f2d9ae31c95a7c075f73befa34c7913042f3a41223723a6ad29895b",
+      "sha256": "3efdf27f838a2ed9efad464da891efde60b0e5b72bb31a041e0967477f0cd2b4",
       "bytes": 41906
     },
     {
@@ -437,8 +437,8 @@
     },
     {
       "path": "reports/release_manifest.json",
-      "sha256": "8e872d6f35bb33f79a7192d553503dee381eadc04e7a7fdcfe6d1a982a28209e",
-      "bytes": 35614
+      "sha256": "ee46f92ad902b2791699fe681c6b00d085074b01b23ba60de06228ef7afe9f97",
+      "bytes": 35613
     },
     {
       "path": "reports/submission_readiness_checks.csv",
@@ -447,8 +447,8 @@
     },
     {
       "path": "reports/submission_readiness_summary.json",
-      "sha256": "ffb57ff2b38c5109e73bdca0d58f31597a4d93572781d72ca98fa6d2faa5739c",
-      "bytes": 386
+      "sha256": "bc3b1c556ee3c5b9bbcc789178751a91e270a9106d4545f3cd76f1757b086d8a",
+      "bytes": 302
     },
     {
       "path": "requirements.txt",
@@ -942,8 +942,8 @@
     },
     {
       "path": "tests/test_generate_submission_readiness.py",
-      "sha256": "9c4f8765c718e128a81f20e2aa16f06364b4c7862c28cf59dd0cd16870265d94",
-      "bytes": 2131
+      "sha256": "f53e0c35512aaa57c866399afaae68e0eba188508a5f8b7668ad7da5140e9e7b",
+      "bytes": 4798
     },
     {
       "path": "tests/test_publication_gate.py",

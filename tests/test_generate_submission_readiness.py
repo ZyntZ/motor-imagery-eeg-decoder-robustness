@@ -1,6 +1,8 @@
 import importlib.util
 import json
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 import pandas as pd
@@ -11,17 +13,94 @@ generate_submission_readiness = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(generate_submission_readiness)
 
 
-def test_submission_readiness_checks_current_repository_pass_without_failed_errors():
-    checks = generate_submission_readiness.build_checks(ROOT, ROOT / "results", ROOT / "reports", generate_submission_readiness.DEFAULT_PREFIXES)
+def prepare_release_ready_tree(source_root: Path, tmp_path: Path) -> Path:
+    """Create generated reporting artifacts in a temporary copy for readiness tests.
+
+    A clean CI checkout may contain source result tables but not every generated
+    statistical-report file. The readiness gate is still supposed to block a
+    release until those files exist, so this test prepares them explicitly rather
+    than requiring generated artifacts to be committed before pytest runs.
+    """
+    work = tmp_path / "repo"
+    shutil.copytree(source_root, work, ignore=shutil.ignore_patterns(".pytest_cache", "__pycache__", "*.pyc", "*.pyo", "dist"))
+    for prefix in generate_submission_readiness.DEFAULT_PREFIXES:
+        subprocess.run(
+            [
+                sys.executable,
+                "scripts/generate_statistical_report.py",
+                "--results-dir",
+                "results",
+                "--reports-dir",
+                "reports",
+                "--prefix",
+                prefix,
+            ],
+            cwd=work,
+            check=True,
+            capture_output=True,
+            text=True,
+            timeout=120,
+        )
+    subprocess.run(
+        [
+            sys.executable,
+            "scripts/generate_methods_figures.py",
+            "--results-dir",
+            "results",
+            "--reports-dir",
+            "reports",
+            "--prefix",
+            generate_submission_readiness.REQUIRED_METHOD_FIGURE_PREFIX,
+            "--metric",
+            "roc_auc",
+        ],
+        cwd=work,
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=120,
+    )
+    subprocess.run(
+        [
+            sys.executable,
+            "scripts/build_release_manifest.py",
+            "--results-dir",
+            "results",
+            "--reports-dir",
+            "reports",
+            "--output",
+            "reports/release_manifest.json",
+        ],
+        cwd=work,
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=120,
+    )
+    return work
+
+
+def test_submission_readiness_checks_prepared_repository_pass_without_failed_errors(tmp_path):
+    work = prepare_release_ready_tree(ROOT, tmp_path)
+    checks = generate_submission_readiness.build_checks(work, work / "results", work / "reports", generate_submission_readiness.DEFAULT_PREFIXES)
     assert not checks.empty
     failed_errors = checks[(checks["severity"] == "error") & (~checks["passed"])]
     assert failed_errors.empty, failed_errors[["category", "check", "detail"]].to_dict("records")
     assert {"repository_metadata", "validation_artifacts", "analysis_artifacts", "methods_figures"}.issubset(set(checks["category"]))
 
 
-def test_submission_readiness_detects_missing_required_artifact(tmp_path):
+def test_submission_readiness_detects_missing_generated_analysis_artifacts(tmp_path):
     work = tmp_path / "repo"
-    shutil.copytree(ROOT, work, ignore=shutil.ignore_patterns(".pytest_cache", "__pycache__", "*.pyc", "dist"))
+    shutil.copytree(ROOT, work, ignore=shutil.ignore_patterns(".pytest_cache", "__pycache__", "*.pyc", "*.pyo", "dist"))
+    for path in (work / "results").glob("*_statistical_methods_audit.csv"):
+        path.unlink()
+    checks = generate_submission_readiness.build_checks(work, work / "results", work / "reports", generate_submission_readiness.DEFAULT_PREFIXES)
+    missing = checks[(checks["category"] == "analysis_artifacts") & (~checks["passed"])]
+    assert not missing.empty
+
+
+def test_submission_readiness_detects_missing_required_artifact(tmp_path):
+    work = prepare_release_ready_tree(ROOT, tmp_path)
     missing = work / "reports" / "release_manifest.json"
     missing.unlink()
     checks = generate_submission_readiness.build_checks(work, work / "results", work / "reports", generate_submission_readiness.DEFAULT_PREFIXES)
