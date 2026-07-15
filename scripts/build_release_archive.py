@@ -12,7 +12,24 @@ import json
 import zipfile
 from pathlib import Path
 
-EXCLUDE_DIRS = {".git", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", "checkpoints", "moabb_data", "mne_data", "data"}
+EXCLUDE_DIRS = {
+    ".git",
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    ".tox",
+    ".nox",
+    ".venv",
+    "venv",
+    "env",
+    ".env",
+    "node_modules",
+    "checkpoints",
+    "moabb_data",
+    "mne_data",
+    "data",
+}
 EXCLUDE_SUFFIXES = {".pyc", ".pyo", ".zip"}
 DISALLOWED_TOKENS = ["assistant", "for_me", "for-me", "для_меня", "для-меня", "ииш", "ai_generated", "ai-generated"]
 REQUIRED_FILES = [
@@ -44,11 +61,17 @@ REQUIRED_FIGURE_SUFFIXES = [
     "methods_figures_manifest.json",
 ]
 DEFAULT_FIGURE_PREFIX = "BNCI2014-001_BNCI2014_001_all_riemann_lr"
+RAW_DATA_DIR_NAMES = {"data", "moabb_data", "mne_data"}
+
+
+def is_excluded_path(path: Path, root: Path) -> bool:
+    """Return True for local caches/environments/raw-data dirs excluded from releases."""
+    rel = path.relative_to(root)
+    return any(part in EXCLUDE_DIRS for part in rel.parts)
 
 
 def should_include(path: Path, root: Path) -> bool:
-    rel = path.relative_to(root)
-    if any(part in EXCLUDE_DIRS for part in rel.parts):
+    if is_excluded_path(path, root):
         return False
     if path.suffix in EXCLUDE_SUFFIXES:
         return False
@@ -70,12 +93,22 @@ def audit_release(root: Path, figure_prefix: str = DEFAULT_FIGURE_PREFIX) -> dic
         rel = str(p.relative_to(root)).lower()
         if any(token in rel for token in DISALLOWED_TOKENS):
             bad_names.append(str(p.relative_to(root)))
-    raw_like_dirs = [str(p.relative_to(root)) for p in root.rglob("*") if p.is_dir() and p.name in {"data", "moabb_data", "mne_data"}]
+    raw_like_dirs = [
+        str(p.relative_to(root))
+        for p in root.rglob("*")
+        if p.is_dir() and p.name in RAW_DATA_DIR_NAMES and not is_excluded_path(p, root)
+    ]
+    excluded_local_dirs = [
+        str(p.relative_to(root))
+        for p in root.rglob("*")
+        if p.is_dir() and p.name in {".venv", "venv", "env", "moabb_data", "mne_data"}
+    ]
     return {
         "passed": not missing and not bad_names and not raw_like_dirs,
         "missing_required_files": missing,
         "disallowed_filenames": bad_names,
         "raw_data_like_directories": raw_like_dirs,
+        "excluded_local_directories": excluded_local_dirs,
         "n_included_files": len(archive_members(root)),
     }
 
@@ -104,7 +137,7 @@ def build_archive(root: Path, output: Path, top_level_name: str | None = None) -
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--root", type=Path, default=Path("."))
-    ap.add_argument("--output", type=Path, default=Path("dist/JNM_submission_readiness_update.zip"))
+    ap.add_argument("--output", type=Path, default=Path("dist/JNM_local_env_safe_clean.zip"))
     ap.add_argument("--audit-only", action="store_true")
     args = ap.parse_args()
     root = args.root.resolve()

@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-07-15T13:50:06.304988+00:00",
+  "generated_at_utc": "2026-07-15T16:13:44.273307+00:00",
   "python": "3.13.7",
   "platform": "Linux-4.4.0-x86_64-with-glibc2.36",
   "package_versions": {
@@ -281,6 +281,11 @@
       "bytes": 611
     },
     {
+      "path": ".venv/lib/python3.12/site-packages/sklearn/datasets/data/dummy.txt",
+      "sha256": "aa7d995d3c29d88c98f501eedaad2e5a3aca0079f0e5924a204324d21dc42f3a",
+      "bytes": 44
+    },
+    {
       "path": "CITATION.cff",
       "sha256": "0ab377714690713763a4017c383afcaa1cc5b0e65976e455849ec7b3f8e84744",
       "bytes": 673
@@ -302,8 +307,8 @@
     },
     {
       "path": "Makefile",
-      "sha256": "3181e60df9be972bc2125f4f4dfaf92a98891aef837d6de10d76be2537f8ddae",
-      "bytes": 6176
+      "sha256": "6b1e382f5d0416790549da4771f2c03cd7faad3208847000332ac78d2c2402ba",
+      "bytes": 6179
     },
     {
       "path": "README.md",
@@ -334,6 +339,11 @@
       "path": "environment.yml",
       "sha256": "ddbb93b1177b9959265cf749bfa218458186db0b76a99cee8704306e94e2e45a",
       "bytes": 344
+    },
+    {
+      "path": "moabb_data/README.txt",
+      "sha256": "e903ffca68b3b381d1d0ed5bf0410018b378334d31377e0f091688ab211c0669",
+      "bytes": 38
     },
     {
       "path": "pyproject.toml",
@@ -372,7 +382,7 @@
     },
     {
       "path": "reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_intervention_class_counts.svg",
-      "sha256": "e6513ca50cef790707cc398e6f2345c3c4df6648584d1345ebe9cf7a31779692",
+      "sha256": "ce716df635c7f031421e70ece2f65532cb1f85ba63e2581a7c2dfca4763518d9",
       "bytes": 32810
     },
     {
@@ -382,7 +392,7 @@
     },
     {
       "path": "reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_pipeline_schematic.svg",
-      "sha256": "2f6958a37ec55757ce5a20db388b9aff038107d8cac43ced414be2cf3bc19283",
+      "sha256": "89fd0af197f6f17b972c5dab3de94584683f77ab34cb0ff4e486bb7a9d615491",
       "bytes": 55439
     },
     {
@@ -392,7 +402,7 @@
     },
     {
       "path": "reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_robustness_degradation_roc_auc.svg",
-      "sha256": "2ba7ae1834172e1c9e0c0ccb41ad656b3467b5a5f9f8778c3a73251e89e29e74",
+      "sha256": "e443aa828a5b67b25b60c7a46fa6d2204d0dd72dc687885b1048ddd40b79fb10",
       "bytes": 41906
     },
     {
@@ -437,13 +447,13 @@
     },
     {
       "path": "reports/release_manifest.json",
-      "sha256": "99a82005682bb46e5b476d9259ef7b06eb6b9717bff0b09eeced94be8aa09d2b",
-      "bytes": 34655
+      "sha256": "97d347821edcd653984cd2a15decbb1cb0d586dcfa8ca75a83ba85745687cb6c",
+      "bytes": 35008
     },
     {
       "path": "reports/submission_readiness_checks.csv",
-      "sha256": "6e2c8e09a14d9d91a41c66f5f4772e7e1c77246aa4342a69447552d99ecb1a40",
-      "bytes": 11746
+      "sha256": "f38fc33d3d8f7e830d20baa913dd1c56c4c0376a8df126c2cb5e09f181f386bd",
+      "bytes": 11775
     },
     {
       "path": "reports/submission_readiness_summary.json",
@@ -837,8 +847,8 @@
     },
     {
       "path": "scripts/build_release_archive.py",
-      "sha256": "5a2d2c5474b807ebe67f0427b31fd15041e711c607e923d9afbb5f29637c0f2f",
-      "bytes": 4809
+      "sha256": "efb681902318853f6ce5e3e7c7e97b0a541f932a05120f117fdc638eb80d69bd",
+      "bytes": 5469
     },
     {
       "path": "scripts/build_release_manifest.py",
@@ -862,8 +872,8 @@
     },
     {
       "path": "scripts/generate_submission_readiness.py",
-      "sha256": "b7397659055c4d9a91c312194e18c3a3bea0e328277c8578ddb8fb3a346f9888",
-      "bytes": 11560
+      "sha256": "7a74053054e4fed4fa8ad0d909e1fd0c50b25ae360ffae40dc0f64726f02c960",
+      "bytes": 12208
     },
     {
       "path": "scripts/recommend_interventions.py",
@@ -917,8 +927,8 @@
     },
     {
       "path": "tests/test_generate_submission_readiness.py",
-      "sha256": "f53e0c35512aaa57c866399afaae68e0eba188508a5f8b7668ad7da5140e9e7b",
-      "bytes": 4798
+      "sha256": "eaee49139912816445f2f6c2882d56f66d8e319d39ca8e9e4baa3fb85caa392d",
+      "bytes": 4930
     },
     {
       "path": "tests/test_publication_gate.py",

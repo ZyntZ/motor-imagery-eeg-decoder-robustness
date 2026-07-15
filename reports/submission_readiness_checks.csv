@@ -9,7 +9,7 @@ repository_metadata,required_file:configs/benchmark.yaml,error,True,Required pub
 repository_metadata,required_file:environment.yml,error,True,Required publication-support file is present,environment.yml,,,,,
 repository_metadata,required_file:requirements.txt,error,True,Required publication-support file is present,requirements.txt,,,,,
 repository_metadata,required_file:pyproject.toml,error,True,Required publication-support file is present,pyproject.toml,,,,,
-repository_hygiene,raw_data_directories_absent,error,True,No raw EEG/data-cache directories are inside the release tree,,0.0,,,,
+repository_hygiene,raw_data_directories_absent_from_release_tree,error,True,No unexcluded raw EEG/data-cache directories are inside the release tree,,0.0,,,,
 repository_hygiene,disallowed_filename_tokens_absent,error,True,No disallowed filename tokens found,,0.0,,,,
 validation_artifacts,PhysionetMI_dev10:validation_checks.csv,error,True,Validation artifact is present,reports/PhysionetMI_dev10_validation_checks.csv,,PhysionetMI_dev10,,,
 validation_artifacts,PhysionetMI_dev10:validation_summary.json,error,True,Validation artifact is present,reports/PhysionetMI_dev10_validation_summary.json,,PhysionetMI_dev10,,,

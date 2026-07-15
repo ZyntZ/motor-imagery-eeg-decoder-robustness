@@ -61,6 +61,29 @@ REQUIRED_METHOD_FIGURES = [
 ]
 DISALLOWED_FILENAME_TOKENS = ["assistant", "for_me", "for-me", "для_меня", "для-меня", "ииш", "ai_generated", "ai-generated"]
 RAW_DATA_DIR_NAMES = {"data", "moabb_data", "mne_data"}
+EXCLUDED_LOCAL_DIR_NAMES = {
+    ".git",
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    ".tox",
+    ".nox",
+    ".venv",
+    "venv",
+    "env",
+    ".env",
+    "node_modules",
+    "checkpoints",
+    "moabb_data",
+    "mne_data",
+    "data",
+}
+
+
+def is_excluded_local_path(path: Path, root: Path) -> bool:
+    rel_path = path.relative_to(root)
+    return any(part in EXCLUDED_LOCAL_DIR_NAMES for part in rel_path.parts)
 
 
 def rel(path: Path, root: Path) -> str:
@@ -111,19 +134,27 @@ def build_checks(root: Path, results_dir: Path, reports_dir: Path, prefixes: lis
             path=item,
         ))
 
-    raw_dirs = [rel(p, root) for p in root.rglob("*") if p.is_dir() and p.name in RAW_DATA_DIR_NAMES]
+    raw_dirs = [
+        rel(p, root)
+        for p in root.rglob("*")
+        if p.is_dir() and p.name in RAW_DATA_DIR_NAMES and not is_excluded_local_path(p, root)
+    ]
     rows.append(check_row(
         "repository_hygiene",
-        "raw_data_directories_absent",
+        "raw_data_directories_absent_from_release_tree",
         "error",
         len(raw_dirs) == 0,
-        "No raw EEG/data-cache directories are inside the release tree" if not raw_dirs else "Raw/data-cache directories found: " + "; ".join(raw_dirs),
+        "No unexcluded raw EEG/data-cache directories are inside the release tree"
+        if not raw_dirs
+        else "Unexcluded raw/data-cache directories found: " + "; ".join(raw_dirs),
         n_findings=len(raw_dirs),
     ))
 
     bad_names: list[str] = []
     for path in root.rglob("*"):
         if not path.is_file():
+            continue
+        if is_excluded_local_path(path, root):
             continue
         lowered = rel(path, root).lower()
         if any(token in lowered for token in DISALLOWED_FILENAME_TOKENS):

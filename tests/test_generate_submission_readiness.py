@@ -22,7 +22,7 @@ def prepare_release_ready_tree(source_root: Path, tmp_path: Path) -> Path:
     than requiring generated artifacts to be committed before pytest runs.
     """
     work = tmp_path / "repo"
-    shutil.copytree(source_root, work, ignore=shutil.ignore_patterns(".pytest_cache", "__pycache__", "*.pyc", "*.pyo", "dist"))
+    shutil.copytree(source_root, work, ignore=shutil.ignore_patterns(".git", ".pytest_cache", "__pycache__", "*.pyc", "*.pyo", "dist", ".venv", "venv", "env", "moabb_data", "mne_data", "data"))
     for prefix in generate_submission_readiness.DEFAULT_PREFIXES:
         subprocess.run(
             [
@@ -91,7 +91,7 @@ def test_submission_readiness_checks_prepared_repository_pass_without_failed_err
 
 def test_submission_readiness_detects_missing_generated_analysis_artifacts(tmp_path):
     work = tmp_path / "repo"
-    shutil.copytree(ROOT, work, ignore=shutil.ignore_patterns(".pytest_cache", "__pycache__", "*.pyc", "*.pyo", "dist"))
+    shutil.copytree(ROOT, work, ignore=shutil.ignore_patterns(".git", ".pytest_cache", "__pycache__", "*.pyc", "*.pyo", "dist", ".venv", "venv", "env", "moabb_data", "mne_data", "data"))
     for path in (work / "results").glob("*_statistical_methods_audit.csv"):
         path.unlink()
     checks = generate_submission_readiness.build_checks(work, work / "results", work / "reports", generate_submission_readiness.DEFAULT_PREFIXES)
