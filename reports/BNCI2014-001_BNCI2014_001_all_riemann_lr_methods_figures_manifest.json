@@ -2,21 +2,21 @@
   "prefix": "BNCI2014-001_BNCI2014_001_all_riemann_lr",
   "metric": "roc_auc",
   "source_files": [
-    "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-2/results/BNCI2014-001_BNCI2014_001_all_riemann_lr_subject_summary.csv",
-    "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-2/results/BNCI2014-001_BNCI2014_001_all_riemann_lr_final_intervention_classes.csv"
+    "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-3/results/BNCI2014-001_BNCI2014_001_all_riemann_lr_subject_summary.csv",
+    "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-3/results/BNCI2014-001_BNCI2014_001_all_riemann_lr_final_intervention_classes.csv"
   ],
   "outputs": {
     "pipeline_schematic": {
-      "png": "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-2/reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_pipeline_schematic.png",
-      "svg": "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-2/reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_pipeline_schematic.svg"
+      "png": "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-3/reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_pipeline_schematic.png",
+      "svg": "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-3/reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_pipeline_schematic.svg"
     },
     "robustness_degradation": {
-      "png": "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-2/reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_robustness_degradation_roc_auc.png",
-      "svg": "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-2/reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_robustness_degradation_roc_auc.svg"
+      "png": "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-3/reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_robustness_degradation_roc_auc.png",
+      "svg": "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-3/reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_robustness_degradation_roc_auc.svg"
     },
     "intervention_class_counts": {
-      "png": "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-2/reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_intervention_class_counts.png",
-      "svg": "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-2/reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_intervention_class_counts.svg"
+      "png": "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-3/reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_intervention_class_counts.png",
+      "svg": "/workspace/BCI-Prosthesis-Robustness-Benchmark-update-3/reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_intervention_class_counts.svg"
     }
   },
   "style_note": "Conventional journal figures with fixed layouts, human-readable labels, and restrained color.",

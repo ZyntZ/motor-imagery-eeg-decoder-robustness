@@ -54,7 +54,7 @@ def require_moabb() -> None:
     if _MOABB_IMPORT_ERROR is not None:
         raise RuntimeError(
             "MOABB is required for dataset listing and benchmark execution. "
-            "Install dependencies with `pip install -r requirements.txt` or the conda environment."
+            "Install them with `make install-eeg` or `python -m pip install -e '.[eeg]'` using the same Python interpreter that runs this script."
         ) from _MOABB_IMPORT_ERROR
 
 

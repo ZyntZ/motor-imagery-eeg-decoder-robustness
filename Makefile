@@ -9,10 +9,23 @@ MAX_CONSECUTIVE_FAILURES ?= 5
 SKIP_FAILED_FLAG = $(if $(filter 1 true yes,$(SKIP_FAILED)),--skip-failed,)
 
 
-.PHONY: publication-check release-archive archive-audit release-manifest methods-figures statistical-reports validate-dev10 validate-bnci validate-results statistical-report physionet-full-skip-failed physionet-full-strict install-dev test compile-check dry-run list-subjects physionet-full bnci-full analyze-dev10 recommendations-dev10 final-stats-dev10 all-dev10
+.PHONY: install-eeg ensure-eeg publication-check release-archive archive-audit release-manifest methods-figures statistical-reports validate-dev10 validate-bnci validate-results statistical-report physionet-full-skip-failed physionet-full-strict install-dev test compile-check dry-run list-subjects physionet-full bnci-full analyze-dev10 recommendations-dev10 final-stats-dev10 all-dev10
 
 install-dev:
 	$(PYTHON) -m pip install -e ".[dev]"
+
+install-eeg:
+	$(PYTHON) -m pip install -e ".[eeg]"
+
+ensure-eeg:
+	@$(PYTHON) -c "import mne, moabb, pyriemann" >/dev/null 2>&1 || { \
+		echo "EEG dependencies are missing; installing the eeg extra with $(PYTHON)..."; \
+		$(PYTHON) -m pip install -e ".[eeg]"; \
+	}
+	@$(PYTHON) -c "import mne, moabb, pyriemann" >/dev/null 2>&1 || { \
+		echo 'EEG dependency installation failed. Run: $(PYTHON) -m pip install -e ".[eeg]"'; \
+		exit 1; \
+	}
 
 test:
 	$(PYTHON) -m pytest
@@ -23,19 +36,19 @@ compile-check:
 dry-run:
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --dry-run
 
-list-subjects:
+list-subjects: ensure-eeg
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --dataset PhysionetMI --list-subjects
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --dataset BNCI2014-001 --list-subjects
 
-physionet-full:
+physionet-full: ensure-eeg
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset PhysionetMI --include-reduced-montage --include-region-dropout --include-cross-session --pipeline csp_lda --max-retries $(MAX_RETRIES) --retry-wait-seconds $(RETRY_WAIT_SECONDS) $(SKIP_FAILED_FLAG) --max-consecutive-failures $(MAX_CONSECUTIVE_FAILURES) --suffix PhysionetMI_all_csp_lda
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset PhysionetMI --include-reduced-montage --include-region-dropout --include-cross-session --pipeline riemann_lr --max-retries $(MAX_RETRIES) --retry-wait-seconds $(RETRY_WAIT_SECONDS) $(SKIP_FAILED_FLAG) --max-consecutive-failures $(MAX_CONSECUTIVE_FAILURES) --suffix PhysionetMI_all_riemann_lr
 
-physionet-full-strict:
+physionet-full-strict: ensure-eeg
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset PhysionetMI --include-reduced-montage --include-region-dropout --include-cross-session --pipeline csp_lda --max-retries $(MAX_RETRIES) --retry-wait-seconds $(RETRY_WAIT_SECONDS) --suffix PhysionetMI_all_csp_lda
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset PhysionetMI --include-reduced-montage --include-region-dropout --include-cross-session --pipeline riemann_lr --max-retries $(MAX_RETRIES) --retry-wait-seconds $(RETRY_WAIT_SECONDS) --suffix PhysionetMI_all_riemann_lr
 
-bnci-full:
+bnci-full: ensure-eeg
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset BNCI2014-001 --include-reduced-montage --include-region-dropout --include-cross-session --pipeline csp_lda --suffix BNCI2014_001_all_csp_lda
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset BNCI2014-001 --include-reduced-montage --include-region-dropout --include-cross-session --pipeline riemann_lr --suffix BNCI2014_001_all_riemann_lr
 
@@ -51,7 +64,7 @@ final-stats-dev10:
 all-dev10: analyze-dev10 recommendations-dev10 final-stats-dev10
 
 
-physionet-full-skip-failed:
+physionet-full-skip-failed: ensure-eeg
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset PhysionetMI --include-reduced-montage --include-region-dropout --include-cross-session --pipeline csp_lda --max-retries $(MAX_RETRIES) --retry-wait-seconds $(RETRY_WAIT_SECONDS) --skip-failed --max-consecutive-failures $(MAX_CONSECUTIVE_FAILURES) --suffix PhysionetMI_all_csp_lda
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset PhysionetMI --include-reduced-montage --include-region-dropout --include-cross-session --pipeline riemann_lr --max-retries $(MAX_RETRIES) --retry-wait-seconds $(RETRY_WAIT_SECONDS) --skip-failed --max-consecutive-failures $(MAX_CONSECUTIVE_FAILURES) --suffix PhysionetMI_all_riemann_lr
 

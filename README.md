@@ -100,6 +100,23 @@ These commands may take substantial time because MOABB downloads and processes r
 
 
 
+## Running the full EEG benchmark
+
+The full PhysioNet and BNCI targets require the optional EEG stack. `make physionet-full` now checks the same Python interpreter selected by `PYTHON` and installs the `eeg` extra automatically when `mne`, `moabb`, or `pyriemann` is missing:
+
+```bash
+make physionet-full
+```
+
+To install it explicitly first:
+
+```bash
+make install-eeg
+# equivalent: python -m pip install -e ".[eeg]"
+```
+
+Existing files under `moabb_data/` and completed subject checkpoints under `results/checkpoints/` are reused. Installing the Python packages does not delete or restart the 108 already downloaded subject files. Use `PYTHON=/path/to/python make physionet-full` if the project runs in a specific virtual environment.
+
 ## Submission-readiness check
 
 For a methods-journal submission package, run the repository-level readiness gate after validation, statistical tables, and methods figures have been regenerated:
