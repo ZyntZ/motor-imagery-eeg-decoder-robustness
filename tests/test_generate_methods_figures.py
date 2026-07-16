@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 
 import pandas as pd
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("generate_methods_figures", ROOT / "scripts" / "generate_methods_figures.py")
@@ -33,3 +34,28 @@ def test_intervention_classes_are_loaded_without_synthetic_rows():
     assert len(classes) == len(source_df)
     assert "intervention_class" in classes.columns
     assert classes["subject"].nunique() == source_df["subject"].nunique()
+
+
+def test_methods_figures_have_readable_canvas_sizes(tmp_path):
+    prefix = "BNCI2014-001_BNCI2014_001_all_riemann_lr"
+    manifest = generate_methods_figures.generate_figures(ROOT / "results", tmp_path, prefix, "roc_auc")
+    minimum_sizes = {
+        "pipeline_schematic": (2200, 850),
+        "robustness_degradation": (1200, 900),
+        "intervention_class_counts": (1300, 850),
+    }
+    for name, expected in minimum_sizes.items():
+        with Image.open(manifest["outputs"][name]["png"]) as image:
+            assert image.width >= expected[0]
+            assert image.height >= expected[1]
+
+
+def test_pipeline_svg_contains_short_labels_without_raw_identifier_lists(tmp_path):
+    prefix = "BNCI2014-001_BNCI2014_001_all_riemann_lr"
+    subj = generate_methods_figures.load_subject_summary(ROOT / "results", prefix)
+    output = generate_methods_figures.pipeline_schematic(subj, prefix, tmp_path)
+    svg = Path(output["svg"]).read_text(encoding="utf-8")
+    assert "Benchmark workflow" in svg
+    assert "channel and region dropout" in svg
+    assert "channel_dropout, clean, cross_session" not in svg
+    assert "_subject_summary.csv" not in svg
