@@ -6,11 +6,11 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-07-17T08:04:29.306823</dc:date>
+    <dc:date>2026-07-17T09:00:05.523906</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
-      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
      </cc:Agent>
     </dc:creator>
    </cc:Work>
@@ -35,7 +35,7 @@ L 183.959856 113.711789
 L 183.959856 49.235918 
 L 26.171986 49.235918 
 z
-" clip-path="url(#p3842502b78)" style="fill: #ffffff; stroke: #777777; stroke-width: 0.9; stroke-linejoin: miter"/>
+" clip-path="url(#pf51548a637)" style="fill: #ffffff; stroke: #777777; stroke-width: 0.9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
     <path d="M 213.179832 113.711789 
@@ -43,7 +43,7 @@ L 370.967702 113.711789
 L 370.967702 49.235918 
 L 213.179832 49.235918 
 z
-" clip-path="url(#p3842502b78)" style="fill: #ffffff; stroke: #777777; stroke-width: 0.9; stroke-linejoin: miter"/>
+" clip-path="url(#pf51548a637)" style="fill: #ffffff; stroke: #777777; stroke-width: 0.9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 400.187678 113.711789 
@@ -51,7 +51,7 @@ L 557.975549 113.711789
 L 557.975549 49.235918 
 L 400.187678 49.235918 
 z
-" clip-path="url(#p3842502b78)" style="fill: #ffffff; stroke: #777777; stroke-width: 0.9; stroke-linejoin: miter"/>
+" clip-path="url(#pf51548a637)" style="fill: #ffffff; stroke: #777777; stroke-width: 0.9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
     <path d="M 400.187678 218.783578 
@@ -59,7 +59,7 @@ L 557.975549 218.783578
 L 557.975549 154.307707 
 L 400.187678 154.307707 
 z
-" clip-path="url(#p3842502b78)" style="fill: #ffffff; stroke: #777777; stroke-width: 0.9; stroke-linejoin: miter"/>
+" clip-path="url(#pf51548a637)" style="fill: #ffffff; stroke: #777777; stroke-width: 0.9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
     <path d="M 213.179832 218.783578 
@@ -67,7 +67,7 @@ L 370.967702 218.783578
 L 370.967702 154.307707 
 L 213.179832 154.307707 
 z
-" clip-path="url(#p3842502b78)" style="fill: #ffffff; stroke: #777777; stroke-width: 0.9; stroke-linejoin: miter"/>
+" clip-path="url(#pf51548a637)" style="fill: #ffffff; stroke: #777777; stroke-width: 0.9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_7">
     <path d="M 26.171986 218.783578 
@@ -75,68 +75,68 @@ L 183.959856 218.783578
 L 183.959856 154.307707 
 L 26.171986 154.307707 
 z
-" clip-path="url(#p3842502b78)" style="fill: #ffffff; stroke: #777777; stroke-width: 0.9; stroke-linejoin: miter"/>
+" clip-path="url(#pf51548a637)" style="fill: #ffffff; stroke: #777777; stroke-width: 0.9; stroke-linejoin: miter"/>
    </g>
    <g id="text_1">
-    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f5a7a" x="40.781974" y="64.577392" transform="rotate(-0 40.781974 64.577392)">1</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f5a7a" x="40.781974" y="64.448017" transform="rotate(-0 40.781974 64.448017)">1</text>
    </g>
    <g id="text_2">
-    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="64.157954" y="64.715361" transform="rotate(-0 64.157954 64.715361)">Dataset</text>
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="64.157954" y="64.5779" transform="rotate(-0 64.157954 64.5779)">Dataset</text>
    </g>
    <g id="text_3">
-    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(78.994608 88.571056)">BNCI2014-001</text>
-    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(86.707608 97.454113)">9 subjects</text>
+    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(78.994608 88.786522)">BNCI2014-001</text>
+    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(86.707608 97.872584)">9 subjects</text>
    </g>
    <g id="text_4">
-    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f5a7a" x="227.78982" y="64.577392" transform="rotate(-0 227.78982 64.577392)">2</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f5a7a" x="227.78982" y="64.448017" transform="rotate(-0 227.78982 64.448017)">2</text>
    </g>
    <g id="text_5">
-    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="251.165801" y="64.715361" transform="rotate(-0 251.165801 64.715361)">Epochs</text>
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="251.165801" y="64.578232" transform="rotate(-0 251.165801 64.578232)">Epochs</text>
    </g>
    <g id="text_6">
-    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(255.101767 88.571056)">MOABB/MNE loading</text>
-    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(262.692142 97.454113)">8–32 Hz; 128 Hz</text>
+    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(255.101767 88.152584)">MOABB/MNE loading</text>
+    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(262.692142 98.139209)">8–32 Hz; 128 Hz</text>
    </g>
    <g id="text_7">
-    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f5a7a" x="414.797666" y="64.577392" transform="rotate(-0 414.797666 64.577392)">3</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f5a7a" x="414.797666" y="64.448017" transform="rotate(-0 414.797666 64.448017)">3</text>
    </g>
    <g id="text_8">
-    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="438.173647" y="64.715361" transform="rotate(-0 438.173647 64.715361)">Decoder</text>
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="438.173647" y="64.578232" transform="rotate(-0 438.173647 64.578232)">Decoder</text>
    </g>
    <g id="text_9">
-    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(441.586489 88.571056)">Riemannian features</text>
-    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(442.273301 97.454113)">+ logistic regression</text>
+    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(441.584801 88.850084)">Riemannian features</text>
+    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(442.269926 97.872584)">+ logistic regression</text>
    </g>
    <g id="text_10">
-    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f5a7a" x="414.797666" y="169.649181" transform="rotate(-0 414.797666 169.649181)">4</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f5a7a" x="414.797666" y="169.519806" transform="rotate(-0 414.797666 169.519806)">4</text>
    </g>
    <g id="text_11">
-    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="438.173647" y="169.78715" transform="rotate(-0 438.173647 169.78715)">Robustness tests</text>
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="438.173647" y="169.650021" transform="rotate(-0 438.173647 169.650021)">Robustness tests</text>
    </g>
    <g id="text_12">
-    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(429.178864 189.201317)">channel and region dropout</text>
-    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(445.292239 198.084373)">reduced montages</text>
-    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(439.764551 206.967429)">cross-session transfer</text>
+    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(429.175489 188.364373)">channel and region dropout</text>
+    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(445.290551 198.084373)">reduced montages</text>
+    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(439.762864 208.501873)">cross-session transfer</text>
    </g>
    <g id="text_13">
-    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f5a7a" x="227.78982" y="169.649181" transform="rotate(-0 227.78982 169.649181)">5</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f5a7a" x="227.78982" y="169.519806" transform="rotate(-0 227.78982 169.519806)">5</text>
    </g>
    <g id="text_14">
-    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="251.165801" y="169.753946" transform="rotate(-0 251.165801 169.753946)">Subject summaries</text>
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="251.165801" y="169.650021" transform="rotate(-0 251.165801 169.650021)">Subject summaries</text>
    </g>
    <g id="text_15">
-    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(250.58433 193.642845)">cross-validation means</text>
-    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(269.868517 202.525901)">by condition</text>
+    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(250.584892 193.921873)">cross-validation means</text>
+    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(269.868517 202.944373)">by condition</text>
    </g>
    <g id="text_16">
-    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f5a7a" x="40.781974" y="169.649181" transform="rotate(-0 40.781974 169.649181)">6</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f5a7a" x="40.781974" y="169.519806" transform="rotate(-0 40.781974 169.519806)">6</text>
    </g>
    <g id="text_17">
-    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="64.157954" y="169.753946" transform="rotate(-0 64.157954 169.753946)">Statistical analysis</text>
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="64.157954" y="169.650021" transform="rotate(-0 64.157954 169.650021)">Statistical analysis</text>
    </g>
    <g id="text_18">
-    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(52.327046 193.642845)">ROC AUC, balanced accuracy</text>
-    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(54.406046 202.525901)">Brier score, calibration error</text>
+    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(52.327046 193.224373)">ROC AUC, balanced accuracy</text>
+    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; fill: #666666" transform="translate(54.402671 203.274561)">Brier score, calibration error</text>
    </g>
    <g id="patch_8">
     <path d="M 185.960882 81.473854 
@@ -185,14 +185,14 @@ L 190.362985 184.845642
    </g>
   </g>
   <g id="text_19">
-   <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="20.39976" y="21.342041" transform="rotate(-0 20.39976 21.342041)">A</text>
+   <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="20.39976" y="21.341182" transform="rotate(-0 20.39976 21.341182)">A</text>
   </g>
   <g id="text_20">
    <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #222222" x="300.83976" y="20.962119" transform="rotate(-0 300.83976 20.962119)">Benchmark workflow</text>
   </g>
  </g>
  <defs>
-  <clipPath id="p3842502b78">
+  <clipPath id="pf51548a637">
    <rect x="8.64" y="8.64" width="584.39952" height="238.79952"/>
   </clipPath>
  </defs>

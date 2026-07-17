@@ -1,7 +1,7 @@
 {
   "prefix": "PhysionetMI_dev10",
   "passed": true,
-  "n_checks": 21,
+  "n_checks": 23,
   "n_failed_errors": 0,
-  "n_failed_warnings": 4
+  "n_failed_warnings": 0
 }

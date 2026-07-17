@@ -7,9 +7,9 @@ missing_roc_auc,0,pass
 out_of_range_0_1_roc_auc,0,pass
 missing_balanced_accuracy,0,pass
 out_of_range_0_1_balanced_accuracy,0,pass
-missing_brier_score,70,review
+missing_brier_score,0,pass
 out_of_range_0_1_brier_score,0,pass
-missing_ece,70,review
+missing_ece,0,pass
 out_of_range_0_1_ece,0,pass
 min_subjects_per_condition,10,pass
 max_subjects_per_condition,10,info

@@ -13,7 +13,7 @@ repository_hygiene,raw_data_directories_absent_from_release_tree,error,True,No u
 repository_hygiene,disallowed_filename_tokens_absent,error,True,No disallowed filename tokens found,,0.0,,,,
 validation_artifacts,PhysionetMI_dev10:validation_checks.csv,error,True,Validation artifact is present,reports/PhysionetMI_dev10_validation_checks.csv,,PhysionetMI_dev10,,,
 validation_artifacts,PhysionetMI_dev10:validation_summary.json,error,True,Validation artifact is present,reports/PhysionetMI_dev10_validation_summary.json,,PhysionetMI_dev10,,,
-validation_artifacts,PhysionetMI_dev10:no_failed_validation_errors,error,True,Validation errors: 0; warnings: 4,,,PhysionetMI_dev10,0.0,4.0,
+validation_artifacts,PhysionetMI_dev10:no_failed_validation_errors,error,True,Validation errors: 0; warnings: 0,,,PhysionetMI_dev10,0.0,0.0,
 analysis_artifacts,PhysionetMI_dev10:results.csv,error,True,Analysis artifact is present,results/PhysionetMI_dev10_results.csv,,PhysionetMI_dev10,,,
 analysis_artifacts,PhysionetMI_dev10:subject_summary.csv,error,True,Analysis artifact is present,results/PhysionetMI_dev10_subject_summary.csv,,PhysionetMI_dev10,,,
 analysis_artifacts,PhysionetMI_dev10:population_summary.csv,error,True,Analysis artifact is present,results/PhysionetMI_dev10_population_summary.csv,,PhysionetMI_dev10,,,

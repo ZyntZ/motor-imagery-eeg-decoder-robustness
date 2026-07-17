@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "test",
+  "generated_at_utc": "2026-07-17T09:00:10.719974+00:00",
   "prefixes": [
     "PhysionetMI_dev10",
     "BNCI2014-001_BNCI2014_001_all_csp_lda",
@@ -9,5 +9,5 @@
   "n_checks": 59,
   "n_failed_errors": 0,
   "n_failed_warnings": 0,
-  "note": "test-generated readiness summary"
+  "note": "Checks are derived from repository files only; no benchmark observations were generated."
 }

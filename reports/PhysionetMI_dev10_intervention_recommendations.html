@@ -1,0 +1,256 @@
+
+<!doctype html><html><head><meta charset='utf-8'><title>Intervention recommendations</title>
+<style>body{font-family:Arial,sans-serif; max-width:1180px; margin:30px auto; line-height:1.35} table{border-collapse:collapse; font-size:13px; width:100%} th,td{border:1px solid #ccc; padding:4px 6px} th{background:#e8f1f8} .warn{background:#fff8e1; padding:10px; border-left:4px solid #f0b400}</style>
+</head><body>
+<h1>BCI intervention recommendation layer</h1>
+<div class='warn'>Generated from real PhysioNetMI n=10 development outputs. This is an offline decision-support prototype, not a clinical or online deployment rule.</div>
+<h2>Cohort summary</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>metric</th>
+      <th>numerator</th>
+      <th>denominator</th>
+      <th>rate</th>
+      <th>ci_low</th>
+      <th>ci_high</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>clean_working</td>
+      <td>6.0</td>
+      <td>10</td>
+      <td>0.6000</td>
+      <td>0.2624</td>
+      <td>0.8784</td>
+    </tr>
+    <tr>
+      <td>dropout_failure_among_all</td>
+      <td>4.0</td>
+      <td>10</td>
+      <td>0.4000</td>
+      <td>0.1216</td>
+      <td>0.7376</td>
+    </tr>
+    <tr>
+      <td>montage_rescue_among_all</td>
+      <td>7.0</td>
+      <td>10</td>
+      <td>0.7000</td>
+      <td>0.3475</td>
+      <td>0.9333</td>
+    </tr>
+    <tr>
+      <td>montage_rescue_among_dropout_failures</td>
+      <td>3.0</td>
+      <td>4</td>
+      <td>0.7500</td>
+      <td>0.1941</td>
+      <td>0.9937</td>
+    </tr>
+    <tr>
+      <td>mean_deployability_score</td>
+      <td>NaN</td>
+      <td>10</td>
+      <td>0.6984</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Subject recommendations</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>subject</th>
+      <th>clean_auc</th>
+      <th>dropout50_auc</th>
+      <th>worst_dropout_auc</th>
+      <th>worst_dropout_delta</th>
+      <th>best_montage</th>
+      <th>best_montage_auc</th>
+      <th>best_montage_gain</th>
+      <th>clean_working</th>
+      <th>dropout_failure</th>
+      <th>montage_rescue</th>
+      <th>deployability_score</th>
+      <th>priority</th>
+      <th>recommended_action</th>
+      <th>rationale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>0.81</td>
+      <td>0.5395</td>
+      <td>0.5040</td>
+      <td>-0.3060</td>
+      <td>motor_extended</td>
+      <td>0.94</td>
+      <td>0.13</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>0.7459</td>
+      <td>A_high</td>
+      <td>deploy reduced montage first: motor_extended; add dropout fail-safe</td>
+      <td>clean decoder works, but 50% dropout fails; reduced montage recovers above threshold</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0.95</td>
+      <td>0.5650</td>
+      <td>0.5650</td>
+      <td>-0.3850</td>
+      <td>motor_extended</td>
+      <td>0.91</td>
+      <td>-0.04</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>0.7600</td>
+      <td>A_high</td>
+      <td>do not deploy without recalibration/dropout-aware training</td>
+      <td>clean decoder works, but 50% dropout fails and reduced montage does not rescue enough</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0.66</td>
+      <td>0.4420</td>
+      <td>0.4420</td>
+      <td>-0.2180</td>
+      <td>motor_core</td>
+      <td>0.84</td>
+      <td>0.18</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>0.6810</td>
+      <td>A_high</td>
+      <td>deploy reduced montage first: motor_core; add dropout fail-safe</td>
+      <td>clean decoder works, but 50% dropout fails; reduced montage recovers above threshold</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>0.65</td>
+      <td>0.4590</td>
+      <td>0.4590</td>
+      <td>-0.1910</td>
+      <td>motor_extended</td>
+      <td>0.80</td>
+      <td>0.15</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>0.6795</td>
+      <td>A_high</td>
+      <td>deploy reduced montage first: motor_extended; add dropout fail-safe</td>
+      <td>clean decoder works, but 50% dropout fails; reduced montage recovers above threshold</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>0.48</td>
+      <td>0.4935</td>
+      <td>0.4350</td>
+      <td>-0.0450</td>
+      <td>motor_core</td>
+      <td>0.62</td>
+      <td>0.14</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>0.6371</td>
+      <td>B_rescue_candidate</td>
+      <td>try montage-specific calibration: motor_core</td>
+      <td>all-channel clean decoder is weak, but reduced montage exceeds threshold</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>0.24</td>
+      <td>0.4630</td>
+      <td>0.3990</td>
+      <td>0.1590</td>
+      <td>motor_extended</td>
+      <td>0.70</td>
+      <td>0.46</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>0.6405</td>
+      <td>B_rescue_candidate</td>
+      <td>try montage-specific calibration: motor_extended</td>
+      <td>all-channel clean decoder is weak, but reduced montage exceeds threshold</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>1.00</td>
+      <td>0.6610</td>
+      <td>0.6610</td>
+      <td>-0.3390</td>
+      <td>motor_extended</td>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>0.8305</td>
+      <td>B_fragile</td>
+      <td>deploy only with monitoring; subject is fragile under dropout</td>
+      <td>clean decoder works, but worst dropout loss is at least 0.20 ROC-AUC</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>0.71</td>
+      <td>0.6070</td>
+      <td>0.5700</td>
+      <td>-0.1400</td>
+      <td>motor_extended</td>
+      <td>0.93</td>
+      <td>0.22</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>0.7768</td>
+      <td>C_ok_dev</td>
+      <td>acceptable in dev-run; still validate on more sessions</td>
+      <td>clean and dropout performance did not trigger failure rules</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.57</td>
+      <td>0.5260</td>
+      <td>0.4935</td>
+      <td>-0.0765</td>
+      <td>motor_extended</td>
+      <td>0.52</td>
+      <td>-0.05</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>0.6349</td>
+      <td>D_low_clean</td>
+      <td>screen out or use different paradigm/features</td>
+      <td>clean all-channel performance is below threshold</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>0.48</td>
+      <td>0.4470</td>
+      <td>0.3960</td>
+      <td>-0.0840</td>
+      <td>motor_extended</td>
+      <td>0.55</td>
+      <td>0.07</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>0.5983</td>
+      <td>D_low_clean</td>
+      <td>screen out or use different paradigm/features</td>
+      <td>clean all-channel performance is below threshold</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Intervention map</h2><div style="height:100%; width:100%;">                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.7.0.min.js" integrity="sha256-jvTGqxNp8AGWEcvNLVuKr+8j5dGe9Yw51LQkmDH+IYA=" crossorigin="anonymous"></script>                <div id="e147de25-3340-4de9-a8ea-75501ef2b174" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("e147de25-3340-4de9-a8ea-75501ef2b174")) {                    Plotly.newPlot(                        "e147de25-3340-4de9-a8ea-75501ef2b174",                        [{"customdata":[[1,"motor_extended",0.94,"deploy reduced montage first: motor_extended; add dropout fail-safe"],[2,"motor_extended",0.91,"do not deploy without recalibration\u002fdropout-aware training"],[4,"motor_core",0.8400000000000001,"deploy reduced montage first: motor_core; add dropout fail-safe"],[8,"motor_extended",0.8,"deploy reduced montage first: motor_extended; add dropout fail-safe"]],"hovertemplate":"priority=A_high\u003cbr\u003eclean_auc=%{x}\u003cbr\u003edropout50_auc=%{y}\u003cbr\u003edeployability_score=%{marker.size}\u003cbr\u003esubject=%{customdata[0]}\u003cbr\u003ebest_montage=%{customdata[1]}\u003cbr\u003ebest_montage_auc=%{customdata[2]}\u003cbr\u003erecommended_action=%{customdata[3]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"A_high","marker":{"color":"#636efa","size":{"dtype":"f8","bdata":"ke18PzXe5z9SuB6F61HoP5huEoPAyuU\u002fWDm0yHa+5T8="},"sizemode":"area","sizeref":0.00207625,"symbol":"circle"},"mode":"markers","name":"A_high","orientation":"v","showlegend":true,"x":{"dtype":"f8","bdata":"61G4HoXr6T9mZmZmZmbuPx+F61G4HuU\u002fzczMzMzM5D8="},"xaxis":"x","y":{"dtype":"f8","bdata":"3SQGgZVD4T8UrkfhehTiP30\u002fNV66Sdw\u002fxUs3iUFg3T8="},"yaxis":"y","type":"scatter"},{"customdata":[[5,"motor_core",0.62,"try montage-specific calibration: motor_core"],[9,"motor_extended",0.7,"try montage-specific calibration: motor_extended"]],"hovertemplate":"priority=B_rescue_candidate\u003cbr\u003eclean_auc=%{x}\u003cbr\u003edropout50_auc=%{y}\u003cbr\u003edeployability_score=%{marker.size}\u003cbr\u003esubject=%{customdata[0]}\u003cbr\u003ebest_montage=%{customdata[1]}\u003cbr\u003ebest_montage_auc=%{customdata[2]}\u003cbr\u003erecommended_action=%{customdata[3]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"B_rescue_candidate","marker":{"color":"#EF553B","size":{"dtype":"f8","bdata":"FtnO91Nj5D\u002fk0CLb+X7kPw=="},"sizemode":"area","sizeref":0.00207625,"symbol":"circle"},"mode":"markers","name":"B_rescue_candidate","orientation":"v","showlegend":true,"x":{"dtype":"f8","bdata":"uh6F61G43j+4HoXrUbjOPw=="},"xaxis":"x","y":{"dtype":"f8","bdata":"L90kBoGV3z9tEoPAyqHdPw=="},"yaxis":"y","type":"scatter"},{"customdata":[[7,"motor_extended",1.0,"deploy only with monitoring; subject is fragile under dropout"]],"hovertemplate":"priority=B_fragile\u003cbr\u003eclean_auc=%{x}\u003cbr\u003edropout50_auc=%{y}\u003cbr\u003edeployability_score=%{marker.size}\u003cbr\u003esubject=%{customdata[0]}\u003cbr\u003ebest_montage=%{customdata[1]}\u003cbr\u003ebest_montage_auc=%{customdata[2]}\u003cbr\u003erecommended_action=%{customdata[3]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"B_fragile","marker":{"color":"#00cc96","size":{"dtype":"f8","bdata":"+n5qvHST6j8="},"sizemode":"area","sizeref":0.00207625,"symbol":"circle"},"mode":"markers","name":"B_fragile","orientation":"v","showlegend":true,"x":{"dtype":"f8","bdata":"AAAAAAAA8D8="},"xaxis":"x","y":{"dtype":"f8","bdata":"8\u002f3UeOkm5T8="},"yaxis":"y","type":"scatter"},{"customdata":[[10,"motor_extended",0.93,"acceptable in dev-run; still validate on more sessions"]],"hovertemplate":"priority=C_ok_dev\u003cbr\u003eclean_auc=%{x}\u003cbr\u003edropout50_auc=%{y}\u003cbr\u003edeployability_score=%{marker.size}\u003cbr\u003esubject=%{customdata[0]}\u003cbr\u003ebest_montage=%{customdata[1]}\u003cbr\u003ebest_montage_auc=%{customdata[2]}\u003cbr\u003erecommended_action=%{customdata[3]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"C_ok_dev","marker":{"color":"#ab63fa","size":{"dtype":"f8","bdata":"QmDl0CLb6D8="},"sizemode":"area","sizeref":0.00207625,"symbol":"circle"},"mode":"markers","name":"C_ok_dev","orientation":"v","showlegend":true,"x":{"dtype":"f8","bdata":"uR6F61G45j8="},"xaxis":"x","y":{"dtype":"f8","bdata":"BoGVQ4ts4z8="},"yaxis":"y","type":"scatter"},{"customdata":[[3,"motor_extended",0.5199999999999999,"screen out or use different paradigm\u002ffeatures"],[6,"motor_extended",0.55,"screen out or use different paradigm\u002ffeatures"]],"hovertemplate":"priority=D_low_clean\u003cbr\u003eclean_auc=%{x}\u003cbr\u003edropout50_auc=%{y}\u003cbr\u003edeployability_score=%{marker.size}\u003cbr\u003esubject=%{customdata[0]}\u003cbr\u003ebest_montage=%{customdata[1]}\u003cbr\u003ebest_montage_auc=%{customdata[2]}\u003cbr\u003erecommended_action=%{customdata[3]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"D_low_clean","marker":{"color":"#FFA15A","size":{"dtype":"f8","bdata":"OIlBYOVQ5D+\u002fnxov3STjPw=="},"sizemode":"area","sizeref":0.00207625,"symbol":"circle"},"mode":"markers","name":"D_low_clean","orientation":"v","showlegend":true,"x":{"dtype":"f8","bdata":"PgrXo3A94j+4HoXrUbjePw=="},"xaxis":"x","y":{"dtype":"f8","bdata":"okW28\u002f3U4D\u002fP91PjpZvcPw=="},"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Clean all-channel ROC-AUC"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"ROC-AUC at 50% channel dropout"}},"legend":{"title":{"text":"priority"},"tracegroupgap":0,"itemsizing":"constant"},"title":{"text":"Subject intervention map: clean performance vs 50% dropout robustness"},"shapes":[{"line":{"color":"firebrick","dash":"dot"},"type":"line","x0":0.35,"x1":1.0,"y0":0.6,"y1":0.6},{"line":{"color":"firebrick","dash":"dot"},"type":"line","x0":0.6,"x1":0.6,"y0":0.35,"y1":1.0}]},                        {"responsive": true}                    )                };            </script>        </div>
+</body></html>

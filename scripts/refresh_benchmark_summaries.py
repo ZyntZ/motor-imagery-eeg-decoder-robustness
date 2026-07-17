@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import zipfile
 from pathlib import Path
 
 import pandas as pd
@@ -14,6 +15,68 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from bci_robustness.core import population_summary, subject_level_summary
 
+
+
+def find_subject_summary(results_dir: Path, prefix: str) -> tuple[Path | None, list[Path]]:
+    """Find an exact subject summary in the requested or nearby result directories."""
+    filename = f"{prefix}_subject_summary.csv"
+    requested = results_dir / filename
+    searched = [requested]
+    if requested.exists():
+        return requested, searched
+    roots = [results_dir.parent, ROOT, ROOT.parent]
+    seen = {requested.resolve()}
+    matches = []
+    for root in roots:
+        if not root.exists():
+            continue
+        for path in root.glob(f"*/results/{filename}"):
+            resolved = path.resolve()
+            if resolved not in seen:
+                seen.add(resolved); searched.append(path)
+                if path.is_file(): matches.append(path)
+        direct = root / "results" / filename
+        resolved = direct.resolve()
+        if resolved not in seen:
+            seen.add(resolved); searched.append(direct)
+            if direct.is_file(): matches.append(direct)
+    unique = sorted({path.resolve(): path for path in matches}.values())
+    if len(unique) > 1:
+        raise RuntimeError(f"Multiple subject summaries match {filename}: {[str(p) for p in unique]}")
+    return (unique[0] if unique else None), searched
+
+
+def extract_subject_summary_from_archives(results_dir: Path, prefix: str) -> tuple[Path | None, list[Path]]:
+    """Extract an exact subject summary from a nearby project ZIP when unambiguous."""
+    filename = f"{prefix}_subject_summary.csv"
+    archives = sorted({
+        *ROOT.parent.glob("*.zip"),
+        *ROOT.glob("*.zip"),
+        *(ROOT / "dist").glob("*.zip"),
+        *ROOT.parent.glob("*/dist/*.zip"),
+    })
+    hits: list[tuple[Path, str]] = []
+    for archive in archives:
+        try:
+            with zipfile.ZipFile(archive) as zf:
+                for member in zf.namelist():
+                    if member.endswith(f"/results/{filename}") or member == f"results/{filename}":
+                        hits.append((archive, member))
+        except zipfile.BadZipFile:
+            continue
+    if not hits:
+        return None, archives
+    if len(hits) > 1:
+        raise RuntimeError(f"Multiple archive members match {filename}: {[(str(a), m) for a, m in hits]}")
+    archive, member = hits[0]
+    target = results_dir / filename
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(archive) as zf:
+        data = zf.read(member)
+    temporary = target.with_suffix(target.suffix + ".tmp")
+    temporary.write_bytes(data)
+    temporary.replace(target)
+    return target, archives
 
 def infer_checkpoint_key(prefix: str) -> tuple[str, str]:
     """Infer the checkpoint dataset alias and decoder from a full output prefix."""
@@ -81,6 +144,17 @@ def refresh_summaries(
     raw_path = results_dir / f"{prefix}_results.csv"
     subject_path = results_dir / f"{prefix}_subject_summary.csv"
     population_path = results_dir / f"{prefix}_population_summary.csv"
+    discovered_subject_path, searched_subject_paths = find_subject_summary(results_dir, prefix)
+    if discovered_subject_path is None and allow_existing_subject_summary:
+        discovered_subject_path, searched_archives = extract_subject_summary_from_archives(results_dir, prefix)
+    else:
+        searched_archives = []
+    if discovered_subject_path is not None and discovered_subject_path != subject_path:
+        subject_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil_source = discovered_subject_path.read_bytes()
+        temporary_subject = subject_path.with_suffix(subject_path.suffix + ".tmp")
+        temporary_subject.write_bytes(shutil_source)
+        temporary_subject.replace(subject_path)
     recovered = False
     checkpoint_paths: list[Path] = []
     if raw_path.exists():
@@ -90,9 +164,16 @@ def refresh_summaries(
             results, checkpoint_paths = recover_results_from_checkpoints(
                 results_dir, prefix, checkpoint_dataset, pipeline, expected_subjects
             )
-        except FileNotFoundError:
+        except FileNotFoundError as checkpoint_error:
             if not (allow_existing_subject_summary and subject_path.exists()):
-                raise
+                searched = [str(path) for path in searched_subject_paths]
+                archives = [str(path) for path in searched_archives]
+                raise FileNotFoundError(
+                    f"Neither fold results, checkpoints, nor the exact 109-subject summary were found for {prefix!r}. "
+                    f"Searched summary paths: {searched}. Searched ZIP archives: {archives}. "
+                    "The previous 109-subject computation outputs are not present in this workspace. "
+                    "Restore the original results directory or the full results CSV before post-processing."
+                ) from checkpoint_error
             results = None
         if results is not None:
             raw_path.parent.mkdir(parents=True, exist_ok=True)

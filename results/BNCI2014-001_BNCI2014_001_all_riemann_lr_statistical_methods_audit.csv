@@ -1,7 +1,7 @@
 check,value,status
-n_rows_subject_summary,72,info
+n_rows_subject_summary,90,info
 n_subjects,9,info
-n_conditions,8,info
+n_conditions,10,info
 duplicate_subject_condition_rows,0,pass
 missing_roc_auc,0,pass
 out_of_range_0_1_roc_auc,0,pass

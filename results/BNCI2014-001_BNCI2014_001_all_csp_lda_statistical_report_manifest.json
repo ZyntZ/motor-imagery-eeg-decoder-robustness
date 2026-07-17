@@ -2,7 +2,7 @@
   "prefix": "BNCI2014-001_BNCI2014_001_all_csp_lda",
   "source_csv": "results/BNCI2014-001_BNCI2014_001_all_csp_lda_subject_summary.csv",
   "n_subjects": 9,
-  "n_subject_condition_rows": 72,
+  "n_subject_condition_rows": 90,
   "outputs": {
     "methods_audit": "results/BNCI2014-001_BNCI2014_001_all_csp_lda_statistical_methods_audit.csv",
     "paired_effects": "results/BNCI2014-001_BNCI2014_001_all_csp_lda_statistical_paired_effects.csv",

@@ -1,0 +1,9 @@
+{
+  "n_subjects": 109,
+  "clean_working_threshold": 0.6,
+  "failure_threshold": 0.6,
+  "n_clean_working": 62,
+  "n_high_drop_failure": 27,
+  "mean_clean_auc": 0.6754026503567789,
+  "mean_auc_50pct_dropout": 0.554394750254842
+}

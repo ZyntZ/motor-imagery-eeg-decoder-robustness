@@ -168,3 +168,45 @@ def test_existing_subject_summary_fallback_refuses_incomplete_cohort(tmp_path):
             tmp_path, prefix, recover_from_checkpoints=True,
             allow_existing_subject_summary=True, expected_subjects=2,
         )
+
+
+def test_find_subject_summary_in_sibling_project(tmp_path, monkeypatch):
+    spec = importlib.util.spec_from_file_location(
+        "refresh_summary_discovery_test", ROOT / "scripts" / "refresh_benchmark_summaries.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    prefix = "PhysionetMI_PhysionetMI_all_riemann_lr"
+    current_project = tmp_path / "current"
+    current_results = current_project / "results"
+    sibling_results = tmp_path / "old-copy" / "results"
+    sibling_results.mkdir(parents=True)
+    monkeypatch.setattr(module, "ROOT", current_project)
+    expected = sibling_results / f"{prefix}_subject_summary.csv"
+    expected.write_text("subject\n1\n", encoding="utf-8")
+    found, searched = module.find_subject_summary(current_results, prefix)
+    assert found == expected
+    assert searched
+
+
+def test_extract_subject_summary_from_single_nearby_archive(tmp_path, monkeypatch):
+    spec = importlib.util.spec_from_file_location(
+        "refresh_summary_archive_test", ROOT / "scripts" / "refresh_benchmark_summaries.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    import zipfile
+    prefix = "PhysionetMI_PhysionetMI_all_riemann_lr"
+    fake_root = tmp_path / "project"
+    fake_root.mkdir()
+    monkeypatch.setattr(module, "ROOT", fake_root)
+    archive = tmp_path / "backup.zip"
+    member = f"backup/results/{prefix}_subject_summary.csv"
+    with zipfile.ZipFile(archive, "w") as zf:
+        zf.writestr(member, "subject\n1\n")
+    target, archives = module.extract_subject_summary_from_archives(fake_root / "results", prefix)
+    assert target is not None and target.exists()
+    assert target.read_text(encoding="utf-8") == "subject\n1\n"
+    assert archive in archives

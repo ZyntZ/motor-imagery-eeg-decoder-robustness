@@ -1,0 +1,14 @@
+{
+  "prefix": "PhysionetMI_PhysionetMI_all_riemann_lr",
+  "n_subjects": 109,
+  "source_csv": "results/PhysionetMI_PhysionetMI_all_riemann_lr_subject_summary.csv",
+  "outputs": {
+    "subject_level_metrics": "results/PhysionetMI_PhysionetMI_all_riemann_lr_final_subject_level_metrics.csv",
+    "population_metrics": "results/PhysionetMI_PhysionetMI_all_riemann_lr_final_population_metrics.csv",
+    "subject_wide_metrics": "results/PhysionetMI_PhysionetMI_all_riemann_lr_final_subject_wide_metrics.csv",
+    "paired_sensitivity": "results/PhysionetMI_PhysionetMI_all_riemann_lr_final_paired_sensitivity.csv",
+    "intervention_classes": "results/PhysionetMI_PhysionetMI_all_riemann_lr_final_intervention_classes.csv",
+    "intervention_class_rates": "results/PhysionetMI_PhysionetMI_all_riemann_lr_final_intervention_class_rates.csv",
+    "mixed_effects": "results/PhysionetMI_PhysionetMI_all_riemann_lr_final_mixed_effects.csv"
+  }
+}
