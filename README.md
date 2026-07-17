@@ -150,10 +150,16 @@ See `STATISTICAL_REPORTING.md` for output definitions and statistical convention
 
 After `make physionet-full` completes, process and validate a full result prefix with one command. The target installs the reporting extra when Plotly is missing, rebuilds subject/population summaries from the existing fold-level CSV, validates them, generates statistical reports and HTML outputs, and runs final statistics:
 
+Choose only a pipeline that actually completed. Your completed run is Riemannian logistic regression:
+
 ```bash
 make postprocess-full PREFIX=PhysionetMI_PhysionetMI_all_riemann_lr
-# or for CSP + LDA:
-make postprocess-full PREFIX=PhysionetMI_PhysionetMI_all_csp_lda
+```
+
+Run the CSP + LDA command only if that separate full benchmark also completed and its outputs exist. To process every available full PhysioNet pipeline while safely skipping absent ones, use:
+
+```bash
+make postprocess-physionet-full-available
 ```
 
 This does not reload EEG or rerun model fitting. The command uses the best available source in this order: the full `*_results.csv`; all 109 subject checkpoints; or an existing `*_subject_summary.csv` containing 109 unique subjects. The last mode can generate statistical and HTML reports but cannot repeat fold-level validation, because the fold rows are unavailable. Rebuilding from fold results or checkpoints preserves named region-dropout and cross-session condition identifiers.

@@ -131,6 +131,38 @@ def recover_results_from_checkpoints(
     return pd.concat(frames, ignore_index=True), paths
 
 
+
+def probe_source(
+    results_dir: Path,
+    prefix: str,
+    checkpoint_dataset: str | None = None,
+    pipeline: str | None = None,
+) -> dict[str, object]:
+    """Locate an available source using the same discovery rules as refresh_summaries."""
+    raw_path = results_dir / f"{prefix}_results.csv"
+    if raw_path.exists():
+        return {"available": True, "mode": "fold_results", "source": str(raw_path)}
+    try:
+        _, paths = recover_results_from_checkpoints(
+            results_dir, prefix, checkpoint_dataset, pipeline, expected_subjects=None
+        )
+        return {"available": True, "mode": "checkpoints", "source": str(results_dir / "checkpoints"), "n_checkpoint_files": len(paths)}
+    except FileNotFoundError:
+        pass
+    subject_path, searched_paths = find_subject_summary(results_dir, prefix)
+    searched_archives: list[Path] = []
+    if subject_path is None:
+        subject_path, searched_archives = extract_subject_summary_from_archives(results_dir, prefix)
+    if subject_path is not None:
+        return {"available": True, "mode": "subject_summary", "source": str(subject_path)}
+    return {
+        "available": False,
+        "mode": "not_found",
+        "prefix": prefix,
+        "searched_summary_paths": [str(path) for path in searched_paths],
+        "searched_archives": [str(path) for path in searched_archives],
+    }
+
 def refresh_summaries(
     results_dir: Path,
     prefix: str,
@@ -277,7 +309,14 @@ def main() -> None:
     ap.add_argument("--pipeline", choices=["riemann_lr", "csp_lda", "tangent_space_lr"])
     ap.add_argument("--expected-subjects", type=int)
     ap.add_argument("--allow-existing-subject-summary", action="store_true")
+    ap.add_argument("--probe", action="store_true", help="Locate an available source without generating reports")
     args = ap.parse_args()
+    if args.probe:
+        result = probe_source(args.results_dir, args.prefix, args.checkpoint_dataset, args.pipeline)
+        print(json.dumps(result, indent=2))
+        if not result["available"]:
+            raise SystemExit(2)
+        return
     print(json.dumps(refresh_summaries(
         args.results_dir,
         args.prefix,

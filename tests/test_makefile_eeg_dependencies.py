@@ -35,3 +35,21 @@ def test_validation_includes_completed_full_physionet_outputs():
     assert "validate-results: validate-dev10 validate-bnci validate-physionet-full" in makefile
     assert "PhysionetMI_PhysionetMI_all_csp_lda" in makefile
     assert "PhysionetMI_PhysionetMI_all_riemann_lr" in makefile
+
+
+def test_available_full_postprocess_target_skips_absent_pipeline():
+    makefile = (ROOT / "Makefile").read_text(encoding="utf-8")
+    assert "postprocess-physionet-full-available: ensure-reports" in makefile
+    assert "PHYSIONET_FULL_PREFIXES" in makefile
+    assert 'echo "SKIP: no completed outputs found for $$pfx"' in makefile
+    assert "--probe" in makefile
+    assert 'status=$$?' in makefile
+    phony = next(line for line in makefile.splitlines() if line.startswith(".PHONY:"))
+    assert "postprocess-physionet-full-available" in phony
+
+
+def test_readme_does_not_instruct_unconditional_csp_postprocessing():
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "# or for CSP + LDA:" not in readme
+    assert "Run the CSP + LDA command only if" in readme
+    assert "make postprocess-physionet-full-available" in readme

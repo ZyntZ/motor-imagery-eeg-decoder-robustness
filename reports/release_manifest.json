@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-07-17T09:00:08.319020+00:00",
+  "generated_at_utc": "2026-07-17T09:45:47.979404+00:00",
   "python": "3.12.1",
   "platform": "Linux-6.8.0-1052-azure-x86_64-with-glibc2.39",
   "package_versions": {
@@ -307,13 +307,13 @@
     },
     {
       "path": "Makefile",
-      "sha256": "3a1b95ac24bf41ab1b402e18754522621f9f162681574681df8cf1e95be4bcfa",
-      "bytes": 9875
+      "sha256": "a5e45011c2164c0b0f5912d29031fc0596e210f3cf79b21ef1f7c5f8e877d4cb",
+      "bytes": 10842
     },
     {
       "path": "README.md",
-      "sha256": "4d87a1f1fba236d6b6ef094e67891de8a24f2dc342ea33552424c473aa2e9f73",
-      "bytes": 11872
+      "sha256": "2fa1b827911fede3aebf55c1645a135a2fd71d15a9a5c36a0284fef63253d983",
+      "bytes": 12138
     },
     {
       "path": "REPRODUCIBILITY.md",
@@ -377,7 +377,7 @@
     },
     {
       "path": "reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_intervention_class_counts.svg",
-      "sha256": "59d769f6f66c7d1bec1bf196c523e350eadbd5b1f75fed184b8e4e285cbff1cd",
+      "sha256": "3cf1ef4b8c372aeee5a4627e3c488ea5d55b51bd4ea5f4ffa0412a2d9a6cfff7",
       "bytes": 10471
     },
     {
@@ -387,7 +387,7 @@
     },
     {
       "path": "reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_pipeline_schematic.svg",
-      "sha256": "027c8ae4509604c7b687b6bd9ae4530659744c8f37e81f3e01c164a3adebcaa3",
+      "sha256": "303447e83ebf70ef37d77ee538ae05e9f22f9cf3ac6d7dcd44d9c7ade366f56a",
       "bytes": 9915
     },
     {
@@ -397,7 +397,7 @@
     },
     {
       "path": "reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_robustness_degradation_roc_auc.svg",
-      "sha256": "c242115d38220a2f96d89bea62cc8fced6b732b40d7a8fae94ab6803ee1743e8",
+      "sha256": "396ae8c33196843066530536271bd3c689a3288241b5d6c8093306b381e16a56",
       "bytes": 16102
     },
     {
@@ -452,8 +452,8 @@
     },
     {
       "path": "reports/release_manifest.json",
-      "sha256": "78fa1a50bf821ea1496576a19610eb9e5960dc02fb8c06141bfde7da27b05f87",
-      "bytes": 41933
+      "sha256": "dd833c8af33a068f9739119e16e821d64ec7b810b62f6abda60abe2a7a81940c",
+      "bytes": 41935
     },
     {
       "path": "reports/submission_readiness_checks.csv",
@@ -462,8 +462,8 @@
     },
     {
       "path": "reports/submission_readiness_summary.json",
-      "sha256": "bf218729368070e926e80097fdc3d7e0adca2bc1260e1530796ef57eecade0a7",
-      "bytes": 386
+      "sha256": "bc3b1c556ee3c5b9bbcc789178751a91e270a9106d4545f3cd76f1757b086d8a",
+      "bytes": 302
     },
     {
       "path": "requirements.txt",
@@ -1017,8 +1017,8 @@
     },
     {
       "path": "scripts/refresh_benchmark_summaries.py",
-      "sha256": "c53261019b3184acaa4c7ee75ce73e29e3fc00c006815f7b6ef3c3766e030774",
-      "bytes": 14616
+      "sha256": "ef49fb6884d9cd002a6d428ba9b00e25731782cedc1842a6047bd7bdd0d0f2b7",
+      "bytes": 16345
     },
     {
       "path": "scripts/run_benchmark.py",
@@ -1092,8 +1092,8 @@
     },
     {
       "path": "tests/test_makefile_eeg_dependencies.py",
-      "sha256": "b1fc476b1881498e7b28e0816b6c6cf6a10909ceb1203489cfdc108c3656f954",
-      "bytes": 1439
+      "sha256": "98ab8a85f6c8aebeab81814c96e9593a3fe45042c899c2155b965e6dd33cce8c",
+      "bytes": 2292
     },
     {
       "path": "tests/test_publication_gate.py",
@@ -1102,8 +1102,8 @@
     },
     {
       "path": "tests/test_run_benchmark.py",
-      "sha256": "145c4631a4d20f1dd82a3b8acc31c0a811030df85a1abc0b219dbb4514f9f368",
-      "bytes": 8989
+      "sha256": "4a64ab5d4063a17448eed298c6413365cd1a1165983348089c33c30259f77252",
+      "bytes": 10492
     },
     {
       "path": "tests/test_validate_results.py",

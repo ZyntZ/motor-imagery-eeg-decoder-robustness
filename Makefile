@@ -4,6 +4,7 @@ RESULTS_DIR ?= results
 REPORTS_DIR ?= reports
 PREFIX ?= PhysionetMI_PhysionetMI_all_riemann_lr
 EXPECTED_SUBJECTS ?= 109
+PHYSIONET_FULL_PREFIXES ?= PhysionetMI_PhysionetMI_all_riemann_lr PhysionetMI_PhysionetMI_all_csp_lda
 MAX_RETRIES ?= 5
 RETRY_WAIT_SECONDS ?= 60
 SKIP_FAILED ?= 1
@@ -11,7 +12,7 @@ MAX_CONSECUTIVE_FAILURES ?= 5
 SKIP_FAILED_FLAG = $(if $(filter 1 true yes,$(SKIP_FAILED)),--skip-failed,)
 
 
-.PHONY: refresh-full-summaries postprocess-full statistical-report-full install-eeg ensure-eeg install-reports ensure-reports validate-physionet-full analyze-full recommendations-full final-stats-full all-full publication-check release-archive archive-audit release-manifest methods-figures statistical-reports validate-dev10 validate-bnci validate-results statistical-report physionet-full-skip-failed physionet-full-strict install-dev test compile-check dry-run list-subjects physionet-full bnci-full analyze-dev10 recommendations-dev10 final-stats-dev10 all-dev10
+.PHONY: postprocess-physionet-full-available refresh-full-summaries postprocess-full statistical-report-full install-eeg ensure-eeg install-reports ensure-reports validate-physionet-full analyze-full recommendations-full final-stats-full all-full publication-check release-archive archive-audit release-manifest methods-figures statistical-reports validate-dev10 validate-bnci validate-results statistical-report physionet-full-skip-failed physionet-full-strict install-dev test compile-check dry-run list-subjects physionet-full bnci-full analyze-dev10 recommendations-dev10 final-stats-dev10 all-dev10
 
 install-dev:
 	$(PYTHON) -m pip install -e ".[dev]"
@@ -101,6 +102,29 @@ postprocess-full: ensure-reports
 	$(PYTHON) scripts/analyze_robustness.py --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR) --prefix $(PREFIX)
 	$(PYTHON) scripts/recommend_interventions.py --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR) --prefix $(PREFIX)
 	$(PYTHON) scripts/final_statistics.py --results-dir $(RESULTS_DIR) --prefix $(PREFIX)
+
+postprocess-physionet-full-available: ensure-reports
+	@set -e; processed=0; \
+	for pfx in $(PHYSIONET_FULL_PREFIXES); do \
+		echo "==> Probing prefix: $$pfx"; \
+		set +e; \
+		$(PYTHON) scripts/refresh_benchmark_summaries.py --results-dir $(RESULTS_DIR) --prefix "$$pfx" --probe; \
+		status=$$?; \
+		set -e; \
+		if [ "$$status" -eq 0 ]; then \
+			$(MAKE) --no-print-directory postprocess-full PREFIX="$$pfx" EXPECTED_SUBJECTS=$(EXPECTED_SUBJECTS); \
+			processed=$$((processed + 1)); \
+		elif [ "$$status" -eq 2 ]; then \
+			echo "SKIP: no completed outputs found for $$pfx"; \
+		else \
+			echo "ERROR: source probe failed for $$pfx with exit code $$status"; \
+			exit "$$status"; \
+		fi; \
+	done; \
+	if [ "$$processed" -eq 0 ]; then \
+		echo "ERROR: no completed full PhysioNet pipeline outputs were found."; \
+		exit 1; \
+	fi
 
 analyze-full: ensure-reports
 	$(PYTHON) scripts/analyze_robustness.py --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR) --prefix $(PREFIX)

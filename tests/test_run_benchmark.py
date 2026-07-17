@@ -210,3 +210,37 @@ def test_extract_subject_summary_from_single_nearby_archive(tmp_path, monkeypatc
     assert target is not None and target.exists()
     assert target.read_text(encoding="utf-8") == "subject\n1\n"
     assert archive in archives
+
+
+def test_probe_source_finds_summary_using_shared_discovery(tmp_path, monkeypatch):
+    spec = importlib.util.spec_from_file_location(
+        "refresh_probe_summary_test", ROOT / "scripts" / "refresh_benchmark_summaries.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    prefix = "PhysionetMI_PhysionetMI_all_riemann_lr"
+    fake_root = tmp_path / "current"
+    monkeypatch.setattr(module, "ROOT", fake_root)
+    summary = tmp_path / "backup" / "results" / f"{prefix}_subject_summary.csv"
+    summary.parent.mkdir(parents=True)
+    summary.write_text("subject\n1\n", encoding="utf-8")
+    result = module.probe_source(fake_root / "results", prefix)
+    assert result["available"] is True
+    assert result["mode"] == "subject_summary"
+    assert Path(result["source"]) == summary
+
+
+def test_probe_source_returns_not_found_without_raising(tmp_path, monkeypatch):
+    spec = importlib.util.spec_from_file_location(
+        "refresh_probe_absent_test", ROOT / "scripts" / "refresh_benchmark_summaries.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    fake_root = tmp_path / "current"
+    fake_root.mkdir()
+    monkeypatch.setattr(module, "ROOT", fake_root)
+    result = module.probe_source(fake_root / "results", "PhysionetMI_PhysionetMI_all_csp_lda")
+    assert result["available"] is False
+    assert result["mode"] == "not_found"

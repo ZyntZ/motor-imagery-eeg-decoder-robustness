@@ -3,7 +3,7 @@
   "clean_working_threshold": 0.6,
   "failure_threshold": 0.6,
   "n_clean_working": 6,
-  "n_high_drop_failure": 4,
-  "mean_clean_auc": 0.655,
-  "mean_auc_50pct_dropout": 0.5203
+  "n_high_drop_failure": 5,
+  "mean_clean_auc": 0.643,
+  "mean_auc_50pct_dropout": 0.5146999999999999
 }

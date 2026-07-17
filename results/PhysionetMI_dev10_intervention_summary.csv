@@ -1,6 +1,6 @@
 metric,numerator,denominator,rate,ci_low,ci_high
 clean_working,6.0,10,0.6,0.26237807660694507,0.8784477418801728
-dropout_failure_among_all,4.0,10,0.4,0.12155225811982719,0.7376219233930549
-montage_rescue_among_all,7.0,10,0.7,0.3475471499400027,0.9332604888222655
-montage_rescue_among_dropout_failures,3.0,4,0.75,0.19412044968324338,0.9936905367902902
-mean_deployability_score,,10,0.6984375,,
+dropout_failure_among_all,5.0,10,0.5,0.18708602844739855,0.8129139715526015
+montage_rescue_among_all,6.0,10,0.6,0.26237807660694507,0.8784477418801728
+montage_rescue_among_dropout_failures,4.0,5,0.8,0.2835820638819105,0.9949492366205319
+mean_deployability_score,,10,0.6938875,,
