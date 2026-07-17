@@ -117,6 +117,31 @@ make install-eeg
 
 Existing files under `moabb_data/` and completed subject checkpoints under `results/checkpoints/` are reused. Installing the Python packages does not delete or restart the 108 already downloaded subject files. Use `PYTHON=/path/to/python make physionet-full` if the project runs in a specific virtual environment.
 
+
+### PhysioNet CSP + LDA preflight and full run
+
+Run one real subject through every requested CSP + LDA stressor before committing to the 109-subject computation:
+
+```bash
+make physionet-csp-preflight
+```
+
+The preflight uses subject 1, including random channel dropout, the 3- and 9-channel reduced montages, named motor-region dropout, and cross-session evaluation when the dataset metadata permit it. Its subject checkpoint is stored under `results/checkpoints/` and is reused by the full run.
+
+After the preflight succeeds, run only the missing full CSP + LDA experiment without repeating the completed Riemannian pipeline:
+
+```bash
+make physionet-csp-full
+```
+
+The run is resumable at subject level. Re-running the same command reuses compatible checkpoints. Do not use `--overwrite` unless the existing checkpoints are known to be invalid. A complete run must contain 109 unique subjects before post-processing:
+
+```bash
+make postprocess-full PREFIX=PhysionetMI_PhysionetMI_all_csp_lda EXPECTED_SUBJECTS=109
+```
+
+Interrupted checkpoint and final CSV writes use temporary files followed by an atomic rename, reducing the risk of truncated outputs. Raw EEG caches and checkpoints are excluded from release archives.
+
 ## Submission-readiness check
 
 For a methods-journal submission package, run the repository-level readiness gate after validation, statistical tables, and methods figures have been regenerated:
@@ -209,11 +234,11 @@ make methods-figures
 
 The target writes PNG and SVG versions of:
 
-- `reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_pipeline_schematic.*`
-- `reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_robustness_degradation_roc_auc.*`
-- `reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_intervention_class_counts.*`
+- `reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.*`
+- `reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.*`
+- `reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_intervention_class_counts.*`
 
-The figure manifest is `reports/BNCI2014-001_BNCI2014_001_all_riemann_lr_methods_figures_manifest.json`. Figures are generated only from repository CSV outputs; no synthetic benchmark observations are created.
+The figure manifest is `reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_figures_manifest.json`. Figures are generated only from repository CSV outputs; no synthetic benchmark observations are created.
 
 ## Main outputs
 

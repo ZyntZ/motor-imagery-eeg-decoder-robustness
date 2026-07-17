@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-07-17T14:23:45.951727+00:00",
+  "generated_at_utc": "2026-07-17T14:44:28.050997+00:00",
   "python": "3.13.7",
   "platform": "Linux-4.4.0-x86_64-with-glibc2.36",
   "package_versions": {
@@ -8,9 +8,9 @@
     "scipy": "1.17.1",
     "scikit-learn": "1.8.0",
     "statsmodels": "0.14.6",
-    "mne": null,
-    "moabb": null,
-    "pyriemann": null,
+    "mne": "1.12.1",
+    "moabb": "1.5.0",
+    "pyriemann": "0.12",
     "matplotlib": "3.10.8",
     "plotly": "6.6.0",
     "pytest": "9.0.2",
@@ -380,13 +380,13 @@
     },
     {
       "path": "Makefile",
-      "sha256": "c6767712da5bb0bb2929479562f82e8a5a014abe898da24c0b623d62cbcb76a5",
-      "bytes": 11481
+      "sha256": "5b7cfa1078472e7514098056be65f762dddb4eba66014ac12ba026035f2608eb",
+      "bytes": 11949
     },
     {
       "path": "README.md",
-      "sha256": "3d0b78e54e5f0b985290ea3b130a12ab94bd4674083f74facb27bd8daead3193",
-      "bytes": 12548
+      "sha256": "c18fceb5fd90140baa73951b4aa7cafca2d31749a300ff7beb9241379d84e21e",
+      "bytes": 13760
     },
     {
       "path": "REPRODUCIBILITY.md",
@@ -505,7 +505,7 @@
     },
     {
       "path": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_intervention_class_counts.svg",
-      "sha256": "24693b9a6177ece701a3053aa086439d785df09631705f11773e94d231a52422",
+      "sha256": "dcb0e18975f8da4104f008713db7dd06c1a1d1c386dcae3e1881cfe962d855e6",
       "bytes": 10909
     },
     {
@@ -515,7 +515,7 @@
     },
     {
       "path": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.svg",
-      "sha256": "c1f1daafc139182d46c338f5485ca544dfe7cbaa40997022d1fff80a2c4b058d",
+      "sha256": "606fb6e4c5b87ef3e8ab3ccdaced840dd4bb3f0a1cbd6a2415bd16bf95af87fa",
       "bytes": 9774
     },
     {
@@ -525,7 +525,7 @@
     },
     {
       "path": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.svg",
-      "sha256": "c4706c2bb146a7e5f503d622be70279d44dad2ce7e311ea00b87215daa448de5",
+      "sha256": "bc3f9399e2130d3823e70c6ab2cd6f178f924ae845c72813592688f39a5b874f",
       "bytes": 46159
     },
     {
@@ -570,8 +570,8 @@
     },
     {
       "path": "reports/release_manifest.json",
-      "sha256": "8cb7a685379c0a14c384910530796352c8c8e81634c99decace2b088bb4b1647",
-      "bytes": 41584
+      "sha256": "f8bcc467811f47f93a4825dd0a1597121db836a5ed78cd4d2a379dd70a76c174",
+      "bytes": 45804
     },
     {
       "path": "reports/submission_readiness_checks.csv",
@@ -1140,8 +1140,8 @@
     },
     {
       "path": "scripts/run_benchmark.py",
-      "sha256": "f1c32f6935710469733250a9d777b023c1419f8069adf681df5f121915ed0ffb",
-      "bytes": 18782
+      "sha256": "96ec212a132928e7bac107d00e93a07ad11097896b6e4dd8c66dd5942dc47f41",
+      "bytes": 19100
     },
     {
       "path": "scripts/validate_results.py",
@@ -1165,8 +1165,8 @@
     },
     {
       "path": "tests/test_core.py",
-      "sha256": "86daa51c619dcf219016011b75916046c0cad7d3a0664339d86410b7922ac231",
-      "bytes": 3685
+      "sha256": "5eaa0f0ba01401c13c68b373d2318c880fab62566fadab4151c18a07f38226d8",
+      "bytes": 5022
     },
     {
       "path": "tests/test_final_statistics.py",
@@ -1190,8 +1190,8 @@
     },
     {
       "path": "tests/test_makefile_eeg_dependencies.py",
-      "sha256": "240749832b839b03c34670024a29333a3c7c51f40af4ab10b62e382d10cdd921",
-      "bytes": 2737
+      "sha256": "2df4b52a524b7e95a6cdf0e4e92e87f6e8cc772cceefdf891b1d8a7bb26a3d3d",
+      "bytes": 3223
     },
     {
       "path": "tests/test_publication_gate.py",
@@ -1200,8 +1200,8 @@
     },
     {
       "path": "tests/test_run_benchmark.py",
-      "sha256": "4a64ab5d4063a17448eed298c6413365cd1a1165983348089c33c30259f77252",
-      "bytes": 10492
+      "sha256": "f391705b426ee47726ac1714733400dc935eed8eed6c1e215a2434180d7aeba9",
+      "bytes": 10924
     },
     {
       "path": "tests/test_validate_results.py",

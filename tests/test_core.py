@@ -7,6 +7,8 @@ from bci_robustness.core import (
     apply_named_region_dropout,
     channel_indices,
     expected_calibration_error,
+    evaluate_subject_reduced_montages,
+    evaluate_subject_with_dropout,
     select_channels,
     subject_level_summary,
 )
@@ -97,3 +99,35 @@ def test_subject_summary_preserves_named_region_conditions():
     summary = subject_level_summary(pd.DataFrame(rows))
     assert len(summary) == 2
     assert set(summary["region"]) == {"left_motor_strip", "right_motor_strip"}
+
+
+@pytest.mark.filterwarnings("ignore:.*not fully.*:RuntimeWarning")
+def test_csp_lda_handles_three_channel_montage_and_high_dropout():
+    rng = np.random.default_rng(7)
+    X = rng.normal(size=(40, 3, 96))
+    y = np.array([0] * 20 + [1] * 20)
+    out = evaluate_subject_with_dropout(
+        X, y, subject_id=1, dropout_fractions=(0.0, 0.5),
+        repeats_per_fraction=2, n_splits=4, csp_components=6,
+        pipeline_name="csp_lda", montage_name="motor_core",
+    )
+    assert len(out) == 12
+    assert np.isfinite(out["roc_auc"]).all()
+    assert out["roc_auc"].between(0.0, 1.0).all()
+    assert set(out["stressor"]) == {"clean", "channel_dropout"}
+
+
+@pytest.mark.filterwarnings("ignore:.*not fully.*:RuntimeWarning")
+def test_csp_reduced_montages_clamp_components_to_channel_count():
+    rng = np.random.default_rng(11)
+    X = rng.normal(size=(40, 5, 96))
+    y = np.array([0] * 20 + [1] * 20)
+    names = ["C3", "Cz", "C4", "FC3", "FC4"]
+    out = evaluate_subject_reduced_montages(
+        X, y, names, subject_id=1,
+        montages={"motor_core": ["C3", "Cz", "C4"]},
+        n_splits=4, csp_components=6, pipeline_name="csp_lda",
+    )
+    assert len(out) == 4
+    assert set(out["n_channels"]) == {3}
+    assert np.isfinite(out["roc_auc"]).all()

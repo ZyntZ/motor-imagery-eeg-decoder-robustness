@@ -143,6 +143,14 @@ def checkpoint_is_compatible(
     return True, "ok"
 
 
+def atomic_write_csv(frame: pd.DataFrame, path: Path) -> None:
+    """Write a CSV atomically so interrupted long runs do not leave truncated files."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    frame.to_csv(temporary, index=False)
+    temporary.replace(path)
+
+
 def write_failure_log(results_dir: Path, dataset_name: str, suffix: str, failures: list[dict]) -> Path | None:
     """Write skipped subject failures to CSV and JSON for resuming/debugging."""
     if not failures:
@@ -151,7 +159,7 @@ def write_failure_log(results_dir: Path, dataset_name: str, suffix: str, failure
     stem = f"{dataset_name}_{suffix}_failed_subjects"
     csv_path = results_dir / f"{stem}.csv"
     json_path = results_dir / f"{stem}.json"
-    pd.DataFrame(failures).to_csv(csv_path, index=False)
+    atomic_write_csv(pd.DataFrame(failures), csv_path)
     json_path.write_text(json.dumps(failures, indent=2), encoding="utf-8")
     return csv_path
 
@@ -317,7 +325,7 @@ def run_real_data(
                 try:
                     print(f"Loading subject {subject} from {dataset.code} (attempt {attempt}/{attempts_total})...")
                     df = run_one_subject(dataset, paradigm, subject, config, include_reduced_montage, include_region_dropout, include_cross_session, pipeline_name)
-                    df.to_csv(ckpt, index=False)
+                    atomic_write_csv(df, ckpt)
                     print(f"  wrote checkpoint {ckpt}")
                     consecutive_failures = 0
                     break
@@ -369,11 +377,11 @@ def write_outputs(results: pd.DataFrame, config: dict, dataset_name: str, suffix
     raw_path = results_dir / f"{dataset_name}_{suffix}_results.csv"
     subject_path = results_dir / f"{dataset_name}_{suffix}_subject_summary.csv"
     summary_path = results_dir / f"{dataset_name}_{suffix}_population_summary.csv"
-    results.to_csv(raw_path, index=False)
+    atomic_write_csv(results, raw_path)
     subj = subject_level_summary(results)
-    subj.to_csv(subject_path, index=False)
+    atomic_write_csv(subj, subject_path)
     summary = population_summary(results, random_seed=int(config["random_seed"]))
-    summary.to_csv(summary_path, index=False)
+    atomic_write_csv(summary, summary_path)
     return raw_path, subject_path, summary_path
 
 

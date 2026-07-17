@@ -244,3 +244,14 @@ def test_probe_source_returns_not_found_without_raising(tmp_path, monkeypatch):
     result = module.probe_source(fake_root / "results", "PhysionetMI_PhysionetMI_all_csp_lda")
     assert result["available"] is False
     assert result["mode"] == "not_found"
+
+
+
+def test_atomic_write_csv_replaces_file_without_leaving_temporary(tmp_path):
+    module = load_run_benchmark_module()
+    import pandas as pd
+    target = tmp_path / "checkpoint.csv"
+    module.atomic_write_csv(pd.DataFrame({"value": [1, 2]}), target)
+    module.atomic_write_csv(pd.DataFrame({"value": [3]}), target)
+    assert pd.read_csv(target)["value"].tolist() == [3]
+    assert not target.with_suffix(".csv.tmp").exists()

@@ -12,7 +12,7 @@ MAX_CONSECUTIVE_FAILURES ?= 5
 SKIP_FAILED_FLAG = $(if $(filter 1 true yes,$(SKIP_FAILED)),--skip-failed,)
 
 
-.PHONY: postprocess-physionet-full-available refresh-full-summaries postprocess-full statistical-report-full install-eeg ensure-eeg install-reports ensure-reports validate-physionet-full analyze-full recommendations-full final-stats-full all-full publication-check release-archive archive-audit release-manifest methods-figures statistical-reports validate-dev10 validate-bnci validate-results statistical-report physionet-full-skip-failed physionet-full-strict install-dev test compile-check dry-run list-subjects physionet-full bnci-full analyze-dev10 recommendations-dev10 final-stats-dev10 all-dev10
+.PHONY: physionet-csp-preflight physionet-csp-full postprocess-physionet-full-available refresh-full-summaries postprocess-full statistical-report-full install-eeg ensure-eeg install-reports ensure-reports validate-physionet-full analyze-full recommendations-full final-stats-full all-full publication-check release-archive archive-audit release-manifest methods-figures statistical-reports validate-dev10 validate-bnci validate-results statistical-report physionet-full-skip-failed physionet-full-strict install-dev test compile-check dry-run list-subjects physionet-full bnci-full analyze-dev10 recommendations-dev10 final-stats-dev10 all-dev10
 
 install-dev:
 	$(PYTHON) -m pip install -e ".[dev]"
@@ -56,8 +56,13 @@ list-subjects: ensure-eeg
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --dataset PhysionetMI --list-subjects
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --dataset BNCI2014-001 --list-subjects
 
-physionet-full: ensure-eeg
+physionet-csp-preflight: ensure-eeg
+	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset PhysionetMI --subjects 1 --include-reduced-montage --include-region-dropout --include-cross-session --pipeline csp_lda --max-retries $(MAX_RETRIES) --retry-wait-seconds $(RETRY_WAIT_SECONDS) --max-consecutive-failures 1 --suffix Physionet_csp_preflight
+
+physionet-csp-full: ensure-eeg
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset PhysionetMI --include-reduced-montage --include-region-dropout --include-cross-session --pipeline csp_lda --max-retries $(MAX_RETRIES) --retry-wait-seconds $(RETRY_WAIT_SECONDS) $(SKIP_FAILED_FLAG) --max-consecutive-failures $(MAX_CONSECUTIVE_FAILURES) --suffix PhysionetMI_all_csp_lda
+
+physionet-full: ensure-eeg physionet-csp-full
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset PhysionetMI --include-reduced-montage --include-region-dropout --include-cross-session --pipeline riemann_lr --max-retries $(MAX_RETRIES) --retry-wait-seconds $(RETRY_WAIT_SECONDS) $(SKIP_FAILED_FLAG) --max-consecutive-failures $(MAX_CONSECUTIVE_FAILURES) --suffix PhysionetMI_all_riemann_lr
 
 physionet-full-strict: ensure-eeg

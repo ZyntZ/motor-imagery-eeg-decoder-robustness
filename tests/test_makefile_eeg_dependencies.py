@@ -62,3 +62,14 @@ def test_publication_targets_include_full_physionet_outputs():
     figures_block = makefile.split("methods-figures:", 1)[1].split("release-manifest:", 1)[0]
     assert full in statistical_block
     assert full in figures_block
+
+
+
+def test_physionet_csp_has_dedicated_preflight_and_full_targets():
+    makefile = (ROOT / "Makefile").read_text(encoding="utf-8")
+    assert "physionet-csp-preflight: ensure-eeg" in makefile
+    assert "physionet-csp-full: ensure-eeg" in makefile
+    csp_block = makefile.split("physionet-csp-full:", 1)[1].split("physionet-full:", 1)[0]
+    assert "--pipeline csp_lda" in csp_block
+    assert "--suffix PhysionetMI_all_csp_lda" in csp_block
+    assert "riemann_lr" not in csp_block
