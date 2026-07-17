@@ -1,0 +1,25 @@
+severity,check,passed,detail,n_rows,n_columns,n_finite,n_missing_or_nonfinite,n_duplicate_rows,key_columns,n_invalid,n_tested,n_mismatch,n_missing_subjects,n_expected,n_actual,n_compared_keys,n_unmatched_keys,n_compared,max_abs_difference
+error,fold_results_required_columns,True,All required columns are present,25070.0,17.0,,,,,,,,,,,,,,
+error,subject_summary_required_columns,True,All required columns are present,1090.0,13.0,,,,,,,,,,,,,,
+error,fold_results_roc_auc_range,True,"roc_auc finite values are within [0.0, 1.0]",,,25070.0,0.0,,,,,,,,,,,,
+error,fold_results_balanced_accuracy_range,True,"balanced_accuracy finite values are within [0.0, 1.0]",,,25070.0,0.0,,,,,,,,,,,,
+error,fold_results_brier_score_range,True,"brier_score finite values are within [0.0, 1.0]",,,25070.0,0.0,,,,,,,,,,,,
+error,fold_results_ece_range,True,"ece finite values are within [0.0, 1.0]",,,25070.0,0.0,,,,,,,,,,,,
+error,fold_results_duplicate_rows,True,No duplicate rows for declared evaluation key,,,,,0.0,"dataset,subject,pipeline,stressor,montage,dropout_fraction,fold,repeat,region,dropped_channels,selected_channels",,,,,,,,,,
+error,fold_results_channel_count_bounds,True,Channel counts are positive and dropped-channel counts do not exceed available channels,,,,,,,0.0,,,,,,,,,
+warning,fold_results_dropout_fraction_matches_counts,True,Dropout fractions match dropped/available channel counts within tolerance,,,,,,,,23980.0,0.0,,,,,,,
+error,subject_summary_roc_auc_range,True,"roc_auc finite values are within [0.0, 1.0]",,,1090.0,0.0,,,,,,,,,,,,
+error,subject_summary_balanced_accuracy_range,True,"balanced_accuracy finite values are within [0.0, 1.0]",,,1090.0,0.0,,,,,,,,,,,,
+error,subject_summary_brier_score_range,True,"brier_score finite values are within [0.0, 1.0]",,,1090.0,0.0,,,,,,,,,,,,
+error,subject_summary_ece_range,True,"ece finite values are within [0.0, 1.0]",,,1090.0,0.0,,,,,,,,,,,,
+error,subject_summary_duplicate_rows,True,No duplicate rows for declared evaluation key,,,,,0.0,"dataset,subject,pipeline,stressor,montage,dropout_fraction,region",,,,,,,,,,
+error,subject_summary_channel_count_bounds,True,Channel counts are positive and dropped-channel counts do not exceed available channels,,,,,,,0.0,,,,,,,,,
+warning,subject_summary_dropout_fraction_matches_counts,True,Dropout fractions match dropped/available channel counts within tolerance,,,,,,,,872.0,0.0,,,,,,,
+error,clean_baseline_present,True,Clean baseline rows are present,,,,,,,,,,,,,,,,
+error,all_stressor_subjects_have_clean_baseline,True,Every subject with stressor rows also has a clean baseline,,,,,,,,,,0.0,,,,,,
+error,expected_subject_count,True,Expected 109 unique subjects; found 109,,,,,,,,,,,109.0,109.0,,,,
+error,subject_summary_key_match,True,Subject summary keys match fold-level aggregation keys,,,,,,,,,,,,,1090.0,0.0,,
+error,subject_summary_roc_auc_mean_match,True,Subject-level roc_auc equals the mean of fold-level rows,,,,,,,,,,,,,,,1090.0,1.1102230246251565e-16
+error,subject_summary_balanced_accuracy_mean_match,True,Subject-level balanced_accuracy equals the mean of fold-level rows,,,,,,,,,,,,,,,1090.0,1.1102230246251565e-16
+error,subject_summary_brier_score_mean_match,True,Subject-level brier_score equals the mean of fold-level rows,,,,,,,,,,,,,,,1090.0,9.71445146547012e-17
+error,subject_summary_ece_mean_match,True,Subject-level ece equals the mean of fold-level rows,,,,,,,,,,,,,,,1090.0,8.326672684688674e-17

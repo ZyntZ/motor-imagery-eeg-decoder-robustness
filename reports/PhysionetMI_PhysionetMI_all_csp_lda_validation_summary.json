@@ -1,0 +1,7 @@
+{
+  "prefix": "PhysionetMI_PhysionetMI_all_csp_lda",
+  "passed": true,
+  "n_checks": 24,
+  "n_failed_errors": 0,
+  "n_failed_warnings": 0
+}
