@@ -5,9 +5,9 @@ This file summarizes deterministic repository checks for preparing the benchmark
 ## Status
 
 - Ready for release packaging: `true`
-- Checks run: 77
+- Checks run: 85
 - Failed errors: 0
-- Failed warnings: 0
+- Failed warnings: 2
 
 ## Scope
 
@@ -17,4 +17,5 @@ This file summarizes deterministic repository checks for preparing the benchmark
 
 ## Failed checks
 
-No failed checks.
+- `warning` `manuscript_declarations` `competing_interests_declaration_present`: Author confirmation is required before submission
+- `warning` `manuscript_declarations` `permanent_software_doi_present`: Archive the release and add its DOI before submission

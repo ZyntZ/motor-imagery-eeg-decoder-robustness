@@ -6,7 +6,7 @@ The manuscript presents a reproducible evaluation method for deployment-relevant
 
 The main methodological result is that clean-data performance did not fully determine performance under sensor loss. Riemannian logistic regression retained higher ROC-AUC than CSP–LDA across four random-dropout levels, whereas a planned nine-channel motor montage retained full-montage performance for both methods. The code release includes pinned dependencies and machine-readable validation artifacts.
 
-This work is a secondary analysis of public, de-identified datasets and recruited no new participants. A permanent software DOI, funding statement, and competing-interest declaration must be confirmed before this letter is submitted.
+This work is a secondary analysis of public, de-identified datasets and recruited no new participants. The work was completed by one author and received no external funding. A permanent software DOI and competing-interest declaration must be confirmed before this letter is submitted.
 
 Sincerely,
 

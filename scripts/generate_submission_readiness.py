@@ -251,6 +251,31 @@ def build_checks(root: Path, results_dir: Path, reports_dir: Path, prefixes: lis
             path=rel(path, root),
         ))
 
+    manuscript_path = root / "manuscript" / "manuscript.tex"
+    manuscript_text = manuscript_path.read_text(encoding="utf-8") if manuscript_path.exists() else ""
+    manuscript_checks = [
+        ("ethics_statement_present", "error", "\\section*{Ethics statement}"),
+        ("funding_statement_present", "error", "\\section*{Funding}"),
+        ("credit_statement_present", "error", "\\section*{CRediT authorship contribution statement}"),
+        ("generative_ai_disclosure_present", "error", "\\section*{Declaration of generative AI"),
+        ("physionet_license_named", "error", "Open Data Commons Attribution License v1.0"),
+        ("bnci_license_named", "error", "Creative Commons Attribution-NoDerivatives 4.0"),
+        ("competing_interests_declaration_present", "warning", "\\section*{Declaration of competing interests}"),
+    ]
+    for name, severity, marker in manuscript_checks:
+        present = marker in manuscript_text
+        rows.append(check_row(
+            "manuscript_declarations", name, severity, present,
+            "Required manuscript declaration is present" if present else "Author confirmation is required before submission",
+            path="manuscript/manuscript.tex",
+        ))
+    doi_present = "doi:" in (root / "CITATION.cff").read_text(encoding="utf-8") if (root / "CITATION.cff").exists() else False
+    rows.append(check_row(
+        "manuscript_declarations", "permanent_software_doi_present", "warning", doi_present,
+        "Permanent software DOI is recorded" if doi_present else "Archive the release and add its DOI before submission",
+        path="CITATION.cff",
+    ))
+
     release_manifest = read_json(reports_dir / "release_manifest.json")
     rows.append(check_row(
         "release_manifest",

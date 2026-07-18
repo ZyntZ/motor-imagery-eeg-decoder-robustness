@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-07-18T13:25:07.908206+00:00",
+  "generated_at_utc": "2026-07-18T19:01:19.148704+00:00",
   "python": "3.13.7",
   "platform": "Linux-4.4.0-x86_64-with-glibc2.36",
   "package_versions": {
@@ -410,13 +410,13 @@
     },
     {
       "path": "CITATION.cff",
-      "sha256": "663e3855697c59fa025cd61472568ff1421579a80caf7e07bcf66e0a14812b04",
+      "sha256": "6ef98b04681bbb46a0de859dd816061a982edfc8c57d90ff19383eb93c18e091",
       "bytes": 823
     },
     {
       "path": "DATA_PROVENANCE.md",
-      "sha256": "12199597f8a20a84cc187dcace62e53deb0e578b182f23d39c89aa7d4a9d5ad9",
-      "bytes": 1224
+      "sha256": "33478dd7087cb1e95761dcf5af5539f779a4e4944e1103bc789de251eca32890",
+      "bytes": 2196
     },
     {
       "path": "LICENSE",
@@ -425,8 +425,8 @@
     },
     {
       "path": "Makefile",
-      "sha256": "64ed09fa80ea91fad97214e44d7122ffd6406a709b53b09741b8d7672a2b906b",
-      "bytes": 12488
+      "sha256": "c593486762e51ae2ec910845d6dbe041c83dd672c6963a2568bc735b886f600e",
+      "bytes": 12489
     },
     {
       "path": "README.md",
@@ -445,8 +445,8 @@
     },
     {
       "path": "SUBMISSION_READINESS.md",
-      "sha256": "d22bc16777341f74370a5d9209215ffb64120ddbb17cb29d5622cf73588ecbb2",
-      "bytes": 645
+      "sha256": "4c4947bb89d660f16529dc76fee2a3e1dbd94798171c5d431c84d9510c082217",
+      "bytes": 884
     },
     {
       "path": "configs/benchmark.yaml",
@@ -460,8 +460,8 @@
     },
     {
       "path": "manuscript/cover_letter.md",
-      "sha256": "705f311d8bc642e0ba6f38a1dcd1c88a20d6373b4f7a7f10358959f5741de98a",
-      "bytes": 1566
+      "sha256": "b5983c5b2741e2caddb48cc0287b81f54e43ac0f5ee8292c2d6f585e3a5e5f3b",
+      "bytes": 1617
     },
     {
       "path": "manuscript/figure1_benchmark_pipeline.png",
@@ -480,12 +480,12 @@
     },
     {
       "path": "manuscript/manuscript.tex",
-      "sha256": "ff5feef4113c0c47b6e5ed15b342ed8b0675adfe39c2acf96c113a43b0ca9ab6",
-      "bytes": 25986
+      "sha256": "1eb7d725412e9006f37d2660c0ba81ebcf3b8107531d9b7083611b1360f0f20a",
+      "bytes": 27718
     },
     {
       "path": "pyproject.toml",
-      "sha256": "824241c8e61c287c51025a09b1e288d6dc82ee310c1568904cb976545695d81b",
+      "sha256": "5c2b1c41f1b1f60aa31d6a7d2a4bb93ce645fc69b89bb2c40b6ff3fa636124bb",
       "bytes": 1413
     },
     {
@@ -560,7 +560,7 @@
     },
     {
       "path": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_intervention_class_counts.svg",
-      "sha256": "ba735dc7c9685ae611cd5c60b589f21ec81ce36fa3e57e52f6a14531518ebf40",
+      "sha256": "edb8eea03aee1a250171c2bd3acb68e0a48b2dfd63ae0d96c9cd94297e2defe6",
       "bytes": 10909
     },
     {
@@ -570,7 +570,7 @@
     },
     {
       "path": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.svg",
-      "sha256": "a80576b0c307740fd11d326deda56500f5dd314be6135aea149cc40702e711f9",
+      "sha256": "f2d29e47876a1bfb7e4036cae8f9700c615310e0312bcf580214a2f0a1bdab8c",
       "bytes": 9774
     },
     {
@@ -580,7 +580,7 @@
     },
     {
       "path": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.svg",
-      "sha256": "ab82c66d5859d31f07251fd97a3876e420a218d047c204cd962712990ac7652e",
+      "sha256": "dd70ba79169774f1b621bd0fe97d47e3e59429492bf93747afe9d415839eddd6",
       "bytes": 46159
     },
     {
@@ -620,12 +620,12 @@
     },
     {
       "path": "reports/submission_readiness_checks.csv",
-      "sha256": "13d39c2e9defa9ef58c235f56e83a6b554fd6b4623a0bed0acc665cf67fc6371",
-      "bytes": 16342
+      "sha256": "abcdd8f34bef429ce408e8348b3a26f2b4105b82fcda5e03d99541c6dd33b323",
+      "bytes": 17456
     },
     {
       "path": "reports/submission_readiness_summary.json",
-      "sha256": "08d7bbdd1cca26070096af1115015b129bf2b7801dd19d6c1c1faca9e685ae81",
+      "sha256": "268d5edede28633e0b1a7f7b24dedd6acf0a201cade0d29efdd09a136cf4e555",
       "bytes": 450
     },
     {
@@ -984,11 +984,6 @@
       "bytes": 149376
     },
     {
-      "path": "results/PhysionetMI_PhysionetMI_all_riemann_lr_failure_rates_next.csv",
-      "sha256": "cb223d1b28784218b75d1cc0380e31afdf93d2f8c435b1f839d67b95285bdeea",
-      "bytes": 378
-    },
-    {
       "path": "results/PhysionetMI_PhysionetMI_all_riemann_lr_final_intervention_class_rates.csv",
       "sha256": "a78104643a0595a7ca4cff1b6caa559ce5a52d4a476a283d463d1800657b01bc",
       "bytes": 743
@@ -1047,16 +1042,6 @@
       "path": "results/PhysionetMI_PhysionetMI_all_riemann_lr_mixed_model_diagnostics_summary.json",
       "sha256": "79624347fa766c2d47b3aafec531966808c20738ef604584a3860e83f57db7f4",
       "bytes": 383
-    },
-    {
-      "path": "results/PhysionetMI_PhysionetMI_all_riemann_lr_next_summary.json",
-      "sha256": "191a902097e54904ec41542026568a165438e306e446c03746848a51e57a7948",
-      "bytes": 226
-    },
-    {
-      "path": "results/PhysionetMI_PhysionetMI_all_riemann_lr_paired_stats_next.csv",
-      "sha256": "96a26b4814ae392761bf35275b2e3c4f5e5d6f4313fd5ca2d440a4e47b8929ee",
-      "bytes": 1660
     },
     {
       "path": "results/PhysionetMI_PhysionetMI_all_riemann_lr_population_summary.csv",
@@ -1124,11 +1109,6 @@
       "bytes": 153617
     },
     {
-      "path": "results/PhysionetMI_PhysionetMI_all_riemann_lr_subject_wide.csv",
-      "sha256": "be648f113fcd0cc052954a12115494a6d2cc88c980117fa7ed80c59f009e9dc6",
-      "bytes": 13839
-    },
-    {
       "path": "results/PhysionetMI_csp_lda_vs_riemann_lr_manifest.json",
       "sha256": "320a438dd7eb6239c396f94e2aa538494ea6d8f3a63cc767ecd18c5401a9ff76",
       "bytes": 597
@@ -1150,8 +1130,8 @@
     },
     {
       "path": "scripts/build_release_archive.py",
-      "sha256": "a1a814ca719ebe9132c7591c9d9c0d35dc0bf0ed238121ff9748b57773eba567",
-      "bytes": 6208
+      "sha256": "198caac350e4e6041680b4ea1e403bb3675be2caf0abcbda1bb931f9c1d6d63c",
+      "bytes": 6209
     },
     {
       "path": "scripts/build_release_manifest.py",
@@ -1180,8 +1160,8 @@
     },
     {
       "path": "scripts/generate_submission_readiness.py",
-      "sha256": "17e8d0c1aae53e8ce01ea1ab9a3f82889faff322079ee62489833763dc223b71",
-      "bytes": 13470
+      "sha256": "b9459694a56c7c33e4563f8145ae1a723c39b39aa151fcbfa9cd763569c09668",
+      "bytes": 15094
     },
     {
       "path": "scripts/mixed_model_diagnostics.py",
@@ -1210,7 +1190,7 @@
     },
     {
       "path": "src/bci_robustness/__init__.py",
-      "sha256": "2e8b8abc9e42d25a917f00f00af6c4cfddcc5889e248c29505c4e684a7fff747",
+      "sha256": "c5bc52e115cb376eb12710e72535fc307bb6a6d3a4efa0b50f0f8dbb5c94107f",
       "bytes": 63
     },
     {
@@ -1250,8 +1230,8 @@
     },
     {
       "path": "tests/test_generate_submission_readiness.py",
-      "sha256": "e072f92ea0e3a9efef4da43dbf2b3642cc1fcb403c9a42832062e81937b00545",
-      "bytes": 5672
+      "sha256": "cfacfa70d15d6300c60ea3ad6be1765320ea644ff9f3b3b9a021073379bc0481",
+      "bytes": 6631
     },
     {
       "path": "tests/test_makefile_eeg_dependencies.py",

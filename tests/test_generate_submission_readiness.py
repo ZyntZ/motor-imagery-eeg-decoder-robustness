@@ -131,3 +131,23 @@ def test_full_physionet_is_first_class_and_exact_cohort_size_is_enforced():
     folds = checks.loc[checks["check"].eq(f"{full}:results.csv")].iloc[0]
     assert count["passed"] and count["n_subjects"] == 109
     assert folds["severity"] == "error" and bool(folds["passed"])
+
+
+def test_submission_readiness_checks_manuscript_declarations():
+    checks = generate_submission_readiness.build_checks(
+        ROOT, ROOT / "results", ROOT / "reports", generate_submission_readiness.DEFAULT_PREFIXES
+    )
+    declarations = checks[checks["category"].eq("manuscript_declarations")].set_index("check")
+    for name in [
+        "ethics_statement_present",
+        "funding_statement_present",
+        "credit_statement_present",
+        "generative_ai_disclosure_present",
+        "physionet_license_named",
+        "bnci_license_named",
+    ]:
+        assert bool(declarations.loc[name, "passed"]), name
+        assert declarations.loc[name, "severity"] == "error"
+    assert declarations.loc["competing_interests_declaration_present", "severity"] == "warning"
+    assert not bool(declarations.loc["competing_interests_declaration_present", "passed"])
+    assert declarations.loc["permanent_software_doi_present", "severity"] == "warning"
