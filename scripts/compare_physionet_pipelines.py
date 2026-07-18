@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Subject-paired comparison of full PhysioNet decoder outputs.
 
-Only observed subject-level summaries are used. Legacy region-dropout rows without
-region labels are harmonized by dropout fraction; no missing region is imputed.
+Only observed subject-level summaries are used. Named region-dropout conditions are
+matched directly between decoders; no regional rows are averaged or imputed.
 """
 from __future__ import annotations
 import argparse
@@ -31,23 +31,6 @@ def condition_frame(df: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
-def harmonize_region(df: pd.DataFrame) -> tuple[pd.DataFrame,list[str]]:
-    """Match legacy unlabeled region rows without inventing anatomical identity."""
-    notes=[]; out=[]
-    for _,g in df.groupby(['subject','pipeline'],sort=False):
-        non=g[g.stressor.ne('region_dropout')].copy(); out.append(non)
-        reg=g[g.stressor.eq('region_dropout')].copy()
-        if reg.empty: continue
-        # If a decoder has named rows, collapse names sharing a channel fraction.
-        # This matches the only information retained by the legacy comparator.
-        if 'region' in reg.columns and reg.region.notna().any():
-            metrics=[c for c in ['roc_auc','balanced_accuracy','brier_score','ece','n_channels','n_dropped_channels'] if c in reg]
-            keys=['dataset','subject','pipeline','stressor','montage','dropout_fraction']
-            reg=reg.groupby(keys,dropna=False,as_index=False)[metrics].mean()
-            notes.append('Named region rows sharing a dropout fraction were averaged to match legacy unlabeled rows.')
-        out.append(reg)
-    return pd.concat(out,ignore_index=True), sorted(set(notes))
-
 
 def proportion_ci(k,n,alpha=.05):
     if not n: return np.nan,np.nan
@@ -56,8 +39,8 @@ def proportion_ci(k,n,alpha=.05):
 
 
 def compare(csp,riem):
-    csp,notes=harmonize_region(csp); riem,rnotes=harmonize_region(riem); notes+=rnotes
     csp=condition_frame(csp); riem=condition_frame(riem)
+    notes=['Named region-dropout conditions were matched directly; no regional rows were averaged or imputed.']
     key=['subject','condition']
     if csp.duplicated(key).any() or riem.duplicated(key).any(): raise ValueError('Non-unique subject-condition rows after harmonization')
     m=csp[key+['roc_auc']].merge(riem[key+['roc_auc']],on=key,suffixes=('_csp','_riemann'),validate='one_to_one')
@@ -106,9 +89,9 @@ def main():
     table,pairs,notes=compare(c,r); a.reports_dir.mkdir(parents=True,exist_ok=True)
     csv=a.results_dir/f'{a.output_prefix}_paired_comparison.csv'; paircsv=a.results_dir/f'{a.output_prefix}_paired_subject_differences.csv'; tex=a.reports_dir/f'{a.output_prefix}_paired_comparison.tex'; md=a.reports_dir/f'{a.output_prefix}_paired_comparison.md'; val=a.reports_dir/f'{a.output_prefix}_validation.json'; manifest=a.results_dir/f'{a.output_prefix}_manifest.json'
     table.to_csv(csv,index=False); pairs.assign(paired_difference_csp_minus_riemann=pairs.roc_auc_csp-pairs.roc_auc_riemann).to_csv(paircsv,index=False); tex.write_text(tex_table(table),encoding='utf-8')
-    limitation=('The Riemann-LR summary has no named region column. Left and right motor-strip CSP rows share the same dropout fraction and were averaged for a valid like-for-like legacy fraction comparison. Separate left and right inter-model effects cannot be recovered without Riemann-LR fold-level or region-preserving subject data.')
+    limitation=('The comparison is offline and subject-paired. Named left, midline, and right regional-dropout conditions were matched directly; no missing observations were imputed.')
     md.write_text('# Paired decoder comparison\n\nPositive differences favor CSP-LDA. Tests are subject-paired; Benjamini-Hochberg correction is across compared conditions.\n\n'+dataframe_to_markdown(table)+'\n\n## Limitation\n\n'+limitation+'\n',encoding='utf-8')
-    validation={'passed':bool(len(table)==9 and table.n_subjects.eq(109).all()),'n_conditions':int(len(table)),'subjects_per_condition':{x.condition:int(x.n_subjects) for x in table.itertuples()},'harmonization_notes':notes,'limitation':limitation}
+    validation={'passed':bool(len(table)==10 and table.n_subjects.eq(109).all()),'n_conditions':int(len(table)),'subjects_per_condition':{x.condition:int(x.n_subjects) for x in table.itertuples()},'harmonization_notes':notes,'limitation':limitation}
     val.write_text(json.dumps(validation,indent=2)+'\n'); manifest.write_text(json.dumps({'sources':[str(a.results_dir/f'{a.csp_prefix}_subject_summary.csv'),str(a.results_dir/f'{a.riemann_prefix}_subject_summary.csv')],'outputs':[str(csv),str(paircsv),str(tex),str(md),str(val)],'no_imputation':True,'validation_passed':validation['passed']},indent=2)+'\n')
     print(json.dumps(validation,indent=2));
     if not validation['passed']: raise SystemExit(1)

@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this benchmark, cite the archived release and the source datasets referenced in DATA_PROVENANCE.md."
 title: "BCI Prosthesis Robustness Benchmark"
-version: "0.2.1"
-date-released: "2026-07-17"
+version: "0.2.2"
+date-released: "2026-07-18"
 license: "BSD-3-Clause"
 type: software
 authors:

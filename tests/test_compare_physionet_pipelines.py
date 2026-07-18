@@ -34,10 +34,10 @@ def test_committed_physionet_comparison_is_subject_paired_and_reproducible():
     observed, pairs, notes = compare_physionet_pipelines.compare(csp, riemann)
     committed = pd.read_csv(ROOT / "results" / "PhysionetMI_csp_lda_vs_riemann_lr_paired_comparison.csv")
 
-    assert len(observed) == 9
+    assert len(observed) == 10
     assert observed["n_subjects"].eq(109).all()
     assert not pairs.duplicated(["subject", "condition"]).any()
-    assert any("averaged" in note for note in notes)
+    assert any("matched directly" in note for note in notes)
     merged = observed.merge(committed, on="condition", suffixes=("_new", "_committed"), validate="one_to_one")
     for column in ["mean_paired_difference_csp_minus_riemann", "cohens_dz"]:
         delta = (merged[f"{column}_new"] - merged[f"{column}_committed"]).abs().max()

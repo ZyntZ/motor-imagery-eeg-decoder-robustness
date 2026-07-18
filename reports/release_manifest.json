@@ -1,19 +1,19 @@
 {
-  "generated_at_utc": "2026-07-18T12:55:50.732528+00:00",
-  "python": "3.12.1",
-  "platform": "Linux-6.8.0-1052-azure-x86_64-with-glibc2.39",
+  "generated_at_utc": "2026-07-18T13:25:07.908206+00:00",
+  "python": "3.13.7",
+  "platform": "Linux-4.4.0-x86_64-with-glibc2.36",
   "package_versions": {
-    "numpy": "2.4.6",
-    "pandas": "3.0.3",
+    "numpy": "2.4.3",
+    "pandas": "2.3.3",
     "scipy": "1.17.1",
-    "scikit-learn": "1.9.0",
+    "scikit-learn": "1.8.0",
     "statsmodels": "0.14.6",
-    "mne": "1.12.1",
-    "moabb": "1.5.0",
-    "pyriemann": "0.12",
-    "matplotlib": "3.11.0",
-    "plotly": "6.9.0",
-    "pytest": "9.1.1",
+    "mne": null,
+    "moabb": null,
+    "pyriemann": null,
+    "matplotlib": "3.10.8",
+    "plotly": "6.6.0",
+    "pytest": "9.0.2",
     "PyYAML": "6.0.3"
   },
   "prefixes": [
@@ -410,13 +410,13 @@
     },
     {
       "path": "CITATION.cff",
-      "sha256": "d98e7a8010522c3d04947c12b76537382b3394a39100de0c72f4a33bcae8e5bc",
+      "sha256": "663e3855697c59fa025cd61472568ff1421579a80caf7e07bcf66e0a14812b04",
       "bytes": 823
     },
     {
       "path": "DATA_PROVENANCE.md",
-      "sha256": "7d2934cccadeec68c10006cf5c251f59fb57303da551bb16df636b397d578536",
-      "bytes": 1264
+      "sha256": "12199597f8a20a84cc187dcace62e53deb0e578b182f23d39c89aa7d4a9d5ad9",
+      "bytes": 1224
     },
     {
       "path": "LICENSE",
@@ -425,8 +425,8 @@
     },
     {
       "path": "Makefile",
-      "sha256": "34f41beb9691759884b2280859641330b06d460240a76da60195ab9c65776ce5",
-      "bytes": 12492
+      "sha256": "64ed09fa80ea91fad97214e44d7122ffd6406a709b53b09741b8d7672a2b906b",
+      "bytes": 12488
     },
     {
       "path": "README.md",
@@ -435,8 +435,8 @@
     },
     {
       "path": "REPRODUCIBILITY.md",
-      "sha256": "58cceb4fa3ff8b1e385576287bd23d1cef9a953ecbd33455721c68537801555a",
-      "bytes": 3979
+      "sha256": "a0e3f5c6a5ef7ae8bc833d8a7bc651250ded63e2094517ebe2b93eae950f7e13",
+      "bytes": 3939
     },
     {
       "path": "STATISTICAL_REPORTING.md",
@@ -470,8 +470,8 @@
     },
     {
       "path": "manuscript/figure2_paired_decoder_comparison.png",
-      "sha256": "588b7fb9b1d0b05298e157e2e9d5f3b1620f1cbd725cc6ecee3d44786ad25870",
-      "bytes": 183200
+      "sha256": "6d3defd3edb583282f70fe004bad10c19effda73407ef367dabb6b2599164dec",
+      "bytes": 198850
     },
     {
       "path": "manuscript/highlights.txt",
@@ -480,12 +480,12 @@
     },
     {
       "path": "manuscript/manuscript.tex",
-      "sha256": "dab80bf12e36adcc4a07eaf42438c407b599fc905a4defb3c844c77011db9921",
-      "bytes": 26496
+      "sha256": "ff5feef4113c0c47b6e5ed15b342ed8b0675adfe39c2acf96c113a43b0ca9ab6",
+      "bytes": 25986
     },
     {
       "path": "pyproject.toml",
-      "sha256": "b543cf6775edb64eb8eb9314d776874f4607f1e23d0d9284b2dd3aac06af3a13",
+      "sha256": "824241c8e61c287c51025a09b1e288d6dc82ee310c1568904cb976545695d81b",
       "bytes": 1413
     },
     {
@@ -555,33 +555,33 @@
     },
     {
       "path": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_intervention_class_counts.png",
-      "sha256": "571116425890adadf10b31993f28a0f55f84ca39896f02d5ae06ab5e54bed2bb",
-      "bytes": 73900
+      "sha256": "f929927d6140203c1882223b8ffa735ead6e17708a276063fe20c866a7f33d38",
+      "bytes": 82657
     },
     {
       "path": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_intervention_class_counts.svg",
-      "sha256": "5254a9e0815f9fffc5829bac7f14fe027ba025f3c7a228d6e4cd0763e1135f0d",
-      "bytes": 10904
+      "sha256": "ba735dc7c9685ae611cd5c60b589f21ec81ce36fa3e57e52f6a14531518ebf40",
+      "bytes": 10909
     },
     {
       "path": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.png",
-      "sha256": "57e23f9d587b734157590adbd668e446f68bf06458415bb2444bd0fea7c8ca79",
-      "bytes": 118572
+      "sha256": "0d8913a9bf9b2002be79f798ef19bf9bdbb96c72dc0557678e47ad9125b2e570",
+      "bytes": 124600
     },
     {
       "path": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.svg",
-      "sha256": "fc276f13eae926fb09091374e60745eab722a04f398357b85aab37dd8d243815",
-      "bytes": 9773
+      "sha256": "a80576b0c307740fd11d326deda56500f5dd314be6135aea149cc40702e711f9",
+      "bytes": 9774
     },
     {
       "path": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.png",
-      "sha256": "f8721b7806a0c998e2aa7f54b67ff0ac6e9d2d1719c563c577943c429feb25de",
-      "bytes": 261827
+      "sha256": "71cd40353426467170412b07492fe12c1a5689558ec1fab782f1c68446901f7e",
+      "bytes": 267104
     },
     {
       "path": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.svg",
-      "sha256": "9f35b467f5cbf25594fca78f32c0d9c2c1b4079087fba5a2ce12d949a475574b",
-      "bytes": 46158
+      "sha256": "ab82c66d5859d31f07251fd97a3876e420a218d047c204cd962712990ac7652e",
+      "bytes": 46159
     },
     {
       "path": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_statistical_report_summary.md",
@@ -605,28 +605,28 @@
     },
     {
       "path": "reports/PhysionetMI_csp_lda_vs_riemann_lr_paired_comparison.md",
-      "sha256": "3f47de8b02438fa9f4578881d766a907f8e00035bd6e7470d2b585e2e6ca447e",
-      "bytes": 3064
+      "sha256": "87f6936df63289203c79647fc3655ce20495d3d42ded5fa74658bc537f1bbe94",
+      "bytes": 3144
     },
     {
       "path": "reports/PhysionetMI_csp_lda_vs_riemann_lr_paired_comparison.tex",
-      "sha256": "fa3f3062a424cb840b87d4dc59486d4463560d7da104a41eadcf2885297756a7",
-      "bytes": 1156
+      "sha256": "bed40cfe4cc0ab755b9a6be54ff2d481dc85f42f0e3bca2827d500d6bf5db856",
+      "bytes": 1256
     },
     {
       "path": "reports/PhysionetMI_csp_lda_vs_riemann_lr_validation.json",
-      "sha256": "71d87533b5d84d7f042f2298430ee86e01058b1f19d70e357ce03358b5a6a32c",
-      "bytes": 782
+      "sha256": "3cb1fe4f2059b275bee3c2f8549af3bc5ec9a259600997275382bc21e3c107fa",
+      "bytes": 674
     },
     {
       "path": "reports/submission_readiness_checks.csv",
-      "sha256": "12571809079f2ae662ce84e2a9fb8f94e404a02ca2e5b5a816cb884098b87837",
-      "bytes": 16344
+      "sha256": "13d39c2e9defa9ef58c235f56e83a6b554fd6b4623a0bed0acc665cf67fc6371",
+      "bytes": 16342
     },
     {
       "path": "reports/submission_readiness_summary.json",
-      "sha256": "4b506b168c7066250fdc30822c1ce83f3a74004a459fe7020544137e0a7a817e",
-      "bytes": 366
+      "sha256": "08d7bbdd1cca26070096af1115015b129bf2b7801dd19d6c1c1faca9e685ae81",
+      "bytes": 450
     },
     {
       "path": "requirements-lock.txt",
@@ -910,8 +910,8 @@
     },
     {
       "path": "results/PhysionetMI_PhysionetMI_all_csp_lda_mixed_model_diagnostics.csv",
-      "sha256": "3d6b4fa081fcd113fe93d47b0ddf91134e6af73b972899b88f83340f6c4b4361",
-      "bytes": 1763
+      "sha256": "2900f578aa5b4effb965cddc49bb8f2504fe26debdbac37264b61ae05c409868",
+      "bytes": 1764
     },
     {
       "path": "results/PhysionetMI_PhysionetMI_all_csp_lda_mixed_model_diagnostics_summary.json",
@@ -1040,8 +1040,8 @@
     },
     {
       "path": "results/PhysionetMI_PhysionetMI_all_riemann_lr_mixed_model_diagnostics.csv",
-      "sha256": "82fd98d4ff9c9c12074a3316947f13fa7249497027d1abcda98fb5061e046b45",
-      "bytes": 1660
+      "sha256": "bd81f78d60ec51bd6b45a70f7c390fd57c5bf77b49c04091ee24dd863dc7cfea",
+      "bytes": 1659
     },
     {
       "path": "results/PhysionetMI_PhysionetMI_all_riemann_lr_mixed_model_diagnostics_summary.json",
@@ -1135,13 +1135,13 @@
     },
     {
       "path": "results/PhysionetMI_csp_lda_vs_riemann_lr_paired_comparison.csv",
-      "sha256": "85f0387bc9ed3b193ebe92cb1e6a8115851911ce914041c810881e5409d99d92",
-      "bytes": 3411
+      "sha256": "4400929df2b6a1e482d15acccecc9e72ccd728f8fd3526a08d591dcb7768682f",
+      "bytes": 3765
     },
     {
       "path": "results/PhysionetMI_csp_lda_vs_riemann_lr_paired_subject_differences.csv",
-      "sha256": "b578a818d0c6f1f99aae13d102c95f9716713c2d8e8a0eeb04c075883a813745",
-      "bytes": 54043
+      "sha256": "075e9632f5b740874a8954ebb36fe5153c7ee482165176f3136e37b1f558521c",
+      "bytes": 60808
     },
     {
       "path": "scripts/analyze_robustness.py",
@@ -1150,8 +1150,8 @@
     },
     {
       "path": "scripts/build_release_archive.py",
-      "sha256": "591a208d59a62b97af1a674bedc7920b30552472d14d4eb55092bae7a12d3d61",
-      "bytes": 6207
+      "sha256": "a1a814ca719ebe9132c7591c9d9c0d35dc0bf0ed238121ff9748b57773eba567",
+      "bytes": 6208
     },
     {
       "path": "scripts/build_release_manifest.py",
@@ -1160,8 +1160,8 @@
     },
     {
       "path": "scripts/compare_physionet_pipelines.py",
-      "sha256": "568b01bd97bb29833870224b59f0e9866fc942eb6d499fcc508ef4bc7cdc9477",
-      "bytes": 7978
+      "sha256": "7062281da0ee9894394ccc49021dcab3276976378d934a32186ba0cb6576e36a",
+      "bytes": 6719
     },
     {
       "path": "scripts/final_statistics.py",
@@ -1180,8 +1180,8 @@
     },
     {
       "path": "scripts/generate_submission_readiness.py",
-      "sha256": "5fb3ddd2671db24795e4d64c6d0f1ee4f6fb2e610499f56aafd04f8e914a3f7f",
-      "bytes": 13497
+      "sha256": "17e8d0c1aae53e8ce01ea1ab9a3f82889faff322079ee62489833763dc223b71",
+      "bytes": 13470
     },
     {
       "path": "scripts/mixed_model_diagnostics.py",
@@ -1210,7 +1210,7 @@
     },
     {
       "path": "src/bci_robustness/__init__.py",
-      "sha256": "bfe44f73c713cf2d138d200eb41e4648552286775bb22639759ae18ebebb8f60",
+      "sha256": "2e8b8abc9e42d25a917f00f00af6c4cfddcc5889e248c29505c4e684a7fff747",
       "bytes": 63
     },
     {
@@ -1219,34 +1219,14 @@
       "bytes": 20794
     },
     {
-      "path": "src/bci_robustness_benchmark.egg-info/SOURCES.txt",
-      "sha256": "cd2b60c4db49f8685021d4c5a8679122182316eca3533c9d35d06b6b76d7feb2",
-      "bytes": 734
-    },
-    {
-      "path": "src/bci_robustness_benchmark.egg-info/dependency_links.txt",
-      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
-      "bytes": 1
-    },
-    {
-      "path": "src/bci_robustness_benchmark.egg-info/requires.txt",
-      "sha256": "22606382a859def90a11a6028d3fd00d6ccc2fd0edb6180852c9410880c76007",
-      "bytes": 296
-    },
-    {
-      "path": "src/bci_robustness_benchmark.egg-info/top_level.txt",
-      "sha256": "e2b934e50b3f989726d15a983dda2c8928cdd2ca904eba7f0fe0fe84278e04a8",
-      "bytes": 15
-    },
-    {
       "path": "tests/test_cli_and_release_archive.py",
       "sha256": "36d01f1500b8321b51272a4dd527b690968f3bb738df825f3301f7d5ff5dbb97",
       "bytes": 4069
     },
     {
       "path": "tests/test_compare_physionet_pipelines.py",
-      "sha256": "0a4b7524063bce73468cf48977d0acdf24cf15d711b7185741c77674066193a1",
-      "bytes": 2165
+      "sha256": "b1837ffdf04fe65c9d6c434218926706fcb491ca76af5d8c2378d500d824f2b9",
+      "bytes": 2174
     },
     {
       "path": "tests/test_core.py",
@@ -1270,7 +1250,7 @@
     },
     {
       "path": "tests/test_generate_submission_readiness.py",
-      "sha256": "789e1c1aeacda47944bb062bd595a069fb4de2c8de7f4f19fe8fc5d5053a5f51",
+      "sha256": "e072f92ea0e3a9efef4da43dbf2b3642cc1fcb403c9a42832062e81937b00545",
       "bytes": 5672
     },
     {

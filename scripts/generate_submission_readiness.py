@@ -33,7 +33,7 @@ EXPECTED_SUBJECT_COUNTS = {
     "PhysionetMI_PhysionetMI_all_riemann_lr": 109,
     "PhysionetMI_PhysionetMI_all_csp_lda": 109,
 }
-SUBJECT_SUMMARY_ONLY_PREFIXES = {"PhysionetMI_PhysionetMI_all_riemann_lr"}
+SUBJECT_SUMMARY_ONLY_PREFIXES: set[str] = set()
 REQUIRED_PROJECT_FILES = [
     "README.md",
     "LICENSE",

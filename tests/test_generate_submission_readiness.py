@@ -130,4 +130,4 @@ def test_full_physionet_is_first_class_and_exact_cohort_size_is_enforced():
     count = checks.loc[checks["check"].eq(f"{full}:expected_subject_count")].iloc[0]
     folds = checks.loc[checks["check"].eq(f"{full}:results.csv")].iloc[0]
     assert count["passed"] and count["n_subjects"] == 109
-    assert folds["severity"] == "warning" and not folds["passed"]
+    assert folds["severity"] == "error" and bool(folds["passed"])

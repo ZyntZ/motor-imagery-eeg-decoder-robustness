@@ -194,6 +194,6 @@ archive-audit: submission-readiness
 	$(PYTHON) scripts/build_release_archive.py --audit-only
 
 release-archive: archive-audit
-	$(PYTHON) scripts/build_release_archive.py --output dist/JNM_publication_readiness_update_v0.2.1.zip
+	$(PYTHON) scripts/build_release_archive.py --output dist/JNM_full_riemann_fold_update_v0.2.2.zip
 
 publication-check: compile-check test submission-readiness archive-audit

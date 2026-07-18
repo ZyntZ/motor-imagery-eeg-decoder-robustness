@@ -1,13 +1,13 @@
 model_id,diagnostic,statistic,p_value,passed,detail
 all_conditions,convergence,,,True,converged=True
-all_conditions,singularity,0.02543274881535047,,True,random_intercept_variance=0.025432749
-all_conditions,residual_normality_shapiro,0.9649991996468514,1.5722099953262012e-15,False,Diagnostic only; mixed-model inference does not require raw outcomes to be normal.
-all_conditions,homoscedasticity_breusch_pagan,208.6917846841022,4.975593872017651e-40,False,Null hypothesis: constant residual variance.
-all_conditions,leave_one_subject_out_influence,0.002149450673916413,,True,"max coefficient change for C(condition, Treatment(reference='clean'))[T.region_dropout_right_motor_strip]; subject=93; relative_change=0.04491"
+all_conditions,singularity,0.025432748815350445,,True,random_intercept_variance=0.025432749
+all_conditions,residual_normality_shapiro,0.9649991996468519,1.5722099953266491e-15,False,Diagnostic only; mixed-model inference does not require raw outcomes to be normal.
+all_conditions,homoscedasticity_breusch_pagan,208.69178468410232,4.975593872017364e-40,False,Null hypothesis: constant residual variance.
+all_conditions,leave_one_subject_out_influence,0.002149450673914463,,True,"max coefficient change for C(condition, Treatment(reference='clean'))[T.region_dropout_right_motor_strip]; subject=93; relative_change=0.04491"
 channel_dropout_linear,convergence,,,True,converged=True
-channel_dropout_linear,singularity,0.025768121681249076,,True,random_intercept_variance=0.025768122
-channel_dropout_linear,residual_normality_shapiro,0.9884613918026942,0.0002698065274767538,False,Diagnostic only; mixed-model inference does not require raw outcomes to be normal.
+channel_dropout_linear,singularity,0.025768121681249,,True,random_intercept_variance=0.025768122
+channel_dropout_linear,residual_normality_shapiro,0.9884613918026938,0.00026980652747664655,False,Diagnostic only; mixed-model inference does not require raw outcomes to be normal.
 channel_dropout_linear,homoscedasticity_breusch_pagan,5.101429860151816,0.0239061291542189,False,Null hypothesis: constant residual variance.
-channel_dropout_linear,leave_one_subject_out_influence,0.0044401686982603605,,True,max coefficient change for dropout_fraction; subject=86; relative_change=0.01897
-channel_dropout_linearity,quadratic_term,5.607021674355621,2.0583789259745667e-08,False,Cluster-robust subject-demeaned quadratic sensitivity test.
-channel_dropout_linearity,ramsey_reset,14.210145021826776,0.0001814399446974586,False,RESET test of linear functional form; sensitivity diagnostic.
+channel_dropout_linear,leave_one_subject_out_influence,0.004440168698260444,,True,max coefficient change for dropout_fraction; subject=86; relative_change=0.01897
+channel_dropout_linearity,quadratic_term,5.607021674355624,2.0583789259745287e-08,False,Cluster-robust subject-demeaned quadratic sensitivity test.
+channel_dropout_linearity,ramsey_reset,14.210145021826762,0.0001814399446974599,False,RESET test of linear functional form; sensitivity diagnostic.

@@ -13,6 +13,6 @@ Raw EEG data are not bundled. Reproduction requires downloading datasets through
 ## Full PhysioNet release outputs
 
 - `PhysionetMI_PhysionetMI_all_csp_lda*`: 109 participants; fold-level and participant-level outputs are included.
-- `PhysionetMI_PhysionetMI_all_riemann_lr*`: 109 participants; participant-level outputs are included, but the fold-level `results.csv` is unavailable. It was not reconstructed or fabricated.
-- The legacy Riemann-LR participant summary retains regional dropout fractions but not anatomical region names. Direct model comparison therefore uses matched 3/64 and 9/64 channel-dropout fractions; separate left/right effects cannot be recovered.
+- `PhysionetMI_PhysionetMI_all_riemann_lr*`: 109 participants; 25,070 fold/repeat rows and 1,090 participant-condition rows are included. Fold-to-participant aggregation passed all validation checks.
+- Both full PhysioNet summaries retain the named left, midline, and right motor-strip dropout conditions. Direct decoder comparison matches these anatomical conditions without averaging or imputation.
 - PhysioNet cross-session rows were not available. Cross-session results in the manuscript are restricted to BNCI2014-001 (`n=9`).

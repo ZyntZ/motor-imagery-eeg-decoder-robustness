@@ -157,7 +157,7 @@ def build_archive(root: Path, output: Path, top_level_name: str | None = None) -
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--root", type=Path, default=Path("."))
-    ap.add_argument("--output", type=Path, default=Path("dist/JNM_csp_riemann_publication_update.zip"))
+    ap.add_argument("--output", type=Path, default=Path("dist/JNM_full_riemann_fold_update_v0.2.2.zip"))
     ap.add_argument("--audit-only", action="store_true")
     args = ap.parse_args()
     root = args.root.resolve()
