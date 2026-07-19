@@ -55,7 +55,8 @@ statistics:
   - calibration_error
   confidence_intervals: bootstrap_subject_level
   bootstrap_repeats: 2000
-  primary_model: mixed_effects_subject_random_intercept
+  primary_inference: participant_level_paired_comparisons
+  secondary_model: mixed_effects_subject_random_intercept
   multiple_comparisons: benjamini_hochberg_fdr
   alpha: 0.05
 analysis:

@@ -124,7 +124,7 @@ def paired_stats(wide: pd.DataFrame) -> pd.DataFrame:
             w_stat, w_p = np.nan, np.nan
         ci_low, ci_high = bootstrap_ci(diff.to_numpy())
         dz = diff.mean() / diff.std(ddof=1) if diff.std(ddof=1) > 0 else np.nan
-        label = c.replace('auc_', '').replace('dropout_', 'dropout_')
+        label = c.replace('auc_', '')
         rows.append({
             'condition': label,
             'n_subjects': n,

@@ -1,75 +1,28 @@
-# Statistical reporting workflow
+# Statistical reporting
 
-This repository includes a reporting script that converts completed benchmark summaries into tables suitable for methods and results sections. The script reads existing `{prefix}_subject_summary.csv` files and writes derived quality-control and inferential summaries. It does not download data or add benchmark observations.
+Population inference is based on participant-level summaries. Fold and dropout-repeat measurements are averaged within each participant and condition before confidence intervals or hypothesis tests are calculated.
 
-## Pre-report validation
-
-Run validation before statistical reporting so schema and aggregation problems are caught before manuscript tables are produced:
+## Recreate the reports
 
 ```bash
-python scripts/validate_results.py \
-  --results-dir results \
-  --reports-dir reports \
-  --prefix PhysionetMI_PhysionetMI_all_csp_lda \
-  --allow-warnings
+make validate-results
+make statistical-reports
+make compare-physionet-pipelines
+make mixed-model-diagnostics
 ```
 
-The validator writes `reports/{prefix}_validation_checks.csv` and `reports/{prefix}_validation_summary.json`. It fails on missing required columns, impossible metric values, duplicate evaluation keys, invalid channel counts, missing clean baselines for paired stressor rows, or mismatches between `{prefix}_results.csv` fold means and `{prefix}_subject_summary.csv`. Warnings cover optional metric absence and dropout-fraction inconsistencies that may need manual review.
-
-## Command
-
-```bash
-python scripts/generate_statistical_report.py \
-  --results-dir results \
-  --reports-dir reports \
-  --prefix PhysionetMI_PhysionetMI_all_riemann_lr
-```
-
-## Outputs
-
-For a prefix such as `PhysionetMI_PhysionetMI_all_riemann_lr`, the script writes:
-
-- `results/{prefix}_statistical_methods_audit.csv`: row counts, subject counts, duplicate subject-condition checks, missingness, and metric range checks.
-- `results/{prefix}_statistical_paired_effects.csv`: within-subject paired effects against the clean all-channel baseline for ROC AUC, balanced accuracy, Brier score, and expected calibration error.
-- `results/{prefix}_statistical_channel_dropout_subject_slopes.csv`: subject-level linear slopes across clean and channel-dropout fractions.
-- `results/{prefix}_statistical_channel_dropout_slope_summary.csv`: population mean slope per 10% channel dropout with confidence intervals and assumption checks.
-- `results/{prefix}_statistical_report_table.csv`: compact table for ROC AUC and balanced accuracy.
-- `reports/{prefix}_statistical_report_table.tex`: LaTeX version of the compact table.
-- `reports/{prefix}_statistical_report_summary.md`: Markdown summary of audit, paired effects, and channel-dropout slopes.
-- `results/{prefix}_statistical_report_manifest.json`: source and output manifest.
-
-
-
-## Extended interpretation outputs
-
-The reporting script now writes additional publication-facing tables derived from the same subject-summary CSV:
-
-- `results/{prefix}_statistical_effect_size_interpretation.csv`: mean and median paired deltas, median confidence intervals, Cohen's dz magnitude labels, sign-test results, and per-condition worsening/improvement counts.
-- `results/{prefix}_statistical_sensitivity_summary.csv`: primary ROC AUC, secondary balanced accuracy, and optional calibration-metric availability by condition.
-- `results/{prefix}_statistical_overclaim_flags.csv`: flags for low subject count, development-subset prefixes, missing calibration metrics, absent cross-session stressors, failed-subject logs, and uneven paired sample sizes.
-
-These files do not add observations. They summarize existing subject-level result rows and are intended to make limitations visible before manuscript drafting.
+The scripts read `results/*_subject_summary.csv`. They do not download EEG data or create additional benchmark observations. Numerical outputs remain in `results/`; formatted tables and figures are written to the selected reports directory. The main generated files are paired-effects tables, compact statistical tables, mixed-model coefficients and diagnostics, and the paired PhysioNet decoder comparison.
 
 ## Statistical conventions
 
-- Every available stressor condition is paired within subject against the clean all-channel baseline, including random channel dropout, reduced montages, named-region dropout, and cross-session transfer when present.
-- Mean paired deltas and channel-dropout slopes use Student t confidence intervals.
-- Shapiro-Wilk tests screen normality of paired deltas and slopes when sample size permits.
-- Wilcoxon signed-rank tests are reported as non-parametric sensitivity checks.
-- Benjamini-Hochberg false discovery rate correction is applied across all available condition comparisons within each reported test family.
-- `scripts/final_statistics.py` fits two maximum-likelihood mixed-effects models with a subject random intercept: `roc_auc ~ C(condition, Treatment(reference="clean"))` across all conditions, and `roc_auc ~ dropout_fraction` restricted to clean and random channel-dropout rows. Coefficients are reported with 95% Wald confidence intervals and model-wise Benjamini-Hochberg adjusted p-values for non-intercept fixed effects.
-- Mixed-model residual normality, linearity of the dropout dose response, and homoscedasticity remain assumptions to assess from model diagnostics before confirmatory interpretation. Small cohorts can yield boundary variance estimates and require cautious reporting.
+Each available stressor is compared with the same participant's clean all-channel result. The reported analyses include mean paired differences with two-sided 95% Student t confidence intervals, paired t tests, Cohen's $d_z$, Wilcoxon signed-rank sensitivity tests and exact sign tests. Benjamini–Hochberg false-discovery-rate correction is applied within each stated test family. Shapiro–Wilk tests describe the distribution of paired differences.
 
-## Commit hygiene
+Population condition means use bias-corrected and accelerated bootstrap intervals with 2,000 resamples and seed 42.
 
-Generated report files are reproducible from the CSV summaries and can be regenerated with the command above. Keep source scripts, tests, configuration, and selected reference CSV outputs under version control; keep local caches, checkpoints, bytecode, and one-off dashboards out of commits.
+Two maximum-likelihood mixed-effects models with participant random intercepts are secondary analyses. One treats condition as categorical, with clean data as the reference. The other estimates a linear slope over clean and random-dropout conditions. Fixed-effect coefficients use 95% Wald intervals. Residual normality, constant variance and linear dose response are checked before interpretation. These assumptions failed for parts of the reported analysis, so the mixed-model slope is descriptive rather than the primary evidence.
 
+For the direct PhysioNet comparison, decoders are matched by participant and condition. The principal contrast is CSP–LDA ROC-AUC minus Riemannian logistic-regression ROC-AUC. A second, exploratory contrast compares each decoder's change from its own clean baseline.
 
-## Figure outputs
+## Validation scope
 
-`scripts/generate_methods_figures.py` creates three methods-paper figures from existing CSV results: a pipeline schematic, a paired channel-dropout degradation plot, and intervention/risk-class counts. The bar chart is descriptive only and must not be interpreted causally.
-
-
-## Dependency note
-
-The LaTeX and Markdown table writers avoid optional pandas Styler dependencies such as Jinja2 and tabulate so CI can regenerate reports with the base reporting dependencies.
+`validate_results.py` checks required columns, metric ranges, duplicate evaluation keys, channel counts, paired clean baselines and agreement between fold-level and participant-level means. It does not establish that the corruption model represents physical electrode failure, that model assumptions hold, or that a result generalizes to online BCI use.

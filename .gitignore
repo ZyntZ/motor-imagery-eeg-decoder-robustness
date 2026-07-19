@@ -1,26 +1,20 @@
-# Python caches/build products
+# Python
 __pycache__/
 *.py[cod]
 .pytest_cache/
-*.egg-info/
 .venv/
-.env
 
-# OS/editor
-.DS_Store
-.idea/
-.vscode/
-
-# Local raw data/cache paths
+# Local EEG data and checkpoints
 moabb_data/
-mne_data/
-data/
-
-# Long-run transient state and release archives
 results/checkpoints/
-dist/
-*.zip
 
-# Local logs/notebook checkpoints
-*.log
-*.ipynb_checkpoints/
+# Generated release and validation copies
+artifacts/
+dist/
+
+# LaTeX build files
+manuscript/*.aux
+manuscript/*.fdb_latexmk
+manuscript/*.fls
+manuscript/*.log
+manuscript/*.out

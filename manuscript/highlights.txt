@@ -1,5 +1,4 @@
-• Participant-level inference separated subjects from folds and dropout repeats.
 • Fifty-percent channel dropout reduced ROC-AUC by 0.128 and 0.121.
-• Riemannian logistic regression outperformed CSP-LDA under channel dropout.
-• A nine-channel motor montage retained full-montage ROC-AUC for both models.
-• Machine-readable diagnostics rejected a linear dropout dose-response.
+• Riemannian logistic regression had higher ROC-AUC under channel dropout.
+• Nine-channel estimates were close to full-montage estimates; equivalence was not tested.
+• The dropout dose-response was nonlinear over the tested fractions.

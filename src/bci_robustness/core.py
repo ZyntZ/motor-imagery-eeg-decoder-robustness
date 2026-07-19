@@ -6,7 +6,6 @@ documented data source.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Iterable, Sequence
 
 import numpy as np
@@ -23,14 +22,6 @@ except Exception as exc:  # pragma: no cover
     CSP = None
     _CSP_IMPORT_ERROR = exc
 
-
-@dataclass(frozen=True)
-class DropoutSpec:
-    """Specification for a test-time channel-dropout stressor."""
-
-    fraction: float
-    repeat: int
-    random_seed: int
 
 
 def make_csp_lda(n_components: int = 6, random_state: int = 42) -> Pipeline:
