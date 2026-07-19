@@ -7,6 +7,7 @@ from bci_robustness.core import (
     apply_named_region_dropout,
     channel_indices,
     expected_calibration_error,
+    evaluate_subject_cross_session,
     evaluate_subject_reduced_montages,
     evaluate_subject_with_dropout,
     select_channels,
@@ -133,3 +134,18 @@ def test_csp_reduced_montages_clamp_components_to_channel_count():
     assert len(out) == 4
     assert set(out["n_channels"]) == {3}
     assert np.isfinite(out["roc_auc"]).all()
+
+
+def test_cross_session_uses_sorted_session_labels(monkeypatch):
+    class DummyClassifier:
+        def fit(self, X, y):
+            return self
+
+    monkeypatch.setattr("bci_robustness.core.make_pipeline_by_name", lambda *args, **kwargs: DummyClassifier())
+    monkeypatch.setattr("bci_robustness.core._score_fold", lambda clf, X, y: (0.7, 0.6, 0.2, 0.1))
+    X = np.zeros((8, 3, 12))
+    y = np.array([0, 1, 0, 1, 0, 1, 0, 1])
+    metadata = pd.DataFrame({"session": ["session_2"] * 4 + ["session_1"] * 4})
+    out = evaluate_subject_cross_session(X, y, metadata, subject_id=1)
+    assert set(out["session_train"]) == {"session_1"}
+    assert set(out["session_test"]) == {"session_2"}

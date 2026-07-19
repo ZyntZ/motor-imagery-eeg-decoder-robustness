@@ -3,6 +3,7 @@ import math
 from pathlib import Path
 
 import pandas as pd
+import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location(
@@ -46,3 +47,16 @@ def test_committed_physionet_comparison_is_subject_paired_and_reproducible():
         observed["proportion_csp_better_ci95_low"]
         <= observed["proportion_csp_better_ci95_high"]
     ).all()
+
+
+def test_difference_in_degradation_uses_each_decoder_clean_baseline():
+    csp = pd.read_csv(ROOT / "results" / "PhysionetMI_PhysionetMI_all_csp_lda_subject_summary.csv")
+    riemann = pd.read_csv(ROOT / "results" / "PhysionetMI_PhysionetMI_all_riemann_lr_subject_summary.csv")
+    _, pairs, _ = compare_physionet_pipelines.compare(csp, riemann)
+    summary, subject_values = compare_physionet_pipelines.difference_in_degradation(pairs)
+    assert len(summary) == 9
+    assert summary["n_subjects"].eq(109).all()
+    dropout50 = summary.loc[summary["condition"].eq("dropout_0.5")].iloc[0]
+    assert dropout50["mean_difference_in_degradation_csp_minus_riemann"] == pytest.approx(-0.006681, abs=1e-6)
+    assert dropout50["ci95_low"] < 0 < dropout50["ci95_high"]
+    assert not subject_values.duplicated(["subject", "condition"]).any()

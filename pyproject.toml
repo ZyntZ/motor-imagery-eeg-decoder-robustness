@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bci-robustness-benchmark"
-version = "0.2.3"
+version = "0.3.0"
 description = "Benchmark of two motor-imagery EEG decoders under simulated channel loss and reduced electrode montages."
 readme = "README.md"
 license = "BSD-3-Clause"

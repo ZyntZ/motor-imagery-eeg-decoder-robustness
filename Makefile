@@ -194,6 +194,6 @@ archive-audit: submission-readiness
 	$(PYTHON) scripts/build_release_archive.py --audit-only
 
 release-archive: archive-audit
-	$(PYTHON) scripts/build_release_archive.py --output dist/JNM_ethics_permissions_update_v0.2.3.zip
+	$(PYTHON) scripts/build_release_archive.py --output dist/MI_EEG_repository_simplification_v0.3.0.zip
 
 publication-check: compile-check test submission-readiness archive-audit

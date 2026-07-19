@@ -72,7 +72,7 @@ def package_versions() -> dict[str, str | None]:
 
 
 def read_validation_summary(reports_dir: Path, prefix: str) -> dict[str, object] | None:
-    path = reports_dir.parent / "artifacts" / "validation" / f"{prefix}_validation_summary.json"
+    path = reports_dir.parent / "validation" / f"{prefix}_validation_summary.json"
     if not path.exists():
         return None
     return json.loads(path.read_text(encoding="utf-8"))

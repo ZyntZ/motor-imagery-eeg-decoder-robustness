@@ -468,6 +468,7 @@ def evaluate_subject_cross_session(
     if session_col is None:
         return pd.DataFrame()
     sessions = [s for s in pd.unique(meta[session_col]) if pd.notna(s)]
+    sessions = sorted(sessions, key=lambda value: (str(type(value)), str(value)))
     if len(sessions) < 2:
         return pd.DataFrame()
     first_session = sessions[0]

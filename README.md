@@ -31,9 +31,10 @@ make physionet-full
 
 ## Main outputs
 
-- `results/subject_level/`: one row per participant and condition, used for inference.
-- `results/comparisons/PhysionetMI_csp_vs_riemann.csv`: paired decoder contrasts.
-- `results/fold_level/`: fold/repeat measurements compressed as CSV gzip files.
+- `results/*_subject_summary.csv`: one row per participant and condition, used for inference.
+- `results/PhysionetMI_csp_lda_vs_riemann_lr_paired_comparison.csv`: paired absolute-AUC contrasts.
+- `results/PhysionetMI_csp_lda_vs_riemann_lr_difference_in_degradation.csv`: paired contrasts of change from clean.
+- `results/*_results.csv`: fold/repeat measurements.
 
 Generated consistency checks are stored under `artifacts/validation/`. They test schemas, ranges, keys, and fold-to-participant aggregation; they do not establish scientific validity.
 
@@ -119,9 +120,7 @@ Statistical definitions and multiplicity corrections are documented in `STATISTI
 configs/                 benchmark parameters
 src/bci_robustness/      evaluation and summary functions
 scripts/                 command-line analyses
-results/subject_level/   canonical participant-condition tables
-results/fold_level/      compressed fold/repeat tables
-results/comparisons/     cross-pipeline contrasts
+results/                 canonical fold, participant, and comparison tables
 artifacts/validation/    generated consistency checks
 artifacts/manifests/     file inventories and hashes
 manuscript/              article source, figures, and cover letter
