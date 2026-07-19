@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-07-18T19:01:19.953987+00:00",
+  "generated_at_utc": "test",
   "prefixes": [
     "BNCI2014-001_BNCI2014_001_all_csp_lda",
     "BNCI2014-001_BNCI2014_001_all_riemann_lr",
@@ -7,8 +7,8 @@
     "PhysionetMI_PhysionetMI_all_csp_lda"
   ],
   "ready": true,
-  "n_checks": 85,
+  "n_checks": 56,
   "n_failed_errors": 0,
   "n_failed_warnings": 2,
-  "note": "Checks are derived from repository files only; no benchmark observations were generated."
+  "note": "test-generated readiness summary"
 }

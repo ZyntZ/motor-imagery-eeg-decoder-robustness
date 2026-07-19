@@ -1,0 +1,17 @@
+{
+  "sources": [
+    "results/PhysionetMI_PhysionetMI_all_csp_lda_subject_summary.csv",
+    "results/PhysionetMI_PhysionetMI_all_riemann_lr_subject_summary.csv"
+  ],
+  "outputs": [
+    "results/PhysionetMI_csp_lda_vs_riemann_lr_paired_comparison.csv",
+    "results/PhysionetMI_csp_lda_vs_riemann_lr_paired_subject_differences.csv",
+    "results/PhysionetMI_csp_lda_vs_riemann_lr_difference_in_degradation.csv",
+    "results/PhysionetMI_csp_lda_vs_riemann_lr_difference_in_degradation_subjects.csv",
+    "artifacts/generated_reports/PhysionetMI_csp_lda_vs_riemann_lr_paired_comparison.tex",
+    "artifacts/generated_reports/PhysionetMI_csp_lda_vs_riemann_lr_paired_comparison.md",
+    "artifacts/generated_reports/PhysionetMI_csp_lda_vs_riemann_lr_validation.json"
+  ],
+  "no_imputation": true,
+  "validation_passed": true
+}

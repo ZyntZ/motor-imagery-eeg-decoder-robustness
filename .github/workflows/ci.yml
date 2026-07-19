@@ -8,11 +8,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
-      - run: python -m pip install -e ".[dev]"
-      - run: python -m compileall -q scripts src
-      - run: python -m pytest
-      - run: make validate-results
+          cache: pip
+      - name: Install test and reporting dependencies
+        run: python -m pip install -e ".[dev,reports]"
+      - name: Compile Python sources
+        run: python -m compileall -q scripts src
+      - name: Run tests
+        run: python -m pytest
+      - name: Validate included results
+        run: make validate-results
