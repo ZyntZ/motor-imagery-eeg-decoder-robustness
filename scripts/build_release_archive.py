@@ -55,7 +55,6 @@ REQUIRED_FILES = [
     "REPRODUCIBILITY.md",
     "STATISTICAL_REPORTING.md",
     "manuscript/manuscript.tex",
-    "manuscript/manuscript.pdf",
     "manuscript/highlights.txt",
     ".github/workflows/ci.yml",
     "scripts/validate_results.py",

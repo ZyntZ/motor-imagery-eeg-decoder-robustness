@@ -2,16 +2,16 @@
   "prefix": "PhysionetMI_PhysionetMI_all_riemann_lr",
   "metric": "roc_auc",
   "source_files": [
-    "/workspace/review_work/BCI-Prosthesis-Robustness-Benchmark-main/results/PhysionetMI_PhysionetMI_all_riemann_lr_subject_summary.csv"
+    "/workspace/BCI-Prosthesis-Robustness-Benchmark-ci-fixed/results/PhysionetMI_PhysionetMI_all_riemann_lr_subject_summary.csv"
   ],
   "outputs": {
     "pipeline_schematic": {
-      "png": "/workspace/review_work/BCI-Prosthesis-Robustness-Benchmark-main/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.png",
-      "svg": "/workspace/review_work/BCI-Prosthesis-Robustness-Benchmark-main/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.svg"
+      "png": "/workspace/BCI-Prosthesis-Robustness-Benchmark-ci-fixed/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.png",
+      "svg": "/workspace/BCI-Prosthesis-Robustness-Benchmark-ci-fixed/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.svg"
     },
     "robustness_degradation": {
-      "png": "/workspace/review_work/BCI-Prosthesis-Robustness-Benchmark-main/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.png",
-      "svg": "/workspace/review_work/BCI-Prosthesis-Robustness-Benchmark-main/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.svg"
+      "png": "/workspace/BCI-Prosthesis-Robustness-Benchmark-ci-fixed/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.png",
+      "svg": "/workspace/BCI-Prosthesis-Robustness-Benchmark-ci-fixed/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.svg"
     }
   },
   "note": "Figures are generated from committed participant-level results."

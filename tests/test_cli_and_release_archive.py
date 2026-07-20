@@ -86,3 +86,7 @@ def test_release_archive_builder_excludes_cache_files(tmp_path):
     assert result["archive_file_count"] == result["n_included_files"]
     assert result["archive_junk_entries"] == []
     assert output.exists() and output.stat().st_size > 0
+
+
+def test_generated_manuscript_pdf_is_not_required_by_release_audit():
+    assert "manuscript/manuscript.pdf" not in build_release_archive.REQUIRED_FILES

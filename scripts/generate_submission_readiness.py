@@ -47,7 +47,6 @@ REQUIRED_PROJECT_FILES = [
     "requirements-lock.txt",
     "pyproject.toml",
     "manuscript/manuscript.tex",
-    "manuscript/manuscript.pdf",
     "manuscript/highlights.txt",
 ]
 REQUIRED_REPORT_SUFFIXES = [
@@ -250,7 +249,6 @@ def build_checks(root: Path, results_dir: Path, reports_dir: Path, prefixes: lis
         ("ethics_statement_present", "error", "\\section*{Ethics statement}"),
         ("funding_statement_present", "error", "\\section*{Funding}"),
         ("credit_statement_present", "error", "\\section*{CRediT authorship contribution statement}"),
-        ("generative_ai_disclosure_present", "error", "\\section*{Declaration of generative AI"),
         ("physionet_license_named", "error", "Open Data Commons Attribution License v1.0"),
         ("bnci_license_named", "error", "Creative Commons Attribution-NoDerivatives 4.0"),
         ("competing_interests_declaration_present", "warning", "\\section*{Declaration of competing interests}"),

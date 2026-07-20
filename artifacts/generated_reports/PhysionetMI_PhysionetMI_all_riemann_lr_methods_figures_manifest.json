@@ -2,23 +2,17 @@
   "prefix": "PhysionetMI_PhysionetMI_all_riemann_lr",
   "metric": "roc_auc",
   "source_files": [
-    "results/PhysionetMI_PhysionetMI_all_riemann_lr_subject_summary.csv",
-    "results/PhysionetMI_PhysionetMI_all_riemann_lr_final_intervention_classes.csv"
+    "results/PhysionetMI_PhysionetMI_all_riemann_lr_subject_summary.csv"
   ],
   "outputs": {
     "pipeline_schematic": {
-      "png": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.png",
-      "svg": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.svg"
+      "png": "artifacts/generated_reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.png",
+      "svg": "artifacts/generated_reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.svg"
     },
     "robustness_degradation": {
-      "png": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.png",
-      "svg": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.svg"
-    },
-    "intervention_class_counts": {
-      "png": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_intervention_class_counts.png",
-      "svg": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_intervention_class_counts.svg"
+      "png": "artifacts/generated_reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.png",
+      "svg": "artifacts/generated_reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.svg"
     }
   },
-  "style_note": "Conventional journal figures with fixed layouts, human-readable labels, and restrained color.",
-  "note": "Figures are generated from existing repository CSV outputs only; no synthetic benchmark observations are used."
+  "note": "Figures are generated from committed participant-level results."
 }

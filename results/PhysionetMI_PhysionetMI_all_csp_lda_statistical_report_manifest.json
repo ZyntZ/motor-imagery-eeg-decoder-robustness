@@ -1,0 +1,19 @@
+{
+  "prefix": "PhysionetMI_PhysionetMI_all_csp_lda",
+  "source_csv": "results/PhysionetMI_PhysionetMI_all_csp_lda_subject_summary.csv",
+  "n_subjects": 109,
+  "n_subject_condition_rows": 1090,
+  "outputs": {
+    "methods_audit": "results/PhysionetMI_PhysionetMI_all_csp_lda_statistical_methods_audit.csv",
+    "paired_effects": "results/PhysionetMI_PhysionetMI_all_csp_lda_statistical_paired_effects.csv",
+    "effect_size_interpretation": "results/PhysionetMI_PhysionetMI_all_csp_lda_statistical_effect_size_interpretation.csv",
+    "sensitivity_summary": "results/PhysionetMI_PhysionetMI_all_csp_lda_statistical_sensitivity_summary.csv",
+    "overclaim_flags": "results/PhysionetMI_PhysionetMI_all_csp_lda_statistical_overclaim_flags.csv",
+    "channel_dropout_subject_slopes": "results/PhysionetMI_PhysionetMI_all_csp_lda_statistical_channel_dropout_subject_slopes.csv",
+    "channel_dropout_slope_summary": "results/PhysionetMI_PhysionetMI_all_csp_lda_statistical_channel_dropout_slope_summary.csv",
+    "report_table_csv": "results/PhysionetMI_PhysionetMI_all_csp_lda_statistical_report_table.csv",
+    "report_table_tex": "artifacts/generated_reports/PhysionetMI_PhysionetMI_all_csp_lda_statistical_report_table.tex",
+    "markdown_summary": "artifacts/generated_reports/PhysionetMI_PhysionetMI_all_csp_lda_statistical_report_summary.md"
+  },
+  "note": "Derived from existing subject summary CSV only; no simulated data used."
+}

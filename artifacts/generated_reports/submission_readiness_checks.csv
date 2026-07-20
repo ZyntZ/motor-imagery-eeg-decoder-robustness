@@ -42,12 +42,13 @@ analysis_artifacts,PhysionetMI_PhysionetMI_all_csp_lda:results.csv,error,True,An
 analysis_artifacts,PhysionetMI_PhysionetMI_all_csp_lda:subject_summary.csv,error,True,Analysis artifact is present,results/PhysionetMI_PhysionetMI_all_csp_lda_subject_summary.csv,,PhysionetMI_PhysionetMI_all_csp_lda,,,,
 analysis_artifacts,PhysionetMI_PhysionetMI_all_csp_lda:population_summary.csv,error,True,Analysis artifact is present,results/PhysionetMI_PhysionetMI_all_csp_lda_population_summary.csv,,PhysionetMI_PhysionetMI_all_csp_lda,,,,
 analysis_scope,PhysionetMI_PhysionetMI_all_csp_lda:expected_subject_count,error,True,Expected 109 unique subjects; found 109,,,PhysionetMI_PhysionetMI_all_csp_lda,,,109.0,109.0
-methods_figures,PhysionetMI_PhysionetMI_all_riemann_lr:methods_pipeline_schematic.svg,error,True,Methods figure artifact is present,reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.svg,,PhysionetMI_PhysionetMI_all_riemann_lr,,,,
-methods_figures,PhysionetMI_PhysionetMI_all_riemann_lr:methods_robustness_degradation_roc_auc.svg,error,True,Methods figure artifact is present,reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.svg,,PhysionetMI_PhysionetMI_all_riemann_lr,,,,
-methods_figures,PhysionetMI_PhysionetMI_all_riemann_lr:methods_figures_manifest.json,error,True,Methods figure artifact is present,reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_figures_manifest.json,,PhysionetMI_PhysionetMI_all_riemann_lr,,,,
+methods_figures,PhysionetMI_PhysionetMI_all_riemann_lr:methods_pipeline_schematic.svg,error,True,Methods figure artifact is present,artifacts/generated_reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.svg,,PhysionetMI_PhysionetMI_all_riemann_lr,,,,
+methods_figures,PhysionetMI_PhysionetMI_all_riemann_lr:methods_robustness_degradation_roc_auc.svg,error,True,Methods figure artifact is present,artifacts/generated_reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.svg,,PhysionetMI_PhysionetMI_all_riemann_lr,,,,
+methods_figures,PhysionetMI_PhysionetMI_all_riemann_lr:methods_figures_manifest.json,error,True,Methods figure artifact is present,artifacts/generated_reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_figures_manifest.json,,PhysionetMI_PhysionetMI_all_riemann_lr,,,,
 manuscript_declarations,ethics_statement_present,error,True,Required manuscript declaration is present,manuscript/manuscript.tex,,,,,,
 manuscript_declarations,funding_statement_present,error,True,Required manuscript declaration is present,manuscript/manuscript.tex,,,,,,
 manuscript_declarations,credit_statement_present,error,True,Required manuscript declaration is present,manuscript/manuscript.tex,,,,,,
+
 manuscript_declarations,physionet_license_named,error,True,Required manuscript declaration is present,manuscript/manuscript.tex,,,,,,
 manuscript_declarations,bnci_license_named,error,True,Required manuscript declaration is present,manuscript/manuscript.tex,,,,,,
 manuscript_declarations,competing_interests_declaration_present,warning,False,Author confirmation is required before submission,manuscript/manuscript.tex,,,,,,

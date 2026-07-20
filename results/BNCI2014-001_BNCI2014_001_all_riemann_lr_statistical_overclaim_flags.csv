@@ -1,0 +1,7 @@
+flag,triggered,detail
+low_subject_count,True,n_subjects=9; population-level claims should be cautious below 20 subjects.
+development_subset_prefix,False,"Prefix contains 'dev'; treat as development output, not final population estimate."
+missing_calibration_metrics,False,Missing optional calibration metrics: none
+cross_session_absent,False,Cross-session stressor present.
+skipped_subject_log_present,False,Found 0 failed-subject log files matching prefix.
+uneven_or_low_paired_n,False,minimum paired n=9; total subject n=9.

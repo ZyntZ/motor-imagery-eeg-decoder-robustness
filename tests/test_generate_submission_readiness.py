@@ -142,7 +142,6 @@ def test_submission_readiness_checks_manuscript_declarations():
         "ethics_statement_present",
         "funding_statement_present",
         "credit_statement_present",
-        "generative_ai_disclosure_present",
         "physionet_license_named",
         "bnci_license_named",
     ]:

@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "test",
+  "generated_at_utc": "2026-07-20T17:43:19.878238+00:00",
   "prefixes": [
     "BNCI2014-001_BNCI2014_001_all_csp_lda",
     "BNCI2014-001_BNCI2014_001_all_riemann_lr",
@@ -10,5 +10,5 @@
   "n_checks": 55,
   "n_failed_errors": 0,
   "n_failed_warnings": 2,
-  "note": "test-generated readiness summary"
+  "note": "Checks are derived from repository files only; no benchmark observations were generated."
 }
