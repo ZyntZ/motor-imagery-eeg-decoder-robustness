@@ -1,8 +1,8 @@
 # Data provenance
 
-This repository contains code and example benchmark outputs derived from EEG datasets accessed through MOABB/MNE wrappers.
+This repository contains code and derived benchmark outputs derived from EEG datasets accessed through MOABB/MNE wrappers.
 
-Included example outputs:
+Included BNCI2014-001 outputs:
 
 - `BNCI2014-001_BNCI2014_001_all_csp_lda*`: BNCI2014-001 subjects 1-9 with CSP+LDA.
 - `BNCI2014-001_BNCI2014_001_all_riemann_lr*`: BNCI2014-001 subjects 1-9 with a Riemannian tangent-space logistic regression baseline.

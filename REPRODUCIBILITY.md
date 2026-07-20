@@ -32,7 +32,7 @@ make validate-results
 make compare-physionet-pipelines
 ```
 
-These commands test imports, syntax, unit-level behavior and consistency of the included result tables. They do not independently recreate the fold-level measurements from raw EEG.
+These commands test imports, syntax, unit-level behavior and consistency of the included result tables. They do not independently recreate the fold-level measurements from raw EEG and cannot verify that the committed outputs came from the committed code. A strong reproducibility check requires a clean full rerun and comparison of regenerated tables.
 
 ## Full benchmark
 
@@ -60,7 +60,7 @@ make compare-physionet-pipelines
 make methods-figures
 ```
 
-`make publication-check` runs syntax checks, tests, result validation and report regeneration. `make release-archive` audits the repository and builds the configured release ZIP.
+`make publication-check` runs syntax checks, tests, result validation, report regeneration, and the archive audit. `make release-archive` builds the configured release ZIP.
 
 ## Manuscript
 
