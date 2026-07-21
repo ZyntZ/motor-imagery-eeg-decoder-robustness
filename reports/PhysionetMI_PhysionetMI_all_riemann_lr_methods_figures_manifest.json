@@ -1,0 +1,18 @@
+{
+  "prefix": "PhysionetMI_PhysionetMI_all_riemann_lr",
+  "metric": "roc_auc",
+  "source_files": [
+    "/workspace/_github_45_repaired/results/PhysionetMI_PhysionetMI_all_riemann_lr_subject_summary.csv"
+  ],
+  "outputs": {
+    "pipeline_schematic": {
+      "png": "/workspace/_github_45_repaired/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.png",
+      "svg": "/workspace/_github_45_repaired/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.svg"
+    },
+    "robustness_degradation": {
+      "png": "/workspace/_github_45_repaired/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.png",
+      "svg": "/workspace/_github_45_repaired/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.svg"
+    }
+  },
+  "note": "Figures are generated from committed participant-level results."
+}

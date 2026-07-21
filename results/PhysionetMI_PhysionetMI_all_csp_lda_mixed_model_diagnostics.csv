@@ -1,0 +1,14 @@
+model_id,diagnostic,statistic,p_value,passed,detail
+all_conditions,convergence,,,True,converged=True
+all_conditions,singularity,0.01282944309078116,,True,random_intercept_variance=0.012829443
+all_conditions,residual_normality_shapiro,0.9874816208975932,4.9123374687595396e-08,False,Diagnostic only; mixed-model inference does not require raw outcomes to be normal.
+all_conditions,homoscedasticity_breusch_pagan,151.36704702828015,4.5941329676839155e-28,False,Null hypothesis: constant residual variance.
+all_conditions,leave_one_subject_out_influence,0.0036908908143641547,,True,"max coefficient change for C(condition, Treatment(reference='clean'))[T.region_dropout_right_motor_strip]; subject=94; relative_change=0.06013"
+channel_dropout_linear,convergence,,,True,converged=True
+channel_dropout_linear,singularity,0.010056110311230068,,True,random_intercept_variance=0.01005611
+channel_dropout_linear,residual_normality_shapiro,0.9595247349166794,4.327811308327365e-11,False,Diagnostic only; mixed-model inference does not require raw outcomes to be normal.
+channel_dropout_linear,homoscedasticity_breusch_pagan,35.7002230692849,2.301376594011885e-09,False,Null hypothesis: constant residual variance.
+channel_dropout_linear,leave_one_subject_out_influence,0.005896473053073031,,True,max coefficient change for dropout_fraction; subject=49; relative_change=0.02505
+channel_dropout_linear,fit_warnings,21.0,,False,The MLE may be on the boundary of the parameter space.
+channel_dropout_linearity,quadratic_term,8.347058931695198,6.998380312404168e-17,False,Cluster-robust subject-demeaned quadratic sensitivity test.
+channel_dropout_linearity,ramsey_reset,58.81100255181638,8.093780745390784e-14,False,RESET test of linear functional form; sensitivity diagnostic.

@@ -1,0 +1,8 @@
+{
+  "prefix": "PhysionetMI_PhysionetMI_all_riemann_lr",
+  "n_diagnostics": 12,
+  "n_failed_diagnostics": 6,
+  "all_models_fit": true,
+  "interpretation": "Failed assumption diagnostics require robust/sensitivity interpretation; they do not automatically invalidate observed paired effects.",
+  "output": "results/PhysionetMI_PhysionetMI_all_riemann_lr_mixed_model_diagnostics.csv"
+}

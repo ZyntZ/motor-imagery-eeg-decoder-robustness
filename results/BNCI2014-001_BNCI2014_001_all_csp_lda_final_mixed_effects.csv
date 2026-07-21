@@ -1,0 +1,15 @@
+model_id,model,term,estimate,ci_low,ci_high,p_value,n_subjects,n_subject_condition_rows,status,p_value_bh_fdr
+all_conditions,"roc_auc ~ C(condition, Treatment(reference='clean'))",Intercept,0.8523469792197474,0.7605683638859189,0.944125594553576,4.960900871155657e-74,9,90,fit,
+all_conditions,"roc_auc ~ C(condition, Treatment(reference='clean'))","C(condition, Treatment(reference='clean'))[T.cross_session_0]",0.0006408465690022461,-0.0399369088877475,0.041218602025752,0.9753063750609589,9,90,fit,0.9753063750609589
+all_conditions,"roc_auc ~ C(condition, Treatment(reference='clean'))","C(condition, Treatment(reference='clean'))[T.dropout_0.1]",-0.11583404110752477,-0.1564117965642745,-0.07525628565077502,2.2068423535466458e-08,9,90,fit,3.9723162363839624e-08
+all_conditions,"roc_auc ~ C(condition, Treatment(reference='clean'))","C(condition, Treatment(reference='clean'))[T.dropout_0.2]",-0.1611344676594376,-0.20171222311618736,-0.12055671220268784,7.080969370055865e-15,9,90,fit,1.5932181082625698e-14
+all_conditions,"roc_auc ~ C(condition, Treatment(reference='clean'))","C(condition, Treatment(reference='clean'))[T.dropout_0.3]",-0.21115230356906897,-0.25173005902581874,-0.17057454811231923,2.004066452198686e-24,9,90,fit,9.018299034894087e-24
+all_conditions,"roc_auc ~ C(condition, Treatment(reference='clean'))","C(condition, Treatment(reference='clean'))[T.dropout_0.5]",-0.23587452579129123,-0.276452281248041,-0.1952967703345415,4.527044505222372e-30,9,90,fit,4.0743400547001347e-29
+all_conditions,"roc_auc ~ C(condition, Treatment(reference='clean'))","C(condition, Treatment(reference='clean'))[T.motor_core]",-0.09781156219919564,-0.1383893176559454,-0.05723380674244589,2.3075121877617924e-06,9,90,fit,3.4612682816426886e-06
+all_conditions,"roc_auc ~ C(condition, Treatment(reference='clean'))","C(condition, Treatment(reference='clean'))[T.motor_extended]",-0.05095407961044072,-0.09153183506719047,-0.010376324153690969,0.013849037617047777,9,90,fit,0.01558016731917875
+all_conditions,"roc_auc ~ C(condition, Treatment(reference='clean'))","C(condition, Treatment(reference='clean'))[T.region_dropout_0.136364]",-0.0867750033029459,-0.12735275875969565,-0.046197247846196145,2.7729028003487805e-05,9,90,fit,3.565160743305575e-05
+all_conditions,"roc_auc ~ C(condition, Treatment(reference='clean'))","C(condition, Treatment(reference='clean'))[T.region_dropout_0.318182]",-0.16376479248060666,-0.2043425479373564,-0.12318703702385692,2.5723356087924992e-15,9,90,fit,7.717006826377499e-15
+all_conditions,"roc_auc ~ C(condition, Treatment(reference='clean'))",Group Var,9.231444599478385,0.14344627604946858,18.3194429229073,0.046491844974145664,9,90,fit,
+channel_dropout_dose,roc_auc ~ dropout_fraction,Intercept,0.8053799453011704,0.7266602335729075,0.8840996570294333,1.9250891467402483e-89,9,45,fit,
+channel_dropout_dose,roc_auc ~ dropout_fraction,dropout_fraction,-0.444691062304023,-0.5306496128981525,-0.35873251170989356,3.689067504463109e-24,9,45,fit,3.689067504463109e-24
+channel_dropout_dose,roc_auc ~ dropout_fraction,Group Var,5.139632334525739,-0.37615981415380517,10.655424483205284,0.06780500149749694,9,45,fit,

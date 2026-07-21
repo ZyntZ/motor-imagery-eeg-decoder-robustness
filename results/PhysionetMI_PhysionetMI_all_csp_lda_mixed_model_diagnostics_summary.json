@@ -1,0 +1,8 @@
+{
+  "prefix": "PhysionetMI_PhysionetMI_all_csp_lda",
+  "n_diagnostics": 13,
+  "n_failed_diagnostics": 7,
+  "all_models_fit": true,
+  "interpretation": "Failed assumption diagnostics require robust/sensitivity interpretation; they do not automatically invalidate observed paired effects.",
+  "output": "results/PhysionetMI_PhysionetMI_all_csp_lda_mixed_model_diagnostics.csv"
+}

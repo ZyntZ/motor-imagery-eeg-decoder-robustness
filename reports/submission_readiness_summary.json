@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "test",
+  "prefixes": [
+    "BNCI2014-001_BNCI2014_001_all_csp_lda",
+    "BNCI2014-001_BNCI2014_001_all_riemann_lr",
+    "PhysionetMI_PhysionetMI_all_riemann_lr",
+    "PhysionetMI_PhysionetMI_all_csp_lda"
+  ],
+  "ready": true,
+  "n_checks": 54,
+  "n_failed_errors": 0,
+  "n_failed_warnings": 2,
+  "note": "test-generated readiness summary"
+}
