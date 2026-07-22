@@ -33,6 +33,17 @@ def ensure_required_method_figures_exist():
     generate_methods_figures.generate_figures(ROOT / "results", ROOT / "reports", FIGURE_PREFIX, "roc_auc")
 
 
+
+def ensure_release_manifest_exists():
+    """Generate the manifest at the canonical path used by release tooling."""
+    spec = importlib.util.spec_from_file_location("build_release_manifest", ROOT / "scripts" / "build_release_manifest.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    output = ROOT / "reports" / "release_manifest.json"
+    manifest = mod.build_manifest(ROOT, ROOT / "results", ROOT / "reports", mod.DEFAULT_PREFIXES, output)
+    output.write_text(__import__("json").dumps(manifest, indent=2) + "\n", encoding="utf-8")
+
+
 def ensure_submission_readiness_exists():
     """Create readiness artifacts from committed reports for archive-audit tests."""
     spec = importlib.util.spec_from_file_location("generate_submission_readiness", ROOT / "scripts" / "generate_submission_readiness.py")
@@ -69,6 +80,7 @@ def test_run_benchmark_dry_run_smoke():
 
 def test_release_archive_audit_passes_after_generating_required_outputs():
     ensure_required_method_figures_exist()
+    ensure_release_manifest_exists()
     ensure_submission_readiness_exists()
     audit = build_release_archive.audit_release(ROOT)
     assert audit["passed"]
@@ -79,6 +91,7 @@ def test_release_archive_audit_passes_after_generating_required_outputs():
 
 def test_release_archive_builder_excludes_cache_files(tmp_path):
     ensure_required_method_figures_exist()
+    ensure_release_manifest_exists()
     ensure_submission_readiness_exists()
     output = tmp_path / "release.zip"
     result = build_release_archive.build_archive(ROOT, output, top_level_name="release-test")

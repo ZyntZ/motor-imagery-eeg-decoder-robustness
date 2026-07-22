@@ -185,7 +185,7 @@ methods-figures:
 	$(PYTHON) scripts/generate_methods_figures.py --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR) --prefix PhysionetMI_PhysionetMI_all_riemann_lr --metric roc_auc
 
 release-manifest: validate-results statistical-reports mixed-model-diagnostics compare-physionet-pipelines methods-figures
-	$(PYTHON) scripts/build_release_manifest.py --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR) --output $(MANIFEST_DIR)/release_manifest.json
+	$(PYTHON) scripts/build_release_manifest.py --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR) --output $(REPORTS_DIR)/release_manifest.json
 
 submission-readiness: release-manifest
 	$(PYTHON) scripts/generate_submission_readiness.py --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR)

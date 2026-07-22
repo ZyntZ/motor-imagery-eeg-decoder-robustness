@@ -148,7 +148,7 @@ def main() -> None:
     ap.add_argument("--results-dir", type=Path, default=Path("results"))
     ap.add_argument("--reports-dir", type=Path, default=Path("reports"))
     ap.add_argument("--prefix", action="append", dest="prefixes", help="Prefix to include; may be supplied multiple times")
-    ap.add_argument("--output", type=Path, default=Path("artifacts/manifests/release_manifest.json"))
+    ap.add_argument("--output", type=Path, default=Path("reports/release_manifest.json"))
     ap.add_argument("--allow-not-ready", action="store_true")
     args = ap.parse_args()
 

@@ -8,7 +8,7 @@ On PhysioNet, Riemannian logistic regression had higher mean ROC-AUC at each tes
 
 The repository contains the analysis code, participant-level tables and commands used to reproduce the reported comparisons. The study is a secondary analysis of public, de-identified datasets and received no external funding.
 
-The manuscript is original and is not under consideration elsewhere. Code and derived results are available at https://github.com/ZyntZ/BCI-Prosthesis-Robustness-Benchmark.
+The manuscript is original and is not under consideration elsewhere. Code and derived results are available at https://github.com/ZyntZ/motor-imagery-eeg-decoder-robustness.
 
 Sincerely,
 

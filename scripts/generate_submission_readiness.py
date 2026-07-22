@@ -267,14 +267,14 @@ def build_checks(root: Path, results_dir: Path, reports_dir: Path, prefixes: lis
         path="CITATION.cff",
     ))
 
-    release_manifest = read_json(root / "artifacts" / "manifests" / "release_manifest.json")
+    release_manifest = read_json(reports_dir / "release_manifest.json")
     rows.append(check_row(
         "release_manifest",
         "release_manifest_ready",
         "error",
         bool(release_manifest and release_manifest.get("release_ready")),
         "Release manifest reports release_ready=true" if release_manifest and release_manifest.get("release_ready") else "Release manifest missing or not release-ready",
-        path="artifacts/manifests/release_manifest.json",
+        path=rel(reports_dir / "release_manifest.json", root),
     ))
 
     return pd.DataFrame(rows)

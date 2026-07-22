@@ -48,7 +48,7 @@ def prepare_release_ready_tree(source_root: Path, tmp_path: Path) -> Path:
             "--results-dir",
             "results",
             "--reports-dir",
-            "artifacts/generated_reports",
+            "reports",
             "--prefix",
             generate_submission_readiness.REQUIRED_METHOD_FIGURE_PREFIX,
             "--metric",
@@ -67,9 +67,9 @@ def prepare_release_ready_tree(source_root: Path, tmp_path: Path) -> Path:
             "--results-dir",
             "results",
             "--reports-dir",
-            "artifacts/generated_reports",
+            "reports",
             "--output",
-            "artifacts/manifests/release_manifest.json",
+            "reports/release_manifest.json",
         ],
         cwd=work,
         check=True,
@@ -101,7 +101,7 @@ def test_consistency_checks_detect_missing_canonical_subject_table(tmp_path):
 
 def test_submission_readiness_detects_missing_required_artifact(tmp_path):
     work = prepare_release_ready_tree(ROOT, tmp_path)
-    missing = work / "artifacts" / "manifests" / "release_manifest.json"
+    missing = work / "reports" / "release_manifest.json"
     missing.unlink()
     checks = generate_submission_readiness.build_checks(work, work / "results", work / "reports", generate_submission_readiness.DEFAULT_PREFIXES)
     release_rows = checks[checks["check"] == "release_manifest_ready"]
