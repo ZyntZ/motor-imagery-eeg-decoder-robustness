@@ -2,8 +2,8 @@ PYTHON ?= python
 CONFIG ?= configs/benchmark.yaml
 RESULTS_DIR ?= results
 REPORTS_DIR ?= reports
-VALIDATION_DIR ?= reports
-MANIFEST_DIR ?= reports
+VALIDATION_DIR ?= artifacts/validation
+MANIFEST_DIR ?= artifacts/manifests
 PREFIX ?= PhysionetMI_PhysionetMI_all_riemann_lr
 EXPECTED_SUBJECTS ?= 109
 PHYSIONET_FULL_PREFIXES ?= PhysionetMI_PhysionetMI_all_riemann_lr PhysionetMI_PhysionetMI_all_csp_lda
@@ -194,6 +194,6 @@ archive-audit: submission-readiness
 	$(PYTHON) scripts/build_release_archive.py --audit-only
 
 release-archive: archive-audit
-	$(PYTHON) scripts/build_release_archive.py --output dist/MI_EEG_repository_simplification_v0.3.0.zip
+	$(PYTHON) scripts/build_release_archive.py --output dist/MI_EEG_repository_simplification_v0.3.1.zip
 
 publication-check: compile-check test submission-readiness archive-audit

@@ -71,8 +71,14 @@ def package_versions() -> dict[str, str | None]:
     return versions
 
 
-def read_validation_summary(reports_dir: Path, prefix: str) -> dict[str, object] | None:
-    path = reports_dir.parent / "validation" / f"{prefix}_validation_summary.json"
+def read_validation_summary(root: Path, prefix: str) -> dict[str, object] | None:
+    """Read the canonical release validation summary.
+
+    Validation artifacts are stored under ``artifacts/validation``. Deriving this
+    path from ``reports_dir.parent`` incorrectly points to a sibling ``validation``
+    directory when reports live in the repository's ``reports`` directory.
+    """
+    path = root / "artifacts" / "validation" / f"{prefix}_validation_summary.json"
     if not path.exists():
         return None
     return json.loads(path.read_text(encoding="utf-8"))
@@ -114,7 +120,7 @@ def expected_outputs(root: Path, results_dir: Path, reports_dir: Path, prefixes:
 def build_manifest(root: Path, results_dir: Path, reports_dir: Path, prefixes: list[str], output_path: Path | None = None) -> dict[str, object]:
     files = iter_manifest_files(root, {output_path} if output_path else set())
     expected = expected_outputs(root, results_dir, reports_dir, prefixes)
-    validation = {prefix: read_validation_summary(reports_dir, prefix) for prefix in prefixes}
+    validation = {prefix: read_validation_summary(root, prefix) for prefix in prefixes}
     failed_validations = [p for p, s in validation.items() if not s or int(s.get("n_failed_errors", 1)) > 0]
     missing_expected = [row for row in expected if not row["exists"]]
     return {

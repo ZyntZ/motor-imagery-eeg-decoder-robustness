@@ -10,7 +10,7 @@ authors:
     orcid: "https://orcid.org/0009-0000-5733-9994"
     affiliation: "Southern Federal University"
     email: "ansokolova@sfedu.ru"
-repository-code: "https://github.com/ZyntZ/BCI-Prosthesis-Robustness-Benchmark"
+repository-code: "https://github.com/ZyntZ/motor-imagery-eeg-decoder-robustness"
 abstract: "Benchmark code and participant-level results for two motor-imagery EEG decoding pipelines under simulated channel loss and reduced electrode montages."
 keywords:
   - EEG

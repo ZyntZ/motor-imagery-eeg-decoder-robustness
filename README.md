@@ -72,4 +72,4 @@ manuscript/              article source and submission figures
 tests/                   unit and integration tests
 ```
 
-Raw EEG is not redistributed. Dataset identifiers and licenses are listed in `DATA_PROVENANCE.md`; statistical definitions are in `STATISTICAL_REPORTING.md`. The code is released under the BSD 3-Clause License. Source datasets retain their original licenses.
+Raw EEG is not redistributed. Dataset identifiers and licenses are listed in `DATA_PROVENANCE.md`. The code is released under the BSD 3-Clause License. Source datasets retain their original licenses.

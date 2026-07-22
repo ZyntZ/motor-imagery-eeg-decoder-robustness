@@ -21,3 +21,7 @@ jobs:
         run: python -m pytest
       - name: Validate included results
         run: make validate-results
+      - name: Check submission readiness
+        run: make submission-readiness
+      - name: Audit release tree
+        run: python scripts/build_release_archive.py --audit-only
