@@ -1,4 +1,4 @@
-project_name: bci_prosthesis_robustness_benchmark
+project_name: motor_imagery_eeg_robustness_legacy
 moabb_data_dir: moabb_data
 results_dir: results
 random_seed: 42

@@ -146,7 +146,7 @@ def _score_fold(estimator, X_test: np.ndarray, y_test: np.ndarray) -> tuple[floa
     y_score, is_probability = _binary_scores(estimator, X_test)
     y_true_bin = _positive_class_binary(estimator, y_test)
     try:
-        auc = roc_auc_score(y_test, y_score)
+        auc = roc_auc_score(y_true_bin, y_score)
     except ValueError:
         auc = np.nan
     if is_probability:
@@ -163,7 +163,7 @@ def evaluate_subject_with_dropout(
     y: np.ndarray,
     subject_id: str | int,
     dropout_fractions: Iterable[float] = (0.0, 0.1, 0.2, 0.3, 0.5),
-    repeats_per_fraction: int = 20,
+    repeats_per_fraction: int = 10,
     n_splits: int = 5,
     random_seed: int = 42,
     csp_components: int = 6,
@@ -477,6 +477,8 @@ def evaluate_subject_region_dropout(
                 "roc_auc": auc,
                 "brier_score": brier,
                 "ece": ece,
+                "protocol_version": BENCHMARK_PROTOCOL_VERSION,
+                "mask_seed_scope": "not_applicable",
             })
     return pd.DataFrame(rows)
 
@@ -529,5 +531,7 @@ def evaluate_subject_cross_session(
             "roc_auc": auc,
             "brier_score": brier,
             "ece": ece,
+            "protocol_version": BENCHMARK_PROTOCOL_VERSION,
+            "mask_seed_scope": "not_applicable",
         })
     return pd.DataFrame(rows)

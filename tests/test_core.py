@@ -8,9 +8,11 @@ from bci_robustness.core import (
     channel_indices,
     expected_calibration_error,
     evaluate_subject_cross_session,
+    evaluate_subject_region_dropout,
     evaluate_subject_reduced_montages,
     evaluate_subject_with_dropout,
     _dropout_rng,
+    _score_fold,
     select_channels,
     subject_level_summary,
 )
@@ -58,6 +60,27 @@ def test_channel_selection_and_named_region_dropout():
     assert dropped_idx == [0, 2]
     assert np.all(x_region[:, dropped_idx, :] == 0.0)
     assert np.all(x_region[:, [1, 3], :] == 1.0)
+
+
+
+def test_score_fold_uses_estimator_class_order_for_auc():
+    class StringLabelEstimator:
+        classes_ = np.array(["left", "right"])
+
+        def predict(self, X):
+            return np.where(X[:, 0, 0] >= 0.5, "right", "left")
+
+        def predict_proba(self, X):
+            p_right = X[:, 0, 0]
+            return np.column_stack([1.0 - p_right, p_right])
+
+    X = np.array([[[0.1]], [[0.8]], [[0.2]], [[0.9]]])
+    y = np.array(["left", "right", "left", "right"])
+    auc, balanced_accuracy, brier, ece = _score_fold(StringLabelEstimator(), X, y)
+    assert auc == pytest.approx(1.0)
+    assert balanced_accuracy == pytest.approx(1.0)
+    assert brier == pytest.approx(0.025)
+    assert ece == pytest.approx(0.15)
 
 
 def test_expected_calibration_error_equal_width_bins():
@@ -137,6 +160,23 @@ def test_csp_reduced_montages_clamp_components_to_channel_count():
     assert np.isfinite(out["roc_auc"]).all()
 
 
+
+def test_region_dropout_records_protocol_provenance(monkeypatch):
+    class DummyClassifier:
+        def fit(self, X, y):
+            return self
+
+    monkeypatch.setattr("bci_robustness.core.make_pipeline_by_name", lambda *args, **kwargs: DummyClassifier())
+    monkeypatch.setattr("bci_robustness.core._score_fold", lambda clf, X, y: (0.7, 0.6, 0.2, 0.1))
+    X = np.ones((8, 3, 12))
+    y = np.array([0, 1, 0, 1, 0, 1, 0, 1])
+    out = evaluate_subject_region_dropout(
+        X, y, ["C3", "Cz", "C4"], subject_id=1,
+        region_names=("midline_motor_strip",), n_splits=2,
+    )
+    assert set(out["protocol_version"]) == {"0.3.1"}
+    assert set(out["mask_seed_scope"]) == {"not_applicable"}
+
 def test_cross_session_uses_sorted_session_labels(monkeypatch):
     class DummyClassifier:
         def fit(self, X, y):
@@ -150,6 +190,8 @@ def test_cross_session_uses_sorted_session_labels(monkeypatch):
     out = evaluate_subject_cross_session(X, y, metadata, subject_id=1)
     assert set(out["session_train"]) == {"session_1"}
     assert set(out["session_test"]) == {"session_2"}
+    assert set(out["protocol_version"]) == {"0.3.1"}
+    assert set(out["mask_seed_scope"]) == {"not_applicable"}
 
 
 def test_participant_specific_dropout_masks_are_reproducible_and_distinct():

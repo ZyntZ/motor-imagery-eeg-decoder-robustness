@@ -16,6 +16,7 @@ dependencies:
   - matplotlib>=3.7
   - seaborn>=0.13
   - plotly>=5.18
+  - pillow>=9.0
   - pytest>=8.0
   - pip:
       - -e .

@@ -24,7 +24,7 @@ def test_eeg_install_uses_same_configured_python():
 
 def test_postprocessing_targets_require_reporting_dependencies():
     makefile = (ROOT / "Makefile").read_text(encoding="utf-8")
-    for target in ["analyze-full", "recommendations-full"]:
+    for target in ["analyze-full"]:
         assert f"{target}: ensure-reports" in makefile
     assert '$(PYTHON) -m pip install -e ".[reports]"' in makefile
     assert '$(PYTHON) -c "import matplotlib, plotly, seaborn"' in makefile

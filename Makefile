@@ -145,8 +145,6 @@ postprocess-physionet-full-available: ensure-reports
 analyze-full: ensure-reports
 	$(PYTHON) scripts/analyze_robustness.py --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR) --prefix $(PREFIX)
 
-recommendations-full: ensure-reports
-
 final-stats-full:
 	$(PYTHON) scripts/final_statistics.py --results-dir $(RESULTS_DIR) --prefix $(PREFIX)
 
