@@ -127,6 +127,7 @@ def checkpoint_is_compatible(
     include_reduced_montage: bool,
     include_region_dropout: bool,
     include_cross_session: bool,
+    expected_mask_seed_scope: str | None = None,
 ) -> tuple[bool, str]:
     """Check whether an existing checkpoint contains all mandatory requested stressors.
 
@@ -141,6 +142,15 @@ def checkpoint_is_compatible(
     versions = set(df["protocol_version"].dropna().astype(str))
     if versions != {BENCHMARK_PROTOCOL_VERSION}:
         return False, f"protocol version mismatch: found {sorted(versions)}, expected {BENCHMARK_PROTOCOL_VERSION}"
+    if expected_mask_seed_scope is not None:
+        if "mask_seed_scope" not in df.columns:
+            return False, "missing mask_seed_scope column"
+        scopes = set(df["mask_seed_scope"].dropna().astype(str))
+        if scopes != {expected_mask_seed_scope}:
+            return False, (
+                f"mask seed scope mismatch: found {sorted(scopes)}, "
+                f"expected {expected_mask_seed_scope}"
+            )
     present = set(df["stressor"].dropna().astype(str))
     needed = requested_stressors(include_reduced_montage, include_region_dropout, include_cross_session)
     missing = sorted(needed - present)
@@ -304,7 +314,12 @@ def run_real_data(
     if max_subjects is not None:
         subject_list = subject_list[:max_subjects]
 
-    paradigm = LeftRightImagery(fmin=8, fmax=32, resample=128)
+    preprocessing = config.get("preprocessing", {})
+    paradigm = LeftRightImagery(
+        fmin=float(preprocessing.get("fmin_hz", 8.0)),
+        fmax=float(preprocessing.get("fmax_hz", 32.0)),
+        resample=float(preprocessing.get("resample_hz", 128.0)),
+    )
     results_dir = Path(config["results_dir"])
     checkpoint_dir = results_dir / "checkpoints"
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
@@ -321,7 +336,14 @@ def run_real_data(
         df = None
         if ckpt.exists() and not overwrite:
             candidate = pd.read_csv(ckpt)
-            ok, reason = checkpoint_is_compatible(candidate, include_reduced_montage, include_region_dropout, include_cross_session)
+            expected_scope = str(config["stressors"]["channel_dropout"].get("mask_seed_scope", "participant"))
+            ok, reason = checkpoint_is_compatible(
+                candidate,
+                include_reduced_montage,
+                include_region_dropout,
+                include_cross_session,
+                expected_mask_seed_scope=expected_scope,
+            )
             if ok:
                 print(f"Reusing checkpoint: {ckpt}")
                 df = candidate

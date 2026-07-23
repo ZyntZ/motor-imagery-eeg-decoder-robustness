@@ -277,3 +277,33 @@ def test_checkpoint_compatibility_accepts_current_protocol():
     ok, reason = module.checkpoint_is_compatible(frame, False, False, False)
     assert ok
     assert reason == "ok"
+
+
+def test_checkpoint_compatibility_rejects_different_mask_scope():
+    module = load_run_benchmark_module()
+    import pandas as pd
+    frame = pd.DataFrame({
+        "stressor": ["clean", "channel_dropout"],
+        "protocol_version": [module.BENCHMARK_PROTOCOL_VERSION] * 2,
+        "mask_seed_scope": ["shared"] * 2,
+    })
+    ok, reason = module.checkpoint_is_compatible(
+        frame, False, False, False, expected_mask_seed_scope="participant"
+    )
+    assert not ok
+    assert "mask seed scope mismatch" in reason
+
+
+def test_checkpoint_compatibility_accepts_matching_mask_scope():
+    module = load_run_benchmark_module()
+    import pandas as pd
+    frame = pd.DataFrame({
+        "stressor": ["clean", "channel_dropout"],
+        "protocol_version": [module.BENCHMARK_PROTOCOL_VERSION] * 2,
+        "mask_seed_scope": ["participant"] * 2,
+    })
+    ok, reason = module.checkpoint_is_compatible(
+        frame, False, False, False, expected_mask_seed_scope="participant"
+    )
+    assert ok
+    assert reason == "ok"

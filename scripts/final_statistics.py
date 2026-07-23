@@ -26,7 +26,7 @@ def exact_binom_ci(k: int, n: int, alpha: float = 0.05) -> tuple[float, float]:
     return float(lo), float(hi)
 
 
-def bootstrap_ci(x: np.ndarray, n_resamples: int = 5000, seed: int = 42) -> tuple[float, float]:
+def bootstrap_ci(x: np.ndarray, n_resamples: int = 2000, seed: int = 42) -> tuple[float, float]:
     x = np.asarray(x, dtype=float)
     x = x[np.isfinite(x)]
     if x.size < 2:

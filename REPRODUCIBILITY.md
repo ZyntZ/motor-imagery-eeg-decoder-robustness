@@ -49,6 +49,8 @@ Long runs write participant checkpoints to `results/checkpoints/`. Checkpoint na
 python scripts/run_benchmark.py   --config configs/benchmark.yaml   --download-and-run   --dataset PhysionetMI   --subjects 29   --include-reduced-montage   --include-region-dropout   --pipeline csp_lda   --max-retries 5   --retry-wait-seconds 60
 ```
 
+Checkpoint reuse is also gated on `mask_seed_scope`, so a participant-specific run cannot silently reuse legacy shared-mask checkpoints. Use separate result directories for protocol variants.
+
 Use `--skip-failed` only for exploratory runs. It records skipped participants in `*_failed_subjects.csv` and `*_failed_subjects.json`; those outputs are incomplete until the failed participants are rerun.
 
 ## Recreate derived files

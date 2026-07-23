@@ -20,7 +20,7 @@ These estimates are conditional on one shuffled cross-validation split and one d
 - `configs/benchmark.yaml` is the **legacy reproduction protocol** for the committed v0.3 result tables. It deliberately retains the shared cross-participant mask schedule.
 - `configs/benchmark_independent_masks.yaml` is the **recommended protocol for new inference**. Its channel masks are deterministic but participant-specific, while matching masks between decoder families within each participant.
 
-Do not combine outputs from these protocols. The runner records a protocol version and mask-seed scope, and rejects unversioned checkpoints. The manuscript reports only the legacy results; claims about stability under independent masks require a full rerun.
+Do not combine outputs from these protocols. The runner records a protocol version and mask-seed scope, and rejects unversioned checkpoints or checkpoints created with a different mask-seed scope. The manuscript reports only the legacy results; claims about stability under independent masks require a full rerun.
 
 ## Check the included outputs
 
@@ -50,7 +50,7 @@ make bnci-full
 make physionet-full
 ```
 
-The Makefile targets reproduce the committed legacy protocol. For a new analysis, pass `--config configs/benchmark_independent_masks.yaml` to `scripts/run_benchmark.py`.
+The Makefile targets reproduce the committed legacy protocol. For a new analysis, pass `CONFIG=configs/benchmark_independent_masks.yaml` to a Make target or pass `--config configs/benchmark_independent_masks.yaml` directly to `scripts/run_benchmark.py`. Use a separate output directory or archive the legacy tables before a full rerun; outputs from the two mask schedules must not be merged.
 
 The commands download data through MOABB/MNE and may take several hours. Participant checkpoints allow interrupted runs to resume. See `REPRODUCIBILITY.md`.
 

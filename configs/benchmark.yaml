@@ -2,6 +2,10 @@ project_name: bci_prosthesis_robustness_benchmark
 moabb_data_dir: moabb_data
 results_dir: results
 random_seed: 42
+preprocessing:
+  fmin_hz: 8
+  fmax_hz: 32
+  resample_hz: 128
 datasets:
 - name: PhysionetMI
   paradigm: LeftRightImagery

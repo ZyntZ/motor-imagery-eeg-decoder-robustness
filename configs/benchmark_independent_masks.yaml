@@ -2,6 +2,10 @@ project_name: motor_imagery_eeg_robustness_independent_masks
 moabb_data_dir: moabb_data
 results_dir: results
 random_seed: 42
+preprocessing:
+  fmin_hz: 8
+  fmax_hz: 32
+  resample_hz: 128
 datasets:
 - name: PhysionetMI
   paradigm: LeftRightImagery
