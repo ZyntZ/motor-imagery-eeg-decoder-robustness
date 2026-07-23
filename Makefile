@@ -1,5 +1,6 @@
 PYTHON ?= python
-CONFIG ?= configs/benchmark.yaml
+CONFIG ?= configs/benchmark_independent_masks.yaml
+LEGACY_CONFIG ?= configs/benchmark.yaml
 RESULTS_DIR ?= results
 REPORTS_DIR ?= reports
 VALIDATION_DIR ?= artifacts/validation
@@ -14,7 +15,7 @@ MAX_CONSECUTIVE_FAILURES ?= 5
 SKIP_FAILED_FLAG = $(if $(filter 1 true yes,$(SKIP_FAILED)),--skip-failed,)
 
 
-.PHONY: manuscript compare-physionet-pipelines install-lock  physionet-csp-preflight physionet-csp-full postprocess-physionet-full-available refresh-full-summaries postprocess-full statistical-report-full install-eeg ensure-eeg install-reports ensure-reports validate-physionet-full analyze-full final-stats-full all-full publication-check release-archive archive-audit release-manifest methods-figures statistical-reports validate-bnci validate-results statistical-report physionet-full-skip-failed physionet-full-strict install-dev test compile-check dry-run list-subjects physionet-full bnci-full
+.PHONY: manuscript compare-physionet-pipelines legacy-bnci-full legacy-physionet-full install-lock  physionet-csp-preflight physionet-csp-full postprocess-physionet-full-available refresh-full-summaries postprocess-full statistical-report-full install-eeg ensure-eeg install-reports ensure-reports validate-physionet-full analyze-full final-stats-full all-full publication-check release-archive archive-audit release-manifest methods-figures statistical-reports validate-bnci validate-results statistical-report physionet-full-skip-failed physionet-full-strict install-dev test compile-check dry-run list-subjects physionet-full bnci-full
 
 install-lock:
 	$(PYTHON) -m pip install -r requirements-lock.txt
@@ -83,6 +84,12 @@ physionet-full: ensure-eeg physionet-csp-full
 physionet-full-strict: ensure-eeg
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset PhysionetMI --include-reduced-montage --include-region-dropout --include-cross-session --pipeline csp_lda --max-retries $(MAX_RETRIES) --retry-wait-seconds $(RETRY_WAIT_SECONDS) --suffix PhysionetMI_all_csp_lda
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset PhysionetMI --include-reduced-montage --include-region-dropout --include-cross-session --pipeline riemann_lr --max-retries $(MAX_RETRIES) --retry-wait-seconds $(RETRY_WAIT_SECONDS) --suffix PhysionetMI_all_riemann_lr
+
+legacy-physionet-full:
+	$(MAKE) physionet-full CONFIG=$(LEGACY_CONFIG)
+
+legacy-bnci-full:
+	$(MAKE) bnci-full CONFIG=$(LEGACY_CONFIG)
 
 bnci-full: ensure-eeg
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset BNCI2014-001 --include-reduced-montage --include-region-dropout --include-cross-session --pipeline csp_lda --suffix BNCI2014_001_all_csp_lda

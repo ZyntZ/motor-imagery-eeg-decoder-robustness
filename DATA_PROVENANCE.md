@@ -26,4 +26,5 @@ MOABB exposes the PhysioNet dataset class as `PhysionetMI` and reports its inter
 - `PhysionetMI_PhysionetMI_all_csp_lda*`: 109 participants; fold-level and participant-level outputs are included.
 - `PhysionetMI_PhysionetMI_all_riemann_lr*`: 109 participants; 25,070 fold/repeat rows and 1,090 participant-condition rows are included. Fold-to-participant aggregation passed all validation checks.
 - Both full PhysioNet summaries retain the named left, midline, and right motor-strip dropout conditions. Direct decoder comparison matches these anatomical conditions without averaging or imputation.
+- The committed v0.3 CSV files predate the addition of `protocol_version` and `mask_seed_scope` output columns. Their legacy shared-mask provenance is documented by the release configuration and manuscript, but cannot be established from the CSV schema alone. A clean rerun is required for cryptographic or row-level provenance linking code, configuration, and outputs.
 - PhysioNet cross-session rows were not available. Cross-session results in the manuscript are restricted to BNCI2014-001 (`n=9`).

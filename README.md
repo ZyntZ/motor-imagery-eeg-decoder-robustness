@@ -9,7 +9,7 @@ The evaluation uses PhysioNet EEG Motor Movement/Imagery and BNCI2014-001. It te
 
 **Scope.** Channel zeroing is a software perturbation. It is not a physical model of electrode impedance, bridging, clipping, intermittent contact, cap displacement, or online recalibration. The study concerns offline classification, mostly in healthy participants; it does not measure prosthesis control or clinical performance.
 
-## Result reported in the manuscript
+## Results reported in the manuscript
 
 In the included PhysioNet participant summaries ($n=109$), 50% random channel zeroing changed mean ROC-AUC from 0.655 to 0.527 for CSP–LDA (mean paired change −0.128, 95% CI −0.153 to −0.102) and from 0.675 to 0.554 for Riemann–LR (−0.121, 95% CI −0.141 to −0.101).
 
@@ -50,7 +50,7 @@ make bnci-full
 make physionet-full
 ```
 
-The Makefile targets reproduce the committed legacy protocol. For a new analysis, pass `CONFIG=configs/benchmark_independent_masks.yaml` to a Make target or pass `--config configs/benchmark_independent_masks.yaml` directly to `scripts/run_benchmark.py`. Use a separate output directory or archive the legacy tables before a full rerun; outputs from the two mask schedules must not be merged.
+Benchmark Makefile targets use `configs/benchmark_independent_masks.yaml` by default. To reproduce the committed legacy schedule explicitly, use `make legacy-bnci-full` or `make legacy-physionet-full`. Use a separate output directory or archive the committed tables before any full rerun; outputs from the two mask schedules must not be merged.
 
 The commands download data through MOABB/MNE and may take several hours. Participant checkpoints allow interrupted runs to resume. See `REPRODUCIBILITY.md`.
 

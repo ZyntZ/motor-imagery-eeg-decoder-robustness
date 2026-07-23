@@ -25,7 +25,7 @@ python -m pip install -e ".[eeg]"
 ## Quick checks
 
 ```bash
-python scripts/run_benchmark.py --config configs/benchmark.yaml --dry-run
+python scripts/run_benchmark.py --config configs/benchmark_independent_masks.yaml --dry-run
 python -m compileall -q scripts src
 python -m pytest
 make validate-results
@@ -41,7 +41,7 @@ make bnci-full
 make physionet-full
 ```
 
-The commands download data through MOABB/MNE, preprocess the recordings and fit both decoder pipelines. Runtime depends on the local data cache and hardware.
+The commands download data through MOABB/MNE, preprocess the recordings and fit both decoder pipelines using participant-specific dropout masks. Runtime depends on the local data cache and hardware. Use `make legacy-bnci-full` or `make legacy-physionet-full` only when reproducing the committed v0.3 tables.
 
 Long runs write participant checkpoints to `results/checkpoints/`. Checkpoint names include the dataset, pipeline, and run suffix. Repeating the same command reuses only checkpoints with the current protocol marker and requested stressors. For unstable network connections, increase the retry count and waiting time, for example:
 
