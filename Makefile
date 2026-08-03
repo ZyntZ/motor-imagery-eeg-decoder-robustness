@@ -15,7 +15,7 @@ MAX_CONSECUTIVE_FAILURES ?= 5
 SKIP_FAILED_FLAG = $(if $(filter 1 true yes,$(SKIP_FAILED)),--skip-failed,)
 
 
-.PHONY: manuscript compare-physionet-pipelines legacy-bnci-full legacy-physionet-full install-lock  physionet-csp-preflight physionet-csp-full postprocess-physionet-full-available refresh-full-summaries postprocess-full statistical-report-full install-eeg ensure-eeg install-reports ensure-reports validate-physionet-full analyze-full final-stats-full all-full publication-check release-archive archive-audit release-manifest methods-figures statistical-reports validate-bnci validate-results statistical-report physionet-full-skip-failed physionet-full-strict install-dev test compile-check dry-run list-subjects physionet-full bnci-full
+.PHONY: manuscript compare-physionet-pipelines legacy-bnci-full legacy-physionet-full install-lock physionet-csp-preflight physionet-csp-full physionet-fit physionet-full postprocess-physionet-full-available refresh-full-summaries postprocess-full statistical-report-full install-eeg ensure-eeg install-reports ensure-reports validate-physionet-full analyze-full final-stats-full all-full publication-check release-archive archive-audit release-manifest methods-figures statistical-reports validate-bnci validate-results statistical-report physionet-full-skip-failed physionet-full-strict install-dev test compile-check dry-run list-subjects bnci-fit bnci-full
 
 install-lock:
 	$(PYTHON) -m pip install -r requirements-lock.txt
@@ -78,7 +78,9 @@ physionet-csp-preflight: ensure-eeg
 physionet-csp-full: ensure-eeg
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset PhysionetMI --include-reduced-montage --include-region-dropout --include-cross-session --pipeline csp_lda --max-retries $(MAX_RETRIES) --retry-wait-seconds $(RETRY_WAIT_SECONDS) $(SKIP_FAILED_FLAG) --max-consecutive-failures $(MAX_CONSECUTIVE_FAILURES) --suffix PhysionetMI_all_csp_lda
 
-physionet-full: ensure-eeg physionet-csp-full
+physionet-full: ensure-eeg physionet-fit postprocess-physionet-full-available compare-physionet-pipelines
+
+physionet-fit: ensure-eeg physionet-csp-full
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset PhysionetMI --include-reduced-montage --include-region-dropout --include-cross-session --pipeline riemann_lr --max-retries $(MAX_RETRIES) --retry-wait-seconds $(RETRY_WAIT_SECONDS) $(SKIP_FAILED_FLAG) --max-consecutive-failures $(MAX_CONSECUTIVE_FAILURES) --suffix PhysionetMI_all_riemann_lr
 
 physionet-full-strict: ensure-eeg
@@ -91,9 +93,11 @@ legacy-physionet-full:
 legacy-bnci-full:
 	$(MAKE) bnci-full CONFIG=$(LEGACY_CONFIG)
 
-bnci-full: ensure-eeg
+bnci-fit: ensure-eeg
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset BNCI2014-001 --include-reduced-montage --include-region-dropout --include-cross-session --pipeline csp_lda --suffix BNCI2014_001_all_csp_lda
 	$(PYTHON) scripts/run_benchmark.py --config $(CONFIG) --download-and-run --dataset BNCI2014-001 --include-reduced-montage --include-region-dropout --include-cross-session --pipeline riemann_lr --suffix BNCI2014_001_all_riemann_lr
+
+bnci-full: ensure-eeg bnci-fit validate-bnci statistical-reports
 
 
 physionet-full-skip-failed: ensure-eeg
@@ -183,8 +187,8 @@ mixed-model-diagnostics:
 	$(PYTHON) scripts/mixed_model_diagnostics.py --results-dir $(RESULTS_DIR) --prefix PhysionetMI_PhysionetMI_all_csp_lda
 	$(PYTHON) scripts/mixed_model_diagnostics.py --results-dir $(RESULTS_DIR) --prefix PhysionetMI_PhysionetMI_all_riemann_lr
 
-compare-physionet-pipelines:
-	$(PYTHON) scripts/compare_physionet_pipelines.py --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR)
+compare-physionet-pipelines: ensure-reports
+	$(PYTHON) scripts/compare_physionet_pipelines.py --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR) --figure-output manuscript/figure2_paired_decoder_comparison.pdf
 
 methods-figures:
 	$(PYTHON) scripts/generate_methods_figures.py --results-dir $(RESULTS_DIR) --reports-dir $(REPORTS_DIR) --prefix PhysionetMI_PhysionetMI_all_riemann_lr --metric roc_auc

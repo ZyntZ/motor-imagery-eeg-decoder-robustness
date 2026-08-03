@@ -5,9 +5,9 @@ Generated from existing subject-summary CSV files only; no simulated or addition
 ## Methods audit
 | check | value | status |
 | --- | --- | --- |
-| n_rows_subject_summary | 90 | info |
+| n_rows_subject_summary | 99 | info |
 | n_subjects | 9 | info |
-| n_conditions | 10 | info |
+| n_conditions | 11 | info |
 | duplicate_subject_condition_rows | 0 | pass |
 | missing_roc_auc | 0 | pass |
 | out_of_range_0_1_roc_auc | 0 | pass |
@@ -23,72 +23,78 @@ Generated from existing subject-summary CSV files only; no simulated or addition
 ## Paired stressor effects vs clean all-channel baseline
 | condition | metric | metric_role | n_subjects | clean_mean | condition_mean | mean_delta_condition_minus_clean | delta_ci_low | delta_ci_high | median_delta_condition_minus_clean | cohens_dz | t_p_value_bh_fdr | wilcoxon_p_value_bh_fdr | sign_test_p_value_bh_fdr | shapiro_p_value_delta | pct_worse_than_clean |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| channel_dropout_0.1 | balanced_accuracy | secondary | 9 | 0.7913 | 0.5449 | -0.2465 | -0.3452 | -0.1477 | -0.2631 | -1.919 | 0.0006974 | 0.005409 | 0.005409 | 0.8136 | 1 |
-| channel_dropout_0.2 | balanced_accuracy | secondary | 9 | 0.7913 | 0.5297 | -0.2616 | -0.3568 | -0.1664 | -0.2869 | -2.111 | 0.000449 | 0.005409 | 0.005409 | 0.2975 | 1 |
-| channel_dropout_0.3 | balanced_accuracy | secondary | 9 | 0.7913 | 0.5187 | -0.2727 | -0.3739 | -0.1714 | -0.3128 | -2.07 | 0.0004613 | 0.005409 | 0.005409 | 0.2941 | 1 |
-| channel_dropout_0.5 | balanced_accuracy | secondary | 9 | 0.7913 | 0.5124 | -0.2789 | -0.3822 | -0.1757 | -0.3232 | -2.078 | 0.0004613 | 0.005409 | 0.005409 | 0.325 | 1 |
-| cross_session_0 | balanced_accuracy | secondary | 9 | 0.7913 | 0.7569 | -0.03437 | -0.08149 | 0.01276 | -0.02443 | -0.5606 | 0.1431 | 0.08097 | 0.04395 | 0.2125 | 0.8889 |
-| reduced_montage_motor_core | balanced_accuracy | secondary | 9 | 0.7913 | 0.7005 | -0.09076 | -0.1356 | -0.04596 | -0.08325 | -1.557 | 0.002398 | 0.005409 | 0.005409 | 0.3497 | 1 |
-| reduced_montage_motor_extended | balanced_accuracy | secondary | 9 | 0.7913 | 0.7453 | -0.046 | -0.08313 | -0.008875 | -0.03116 | -0.9524 | 0.02731 | 0.01406 | 0.04395 | 0.2911 | 0.8889 |
-| region_dropout_0.136364 | balanced_accuracy | secondary | 9 | 0.7913 | 0.5868 | -0.2045 | -0.2816 | -0.1274 | -0.2298 | -2.039 | 0.0004865 | 0.005409 | 0.005409 | 0.2039 | 1 |
-| region_dropout_0.318182 | balanced_accuracy | secondary | 9 | 0.7913 | 0.524 | -0.2673 | -0.3785 | -0.1562 | -0.2713 | -1.849 | 0.000849 | 0.005409 | 0.005409 | 0.6835 | 1 |
-| channel_dropout_0.1 | roc_auc | primary | 9 | 0.8523 | 0.7365 | -0.1158 | -0.1456 | -0.08603 | -0.113 | -2.987 | 4.59e-05 | 0.005409 | 0.005409 | 0.2727 | 1 |
-| channel_dropout_0.2 | roc_auc | primary | 9 | 0.8523 | 0.6912 | -0.1611 | -0.2016 | -0.1207 | -0.187 | -3.062 | 4.098e-05 | 0.005409 | 0.005409 | 0.1385 | 1 |
-| channel_dropout_0.3 | roc_auc | primary | 9 | 0.8523 | 0.6412 | -0.2112 | -0.2615 | -0.1608 | -0.2422 | -3.222 | 3.574e-05 | 0.005409 | 0.005409 | 0.1164 | 1 |
-| channel_dropout_0.5 | roc_auc | primary | 9 | 0.8523 | 0.6165 | -0.2359 | -0.2932 | -0.1785 | -0.2603 | -3.16 | 3.786e-05 | 0.005409 | 0.005409 | 0.09309 | 1 |
-| cross_session_0 | roc_auc | primary | 9 | 0.8523 | 0.853 | 0.0006408 | -0.02137 | 0.02265 | 0.003312 | 0.02238 | 0.9752 | 1 | 1 | 0.5986 | 0.4444 |
-| reduced_montage_motor_core | roc_auc | primary | 9 | 0.8523 | 0.7545 | -0.09781 | -0.1492 | -0.04642 | -0.08317 | -1.463 | 0.003214 | 0.005409 | 0.005409 | 0.256 | 1 |
-| reduced_montage_motor_extended | roc_auc | primary | 9 | 0.8523 | 0.8014 | -0.05095 | -0.098 | -0.003909 | -0.0342 | -0.8325 | 0.04449 | 0.01406 | 0.04395 | 0.09048 | 0.8889 |
-| region_dropout_0.136364 | roc_auc | primary | 9 | 0.8523 | 0.7656 | -0.08678 | -0.13 | -0.0435 | -0.06006 | -1.541 | 0.00245 | 0.005409 | 0.005409 | 0.3637 | 1 |
-| region_dropout_0.318182 | roc_auc | primary | 9 | 0.8523 | 0.6886 | -0.1638 | -0.202 | -0.1255 | -0.1702 | -3.293 | 3.574e-05 | 0.005409 | 0.005409 | 0.8925 | 1 |
+| channel_dropout_0.1 | balanced_accuracy | secondary | 9 | 0.7913 | 0.544 | -0.2473 | -0.3382 | -0.1564 | -0.2549 | -2.09 | 0.0004962 | 0.005208 | 0.005208 | 0.3887 | 1 |
+| channel_dropout_0.2 | balanced_accuracy | secondary | 9 | 0.7913 | 0.5224 | -0.2689 | -0.3713 | -0.1665 | -0.2711 | -2.018 | 0.0005082 | 0.005208 | 0.005208 | 0.5637 | 1 |
+| channel_dropout_0.3 | balanced_accuracy | secondary | 9 | 0.7913 | 0.515 | -0.2763 | -0.3805 | -0.1721 | -0.3187 | -2.038 | 0.0005082 | 0.005208 | 0.005208 | 0.4546 | 1 |
+| channel_dropout_0.5 | balanced_accuracy | secondary | 9 | 0.7913 | 0.51 | -0.2813 | -0.3879 | -0.1746 | -0.3254 | -2.027 | 0.0005082 | 0.005208 | 0.005208 | 0.3209 | 1 |
+| cross_session_0 | balanced_accuracy | secondary | 9 | 0.7913 | 0.7569 | -0.03437 | -0.08149 | 0.01276 | -0.02443 | -0.5606 | 0.1418 | 0.08024 | 0.0434 | 0.2125 | 0.8889 |
+| reduced_montage_motor_core | balanced_accuracy | secondary | 9 | 0.7913 | 0.7005 | -0.09076 | -0.1356 | -0.04596 | -0.08325 | -1.557 | 0.002368 | 0.005208 | 0.005208 | 0.3497 | 1 |
+| reduced_montage_motor_extended | balanced_accuracy | secondary | 9 | 0.7913 | 0.7453 | -0.046 | -0.08313 | -0.008875 | -0.03116 | -0.9524 | 0.02655 | 0.01379 | 0.0434 | 0.2911 | 0.8889 |
+| region_dropout_left_motor_strip_0.318182 | balanced_accuracy | secondary | 9 | 0.7913 | 0.5385 | -0.2528 | -0.3793 | -0.1263 | -0.2677 | -1.536 | 0.002393 | 0.005208 | 0.005208 | 0.3138 | 1 |
+| region_dropout_midline_motor_strip_0.136364 | balanced_accuracy | secondary | 9 | 0.7913 | 0.5868 | -0.2045 | -0.2816 | -0.1274 | -0.2298 | -2.039 | 0.0005082 | 0.005208 | 0.005208 | 0.2039 | 1 |
+| region_dropout_right_motor_strip_0.318182 | balanced_accuracy | secondary | 9 | 0.7913 | 0.5094 | -0.2819 | -0.3905 | -0.1733 | -0.2996 | -1.995 | 0.0005263 | 0.005208 | 0.005208 | 0.4829 | 1 |
+| channel_dropout_0.1 | roc_auc | primary | 9 | 0.8523 | 0.7378 | -0.1145 | -0.143 | -0.08596 | -0.1117 | -3.083 | 4.774e-05 | 0.005208 | 0.005208 | 0.8371 | 1 |
+| channel_dropout_0.2 | roc_auc | primary | 9 | 0.8523 | 0.6871 | -0.1653 | -0.208 | -0.1225 | -0.1857 | -2.974 | 5.266e-05 | 0.005208 | 0.005208 | 0.07233 | 1 |
+| channel_dropout_0.3 | roc_auc | primary | 9 | 0.8523 | 0.6496 | -0.2028 | -0.2541 | -0.1514 | -0.2203 | -3.035 | 4.866e-05 | 0.005208 | 0.005208 | 0.1351 | 1 |
+| channel_dropout_0.5 | roc_auc | primary | 9 | 0.8523 | 0.6221 | -0.2303 | -0.2876 | -0.1729 | -0.2487 | -3.087 | 4.774e-05 | 0.005208 | 0.005208 | 0.3178 | 1 |
+| cross_session_0 | roc_auc | primary | 9 | 0.8523 | 0.853 | 0.0006408 | -0.02137 | 0.02265 | 0.003312 | 0.02238 | 0.9724 | 1 | 1 | 0.5986 | 0.4444 |
+| reduced_montage_motor_core | roc_auc | primary | 9 | 0.8523 | 0.7545 | -0.09781 | -0.1492 | -0.04642 | -0.08317 | -1.463 | 0.003095 | 0.005208 | 0.005208 | 0.256 | 1 |
+| reduced_montage_motor_extended | roc_auc | primary | 9 | 0.8523 | 0.8014 | -0.05095 | -0.098 | -0.003909 | -0.0342 | -0.8325 | 0.04362 | 0.01379 | 0.0434 | 0.09048 | 0.8889 |
+| region_dropout_left_motor_strip_0.318182 | roc_auc | primary | 9 | 0.8523 | 0.7061 | -0.1462 | -0.197 | -0.09537 | -0.155 | -2.211 | 0.0003641 | 0.005208 | 0.005208 | 0.6648 | 1 |
+| region_dropout_midline_motor_strip_0.136364 | roc_auc | primary | 9 | 0.8523 | 0.7656 | -0.08678 | -0.13 | -0.0435 | -0.06006 | -1.541 | 0.002393 | 0.005208 | 0.005208 | 0.3637 | 1 |
+| region_dropout_right_motor_strip_0.318182 | roc_auc | primary | 9 | 0.8523 | 0.671 | -0.1813 | -0.2667 | -0.09599 | -0.1422 | -1.633 | 0.001837 | 0.005208 | 0.005208 | 0.233 | 1 |
 
 ## Sensitivity summary
 | condition | metric | available | role | n_subjects | mean_delta_condition_minus_clean | pct_worse_than_clean | ttest_fdr | wilcoxon_fdr | interpretation |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| channel_dropout_0.1 | roc_auc | True | primary | 9 | -0.1158 | 1 | 4.59e-05 | 0.005409 | primary |
-| channel_dropout_0.1 | balanced_accuracy | True | secondary | 9 | -0.2465 | 1 | 0.0006974 | 0.005409 | secondary |
-| channel_dropout_0.1 | brier_score | True | calibration | 9 | 0.2819 | 1 | 3.926e-05 | 0.005409 | calibration_optional |
-| channel_dropout_0.1 | ece | True | calibration | 9 | 0.3008 | 1 | 1.005e-05 | 0.005409 | calibration_optional |
-| channel_dropout_0.2 | roc_auc | True | primary | 9 | -0.1611 | 1 | 4.098e-05 | 0.005409 | primary |
-| channel_dropout_0.2 | balanced_accuracy | True | secondary | 9 | -0.2616 | 1 | 0.000449 | 0.005409 | secondary |
-| channel_dropout_0.2 | brier_score | True | calibration | 9 | 0.3039 | 1 | 7.951e-06 | 0.005409 | calibration_optional |
-| channel_dropout_0.2 | ece | True | calibration | 9 | 0.3212 | 1 | 6.095e-07 | 0.005409 | calibration_optional |
-| channel_dropout_0.3 | roc_auc | True | primary | 9 | -0.2112 | 1 | 3.574e-05 | 0.005409 | primary |
-| channel_dropout_0.3 | balanced_accuracy | True | secondary | 9 | -0.2727 | 1 | 0.0004613 | 0.005409 | secondary |
-| channel_dropout_0.3 | brier_score | True | calibration | 9 | 0.3135 | 1 | 1.156e-05 | 0.005409 | calibration_optional |
-| channel_dropout_0.3 | ece | True | calibration | 9 | 0.3266 | 1 | 8.743e-07 | 0.005409 | calibration_optional |
-| channel_dropout_0.5 | roc_auc | True | primary | 9 | -0.2359 | 1 | 3.786e-05 | 0.005409 | primary |
-| channel_dropout_0.5 | balanced_accuracy | True | secondary | 9 | -0.2789 | 1 | 0.0004613 | 0.005409 | secondary |
-| channel_dropout_0.5 | brier_score | True | calibration | 9 | 0.3228 | 1 | 1.156e-05 | 0.005409 | calibration_optional |
-| channel_dropout_0.5 | ece | True | calibration | 9 | 0.3386 | 1 | 8.743e-07 | 0.005409 | calibration_optional |
-| cross_session_0 | roc_auc | True | primary | 9 | 0.0006408 | 0.4444 | 0.9752 | 1 | primary |
-| cross_session_0 | balanced_accuracy | True | secondary | 9 | -0.03437 | 0.8889 | 0.1431 | 0.08097 | secondary |
-| cross_session_0 | brier_score | True | calibration | 9 | 0.03011 | 0.8889 | 0.05711 | 0.06152 | calibration_optional |
-| cross_session_0 | ece | True | calibration | 9 | 0.04108 | 0.6667 | 0.02972 | 0.06152 | calibration_optional |
-| reduced_montage_motor_core | roc_auc | True | primary | 9 | -0.09781 | 1 | 0.003214 | 0.005409 | primary |
-| reduced_montage_motor_core | balanced_accuracy | True | secondary | 9 | -0.09076 | 1 | 0.002398 | 0.005409 | secondary |
-| reduced_montage_motor_core | brier_score | True | calibration | 9 | 0.04436 | 0.8889 | 0.01252 | 0.01406 | calibration_optional |
-| reduced_montage_motor_core | ece | True | calibration | 9 | -0.008478 | 0.5556 | 0.7554 | 1 | calibration_optional |
-| reduced_montage_motor_extended | roc_auc | True | primary | 9 | -0.05095 | 0.8889 | 0.04449 | 0.01406 | primary |
-| reduced_montage_motor_extended | balanced_accuracy | True | secondary | 9 | -0.046 | 0.8889 | 0.02731 | 0.01406 | secondary |
-| reduced_montage_motor_extended | brier_score | True | calibration | 9 | 0.02105 | 0.8889 | 0.0821 | 0.01406 | calibration_optional |
+| channel_dropout_0.1 | roc_auc | True | primary | 9 | -0.1145 | 1 | 4.774e-05 | 0.005208 | primary |
+| channel_dropout_0.1 | balanced_accuracy | True | secondary | 9 | -0.2473 | 1 | 0.0004962 | 0.005208 | secondary |
+| channel_dropout_0.1 | brier_score | True | calibration | 9 | 0.2836 | 1 | 1.299e-05 | 0.005208 | calibration_optional |
+| channel_dropout_0.1 | ece | True | calibration | 9 | 0.3049 | 1 | 1.364e-06 | 0.005208 | calibration_optional |
+| channel_dropout_0.2 | roc_auc | True | primary | 9 | -0.1653 | 1 | 5.266e-05 | 0.005208 | primary |
+| channel_dropout_0.2 | balanced_accuracy | True | secondary | 9 | -0.2689 | 1 | 0.0005082 | 0.005208 | secondary |
+| channel_dropout_0.2 | brier_score | True | calibration | 9 | 0.3039 | 1 | 2.455e-05 | 0.005208 | calibration_optional |
+| channel_dropout_0.2 | ece | True | calibration | 9 | 0.3207 | 1 | 3.251e-06 | 0.005208 | calibration_optional |
+| channel_dropout_0.3 | roc_auc | True | primary | 9 | -0.2028 | 1 | 4.866e-05 | 0.005208 | primary |
+| channel_dropout_0.3 | balanced_accuracy | True | secondary | 9 | -0.2763 | 1 | 0.0005082 | 0.005208 | secondary |
+| channel_dropout_0.3 | brier_score | True | calibration | 9 | 0.3151 | 1 | 1.299e-05 | 0.005208 | calibration_optional |
+| channel_dropout_0.3 | ece | True | calibration | 9 | 0.3311 | 1 | 1.364e-06 | 0.005208 | calibration_optional |
+| channel_dropout_0.5 | roc_auc | True | primary | 9 | -0.2303 | 1 | 4.774e-05 | 0.005208 | primary |
+| channel_dropout_0.5 | balanced_accuracy | True | secondary | 9 | -0.2813 | 1 | 0.0005082 | 0.005208 | secondary |
+| channel_dropout_0.5 | brier_score | True | calibration | 9 | 0.3253 | 1 | 1.659e-05 | 0.005208 | calibration_optional |
+| channel_dropout_0.5 | ece | True | calibration | 9 | 0.3396 | 1 | 1.772e-06 | 0.005208 | calibration_optional |
+| cross_session_0 | roc_auc | True | primary | 9 | 0.0006408 | 0.4444 | 0.9724 | 1 | primary |
+| cross_session_0 | balanced_accuracy | True | secondary | 9 | -0.03437 | 0.8889 | 0.1418 | 0.08024 | secondary |
+| cross_session_0 | brier_score | True | calibration | 9 | 0.03011 | 0.8889 | 0.0562 | 0.06076 | calibration_optional |
+| cross_session_0 | ece | True | calibration | 9 | 0.04108 | 0.6667 | 0.02902 | 0.06076 | calibration_optional |
+| reduced_montage_motor_core | roc_auc | True | primary | 9 | -0.09781 | 1 | 0.003095 | 0.005208 | primary |
+| reduced_montage_motor_core | balanced_accuracy | True | secondary | 9 | -0.09076 | 1 | 0.002368 | 0.005208 | secondary |
+| reduced_montage_motor_core | brier_score | True | calibration | 9 | 0.04436 | 0.8889 | 0.01211 | 0.01379 | calibration_optional |
+| reduced_montage_motor_core | ece | True | calibration | 9 | -0.008478 | 0.5556 | 0.7509 | 1 | calibration_optional |
+| reduced_montage_motor_extended | roc_auc | True | primary | 9 | -0.05095 | 0.8889 | 0.04362 | 0.01379 | primary |
+| reduced_montage_motor_extended | balanced_accuracy | True | secondary | 9 | -0.046 | 0.8889 | 0.02655 | 0.01379 | secondary |
+| reduced_montage_motor_extended | brier_score | True | calibration | 9 | 0.02105 | 0.8889 | 0.08109 | 0.01379 | calibration_optional |
 | reduced_montage_motor_extended | ece | True | calibration | 9 | 0.0001052 | 0.6667 | 0.9855 | 1 | calibration_optional |
-| region_dropout_0.136364 | roc_auc | True | primary | 9 | -0.08678 | 1 | 0.00245 | 0.005409 | primary |
-| region_dropout_0.136364 | balanced_accuracy | True | secondary | 9 | -0.2045 | 1 | 0.0004865 | 0.005409 | secondary |
-| region_dropout_0.136364 | brier_score | True | calibration | 9 | 0.2236 | 1 | 5.4e-05 | 0.005409 | calibration_optional |
-| region_dropout_0.136364 | ece | True | calibration | 9 | 0.2518 | 1 | 3.574e-05 | 0.005409 | calibration_optional |
-| region_dropout_0.318182 | roc_auc | True | primary | 9 | -0.1638 | 1 | 3.574e-05 | 0.005409 | primary |
-| region_dropout_0.318182 | balanced_accuracy | True | secondary | 9 | -0.2673 | 1 | 0.000849 | 0.005409 | secondary |
-| region_dropout_0.318182 | brier_score | True | calibration | 9 | 0.3045 | 1 | 6.53e-05 | 0.005409 | calibration_optional |
-| region_dropout_0.318182 | ece | True | calibration | 9 | 0.319 | 1 | 2.176e-05 | 0.005409 | calibration_optional |
+| region_dropout_left_motor_strip_0.318182 | roc_auc | True | primary | 9 | -0.1462 | 1 | 0.0003641 | 0.005208 | primary |
+| region_dropout_left_motor_strip_0.318182 | balanced_accuracy | True | secondary | 9 | -0.2528 | 1 | 0.002393 | 0.005208 | secondary |
+| region_dropout_left_motor_strip_0.318182 | brier_score | True | calibration | 9 | 0.2863 | 1 | 0.0004962 | 0.005208 | calibration_optional |
+| region_dropout_left_motor_strip_0.318182 | ece | True | calibration | 9 | 0.3014 | 1 | 0.0001621 | 0.005208 | calibration_optional |
+| region_dropout_midline_motor_strip_0.136364 | roc_auc | True | primary | 9 | -0.08678 | 1 | 0.002393 | 0.005208 | primary |
+| region_dropout_midline_motor_strip_0.136364 | balanced_accuracy | True | secondary | 9 | -0.2045 | 1 | 0.0005082 | 0.005208 | secondary |
+| region_dropout_midline_motor_strip_0.136364 | brier_score | True | calibration | 9 | 0.2236 | 1 | 6e-05 | 0.005208 | calibration_optional |
+| region_dropout_midline_motor_strip_0.136364 | ece | True | calibration | 9 | 0.2518 | 1 | 4.174e-05 | 0.005208 | calibration_optional |
+| region_dropout_right_motor_strip_0.318182 | roc_auc | True | primary | 9 | -0.1813 | 1 | 0.001837 | 0.005208 | primary |
+| region_dropout_right_motor_strip_0.318182 | balanced_accuracy | True | secondary | 9 | -0.2819 | 1 | 0.0005263 | 0.005208 | secondary |
+| region_dropout_right_motor_strip_0.318182 | brier_score | True | calibration | 9 | 0.3227 | 1 | 4.774e-05 | 0.005208 | calibration_optional |
+| region_dropout_right_motor_strip_0.318182 | ece | True | calibration | 9 | 0.3366 | 1 | 1.299e-05 | 0.005208 | calibration_optional |
 
 ## Channel-dropout slopes
 | dataset | pipeline | metric | n_subjects | mean_slope_per_10pct_dropout | slope_ci_low | slope_ci_high | slope_sd | t_statistic_vs_zero | t_p_value_vs_zero | shapiro_p_value_slope | n_harmful_slope | pct_harmful_slope | t_p_value_vs_zero_bh_fdr |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| BNCI2014-001 | csp_lda | balanced_accuracy | 9 | -0.04399 | -0.06015 | -0.02784 | 0.02102 | -6.279 | 0.000238 | 0.2331 | 9 | 1 | 0.000238 |
-| BNCI2014-001 | csp_lda | brier_score | 9 | 0.05105 | 0.04142 | 0.06069 | 0.01253 | 12.22 | 1.862e-06 | 0.1784 | 9 | 1 | 3.725e-06 |
-| BNCI2014-001 | csp_lda | ece | 9 | 0.05298 | 0.04686 | 0.05911 | 0.007972 | 19.94 | 4.172e-08 | 0.4389 | 9 | 1 | 1.669e-07 |
-| BNCI2014-001 | csp_lda | roc_auc | 9 | -0.04447 | -0.05654 | -0.0324 | 0.0157 | -8.498 | 2.821e-05 | 0.08212 | 9 | 1 | 3.761e-05 |
+| BNCI2014-001 | csp_lda | balanced_accuracy | 9 | -0.04447 | -0.06162 | -0.02732 | 0.02231 | -5.979 | 0.0003309 | 0.4255 | 9 | 1 | 0.0003309 |
+| BNCI2014-001 | csp_lda | brier_score | 9 | 0.05147 | 0.04074 | 0.0622 | 0.01396 | 11.06 | 3.987e-06 | 0.3683 | 9 | 1 | 7.974e-06 |
+| BNCI2014-001 | csp_lda | ece | 9 | 0.05308 | 0.04562 | 0.06055 | 0.009711 | 16.4 | 1.926e-07 | 0.5963 | 9 | 1 | 7.706e-07 |
+| BNCI2014-001 | csp_lda | roc_auc | 9 | -0.04301 | -0.05472 | -0.03129 | 0.01524 | -8.466 | 2.898e-05 | 0.2002 | 9 | 1 | 3.864e-05 |
 
 ## Overclaim-risk flags
 | flag | triggered | detail |

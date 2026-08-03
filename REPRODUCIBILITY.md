@@ -41,7 +41,7 @@ make bnci-full
 make physionet-full
 ```
 
-The commands download data through MOABB/MNE, preprocess the recordings and fit both decoder pipelines using participant-specific dropout masks. Runtime depends on the local data cache and hardware. Use `make legacy-bnci-full` or `make legacy-physionet-full` only when reproducing the committed v0.3 tables.
+The commands download data through MOABB/MNE, fit both decoder pipelines using participant-specific dropout masks, and regenerate their derived summaries and reports. Use `make bnci-fit` or `make physionet-fit` only when model fitting is required without postprocessing. Runtime depends on the local data cache and hardware. Use `make legacy-bnci-full` or `make legacy-physionet-full` only when reproducing earlier shared-mask tables.
 
 Long runs write participant checkpoints to `results/checkpoints/`. Checkpoint names include the dataset, pipeline, and run suffix. Repeating the same command reuses only checkpoints with the current protocol marker and requested stressors. For unstable network connections, increase the retry count and waiting time, for example:
 
@@ -76,6 +76,6 @@ The generated PDF is written to `manuscript/manuscript.pdf`.
 
 ## Perturbation schedules
 
-The committed tables were generated with `configs/benchmark.yaml`, in which matched fold/repeat indices reuse channel indices across participants when channel order agrees. This is retained only for exact legacy reproduction. New studies should use `configs/benchmark_independent_masks.yaml`; it derives deterministic masks from participant identity, fold, repeat, fraction, and the global seed. Decoder families still receive matched masks for the same participant. A full independent-mask rerun is required before replacing the committed numerical results.
+The current PhysioNet tables use `configs/benchmark_independent_masks.yaml`; it derives deterministic masks from participant identity, fold, repeat, fraction, and the global seed. Decoder families receive matched masks for the same participant. `configs/benchmark.yaml` retains the earlier shared-mask schedule only for exact legacy reproduction. The current PhysioNet and BNCI fold-level outputs record protocol 0.3.2 provenance and participant-specific mask scope.
 
 Participant checkpoints include a run signature over all observation-generating settings. A checkpoint with a different or missing signature is recomputed.

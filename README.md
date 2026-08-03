@@ -11,18 +11,18 @@ The evaluation uses PhysioNet EEG Motor Movement/Imagery and BNCI2014-001. It te
 
 ## Results reported in the manuscript
 
-In the included PhysioNet participant summaries ($n=109$), 50% random channel zeroing changed mean ROC-AUC from 0.655 to 0.527 for CSP–LDA (mean paired change −0.128, 95% CI −0.153 to −0.102) and from 0.675 to 0.554 for Riemann–LR (−0.121, 95% CI −0.141 to −0.101).
+In the included PhysioNet participant summaries ($n=109$), 50% random channel zeroing changed mean ROC-AUC from 0.655 to 0.528 for CSP–LDA (mean paired change −0.127, 95% CI −0.153 to −0.102) and from 0.675 to 0.557 for Riemann–LR (−0.119, 95% CI −0.138 to −0.098).
 
-These estimates are conditional on one shuffled cross-validation split and one deterministic channel-mask schedule. The mask seed does not include participant identity, so matched fold/repeat indices reuse the same channel indices across participants when channel order agrees. Alternative splits and mask schedules were not evaluated. These committed estimates therefore describe one fixed perturbation schedule, not the distribution of performance over possible schedules.
+The PhysioNet results use deterministic participant-specific channel masks. Decoder families receive matched masks within each participant, while mask schedules differ across participants. Estimates remain conditional on one shuffled cross-validation split and one participant-specific mask schedule per participant; sensitivity to alternative splits and schedules was not measured.
 
-**Publication status.** The repository is release-package ready, but it is not yet ready for journal submission. The reported pipelines must first be rerun with participant-specific masks, the resulting tables and manuscript values must be regenerated, a permanent release DOI must be recorded, and the competing-interests declaration must be confirmed by the author. `SUBMISSION_READINESS.md` keeps release packaging and submission readiness as separate statuses.
+**Publication status.** The PhysioNet and BNCI2014-001 participant-specific reruns are complete. Journal submission remains blocked until a permanent release DOI is recorded and the competing-interests declaration is confirmed by the author. `SUBMISSION_READINESS.md` keeps release packaging and submission readiness as separate statuses.
 
 ## Protocols
 
-- `configs/benchmark.yaml` is the **legacy reproduction protocol** for the committed v0.3 result tables. It deliberately retains the shared cross-participant mask schedule.
-- `configs/benchmark_independent_masks.yaml` is the **recommended protocol for new inference**. Its channel masks are deterministic but participant-specific, while matching masks between decoder families within each participant.
+- `configs/benchmark_independent_masks.yaml` is the protocol used for the current PhysioNet results. Its channel masks are deterministic but participant-specific, while matching masks between decoder families within each participant.
+- `configs/benchmark.yaml` retains the legacy shared-mask schedule for exact reproduction of earlier v0.3 outputs only.
 
-Do not combine outputs from these protocols. The runner records a protocol version, mask-seed scope, and run signature, and rejects checkpoints created with different observation-generating settings. The manuscript reports only the legacy results; claims about stability under independent masks require a full rerun.
+Do not combine outputs from these protocols. The runner records a protocol version, mask-seed scope, and run signature, and rejects checkpoints created with different observation-generating settings.
 
 ## Check the included outputs
 

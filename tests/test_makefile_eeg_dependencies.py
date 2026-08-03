@@ -74,3 +74,13 @@ def test_physionet_csp_has_dedicated_preflight_and_full_targets():
     assert "--pipeline csp_lda" in csp_block
     assert "--suffix PhysionetMI_all_csp_lda" in csp_block
     assert "riemann_lr" not in csp_block
+
+
+def test_full_targets_regenerate_derived_outputs_after_fitting():
+    makefile = (ROOT / "Makefile").read_text(encoding="utf-8")
+    physionet = makefile.split("physionet-full:", 1)[1].split("physionet-fit:", 1)[0]
+    assert "postprocess-physionet-full-available" in physionet
+    assert "compare-physionet-pipelines" in physionet
+    bnci = makefile.split("bnci-full:", 1)[1].split("physionet-full-skip-failed:", 1)[0]
+    assert "validate-bnci" in bnci
+    assert "statistical-reports" in bnci

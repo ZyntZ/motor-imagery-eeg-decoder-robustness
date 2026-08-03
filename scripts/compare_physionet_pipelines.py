@@ -11,6 +11,10 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from scipy import stats
+
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 from scipy.stats import beta
 from statsmodels.stats.multitest import multipletests
 
@@ -182,6 +186,41 @@ def dataframe_to_markdown(df: pd.DataFrame) -> str:
     return "\n".join(rows)
 
 
+def paired_comparison_figure(table: pd.DataFrame, output: Path) -> None:
+    """Write the manuscript comparison figure from the current paired table."""
+    order = [
+        "clean", "dropout_0.1", "dropout_0.2", "dropout_0.3", "dropout_0.5",
+        "motor_core", "motor_extended", "region_left_motor_strip",
+        "region_midline_motor_strip", "region_right_motor_strip",
+    ]
+    labels = {
+        "clean": "Clean", "dropout_0.1": "Dropout 10%",
+        "dropout_0.2": "Dropout 20%", "dropout_0.3": "Dropout 30%",
+        "dropout_0.5": "Dropout 50%", "motor_core": "Motor core",
+        "motor_extended": "Motor extended",
+        "region_left_motor_strip": "Left motor strip",
+        "region_midline_motor_strip": "Midline motor strip",
+        "region_right_motor_strip": "Right motor strip",
+    }
+    plot = table.set_index("condition").reindex(order).dropna(subset=["mean_paired_difference_csp_minus_riemann"])
+    y = np.arange(len(plot))
+    mean = plot["mean_paired_difference_csp_minus_riemann"].to_numpy(float)
+    low = plot["ci95_low"].to_numpy(float)
+    high = plot["ci95_high"].to_numpy(float)
+    fig, ax = plt.subplots(figsize=(6.4, 4.8), layout="constrained")
+    ax.errorbar(mean, y, xerr=np.vstack([mean - low, high - mean]), fmt="o", color="#1f5a7a",
+                ecolor="#444444", elinewidth=1.1, capsize=2.5, markersize=4.5)
+    ax.axvline(0.0, color="#777777", linewidth=0.8, linestyle="--")
+    ax.set_yticks(y, [labels.get(condition, condition) for condition in plot.index])
+    ax.invert_yaxis()
+    ax.set_xlabel("Paired ROC-AUC difference (CSP-LDA minus Riemann-LR)")
+    ax.grid(axis="x", color="#dddddd", linewidth=0.5)
+    ax.spines[["top", "right", "left"]].set_visible(False)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output, bbox_inches="tight", pad_inches=0.08)
+    plt.close(fig)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--results-dir", type=Path, default=Path("results"))
@@ -189,6 +228,7 @@ def main() -> None:
     ap.add_argument("--csp-prefix", default="PhysionetMI_PhysionetMI_all_csp_lda")
     ap.add_argument("--riemann-prefix", default="PhysionetMI_PhysionetMI_all_riemann_lr")
     ap.add_argument("--output-prefix", default="PhysionetMI_csp_lda_vs_riemann_lr")
+    ap.add_argument("--figure-output", type=Path, default=None)
     args = ap.parse_args()
 
     csp_path = args.results_dir / f"{args.csp_prefix}_subject_summary.csv"
@@ -198,6 +238,8 @@ def main() -> None:
     table, pairs, notes = compare(csp, riemann)
     degradation, degradation_subjects = difference_in_degradation(pairs)
     args.reports_dir.mkdir(parents=True, exist_ok=True)
+    if args.figure_output is not None:
+        paired_comparison_figure(table, args.figure_output)
 
     csv_path = args.results_dir / f"{args.output_prefix}_paired_comparison.csv"
     pair_path = args.results_dir / f"{args.output_prefix}_paired_subject_differences.csv"

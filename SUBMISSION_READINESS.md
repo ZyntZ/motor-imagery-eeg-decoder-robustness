@@ -8,7 +8,7 @@ This file summarizes deterministic repository checks for preparing the benchmark
 - Ready for journal submission: `false`
 - Checks run: 55
 - Failed errors: 0
-- Failed warnings: 3
+- Failed warnings: 2
 
 ## Scope
 
@@ -21,4 +21,3 @@ This file summarizes deterministic repository checks for preparing the benchmark
 
 - `warning` `manuscript_declarations` `competing_interests_declaration_present`: Author confirmation is required before submission
 - `warning` `manuscript_declarations` `permanent_software_doi_present`: Archive the release and add its DOI before submission
-- `warning` `scientific_readiness` `participant_specific_mask_results_present`: Submission results still use or cannot exclude the legacy shared mask schedule; rerun all reported pipelines with participant-specific masks

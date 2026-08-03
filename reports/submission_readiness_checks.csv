@@ -52,5 +52,5 @@ manuscript_declarations,physionet_license_named,error,True,Required manuscript d
 manuscript_declarations,bnci_license_named,error,True,Required manuscript declaration is present,manuscript/manuscript.tex,,,,,,,
 manuscript_declarations,competing_interests_declaration_present,warning,False,Author confirmation is required before submission,manuscript/manuscript.tex,,,,,,,
 manuscript_declarations,permanent_software_doi_present,warning,False,Archive the release and add its DOI before submission,CITATION.cff,,,,,,,
-scientific_readiness,participant_specific_mask_results_present,warning,False,Submission results still use or cannot exclude the legacy shared mask schedule; rerun all reported pipelines with participant-specific masks,,,,,,,,BNCI2014-001_BNCI2014_001_all_csp_lda: provenance columns absent; BNCI2014-001_BNCI2014_001_all_riemann_lr: provenance columns absent; PhysionetMI_PhysionetMI_all_riemann_lr: provenance columns absent; PhysionetMI_PhysionetMI_all_csp_lda: provenance columns absent
+scientific_readiness,participant_specific_mask_results_present,warning,True,"All fold-level result tables encode the protocol, participant-specific mask scope, and one run signature",,,,,,,,
 release_manifest,release_manifest_ready,error,True,Release manifest reports release_ready=true,reports/release_manifest.json,,,,,,,

@@ -75,8 +75,19 @@ def test_difference_in_degradation_uses_each_decoder_clean_baseline():
     summary, subject_values = compare_physionet_pipelines.difference_in_degradation(pairs)
     assert len(summary) == 9
     assert summary["n_subjects"].eq(109).all()
+    committed = pd.read_csv(
+        ROOT / "results" / "PhysionetMI_csp_lda_vs_riemann_lr_difference_in_degradation.csv"
+    )
+    merged = summary.merge(
+        committed,
+        on="condition",
+        suffixes=("_new", "_committed"),
+        validate="one_to_one",
+    )
+    for column in ["mean_difference_in_degradation_csp_minus_riemann", "cohens_dz"]:
+        delta = (merged[f"{column}_new"] - merged[f"{column}_committed"]).abs().max()
+        assert delta < 1e-12
     dropout50 = summary.loc[summary["condition"].eq("dropout_0.5")].iloc[0]
-    assert dropout50["mean_difference_in_degradation_csp_minus_riemann"] == pytest.approx(-0.006681, abs=1e-6)
     assert dropout50["ci95_low"] < 0 < dropout50["ci95_high"]
     assert not subject_values.duplicated(["subject", "condition"]).any()
 
@@ -93,3 +104,13 @@ def test_compare_rejects_missing_subject_condition_pairs():
     with pytest.raises(ValueError, match="different subject-condition pairs"):
         compare_physionet_pipelines.compare(csp, riemann)
 
+
+
+def test_paired_comparison_figure_is_written(tmp_path):
+    csp = pd.read_csv(ROOT / "results" / "PhysionetMI_PhysionetMI_all_csp_lda_subject_summary.csv")
+    riemann = pd.read_csv(ROOT / "results" / "PhysionetMI_PhysionetMI_all_riemann_lr_subject_summary.csv")
+    table, _, _ = compare_physionet_pipelines.compare(csp, riemann)
+    output = tmp_path / "paired_comparison.pdf"
+    compare_physionet_pipelines.paired_comparison_figure(table, output)
+    assert output.exists()
+    assert output.stat().st_size > 1000

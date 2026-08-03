@@ -160,12 +160,12 @@ def test_submission_readiness_checks_manuscript_declarations():
     assert declarations.loc["permanent_software_doi_present", "severity"] == "warning"
 
 
-def test_submission_readiness_blocks_legacy_shared_mask_results():
+def test_submission_readiness_accepts_signed_participant_specific_results():
     checks = generate_submission_readiness.build_checks(
         ROOT, ROOT / "results", ROOT / "reports", generate_submission_readiness.DEFAULT_PREFIXES
     )
     row = checks.loc[checks["check"].eq("participant_specific_mask_results_present")].iloc[0]
     assert row["severity"] == "warning"
-    assert not bool(row["passed"])
-    assert "participant-specific masks" in row["detail"]
-    assert "provenance columns absent" in row["findings"]
+    assert bool(row["passed"])
+    assert "participant-specific mask scope" in row["detail"]
+    assert not row.get("findings", "")
