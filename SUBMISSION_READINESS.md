@@ -5,17 +5,20 @@ This file summarizes deterministic repository checks for preparing the benchmark
 ## Status
 
 - Ready for release packaging: `true`
-- Checks run: 54
+- Ready for journal submission: `false`
+- Checks run: 55
 - Failed errors: 0
-- Failed warnings: 2
+- Failed warnings: 3
 
 ## Scope
 
 - Confirms required metadata, provenance, reproducibility, statistical-reporting, validation, result, method-figure, and release-manifest artifacts.
-- Does not judge novelty, editorial fit, or clinical claims.
+- Does not judge novelty or editorial fit.
+- Journal submission remains blocked while a submission-blocking check fails.
 - Does not generate benchmark observations or alter result values.
 
 ## Failed checks
 
 - `warning` `manuscript_declarations` `competing_interests_declaration_present`: Author confirmation is required before submission
 - `warning` `manuscript_declarations` `permanent_software_doi_present`: Archive the release and add its DOI before submission
+- `warning` `scientific_readiness` `participant_specific_mask_results_present`: Submission results still use or cannot exclude the legacy shared mask schedule; rerun all reported pipelines with participant-specific masks

@@ -58,6 +58,11 @@ REQUIRED_RESULT_SUFFIXES = [
     "subject_summary.csv",
     "population_summary.csv",
 ]
+SUBMISSION_BLOCKING_CHECKS = {
+    "competing_interests_declaration_present",
+    "permanent_software_doi_present",
+    "participant_specific_mask_results_present",
+}
 REQUIRED_METHOD_FIGURE_PREFIX = "PhysionetMI_PhysionetMI_all_riemann_lr"
 REQUIRED_METHOD_FIGURES = [
     "methods_pipeline_schematic.svg",
@@ -267,6 +272,41 @@ def build_checks(root: Path, results_dir: Path, reports_dir: Path, prefixes: lis
         path="CITATION.cff",
     ))
 
+    protocol_columns_present = True
+    participant_scope_present = True
+    protocol_details: list[str] = []
+    for prefix in prefixes:
+        result_path = results_dir / f"{prefix}_results.csv"
+        if not result_path.exists():
+            continue
+        protocol = pd.read_csv(
+            result_path,
+            usecols=lambda col: col in {"protocol_version", "mask_seed_scope"},
+        )
+        has_columns = {"protocol_version", "mask_seed_scope"}.issubset(protocol.columns)
+        has_participant_scope = has_columns and (
+            protocol.loc[protocol["mask_seed_scope"].ne("not_applicable"), "mask_seed_scope"]
+            .eq("participant")
+            .all()
+        )
+        protocol_columns_present &= has_columns
+        participant_scope_present &= has_participant_scope
+        if not has_columns:
+            protocol_details.append(f"{prefix}: provenance columns absent")
+        elif not has_participant_scope:
+            protocol_details.append(f"{prefix}: non-participant mask scope present")
+    independent_results_present = protocol_columns_present and participant_scope_present
+    rows.append(check_row(
+        "scientific_readiness",
+        "participant_specific_mask_results_present",
+        "warning",
+        independent_results_present,
+        "All fold-level result tables encode the protocol and participant-specific mask scope"
+        if independent_results_present
+        else "Submission results still use or cannot exclude the legacy shared mask schedule; rerun all reported pipelines with participant-specific masks",
+        findings="; ".join(protocol_details),
+    ))
+
     release_manifest = read_json(reports_dir / "release_manifest.json")
     rows.append(check_row(
         "release_manifest",
@@ -289,7 +329,8 @@ def write_markdown(summary: dict[str, Any], checks: pd.DataFrame, output: Path) 
         "",
         "## Status",
         "",
-        f"- Ready for release packaging: `{str(summary['ready']).lower()}`",
+        f"- Ready for release packaging: `{str(summary['release_ready']).lower()}`",
+        f"- Ready for journal submission: `{str(summary['submission_ready']).lower()}`",
         f"- Checks run: {summary['n_checks']}",
         f"- Failed errors: {summary['n_failed_errors']}",
         f"- Failed warnings: {summary['n_failed_warnings']}",
@@ -297,7 +338,8 @@ def write_markdown(summary: dict[str, Any], checks: pd.DataFrame, output: Path) 
         "## Scope",
         "",
         "- Confirms required metadata, provenance, reproducibility, statistical-reporting, validation, result, method-figure, and release-manifest artifacts.",
-        "- Does not judge novelty, editorial fit, or clinical claims.",
+        "- Does not judge novelty or editorial fit.",
+        "- Journal submission remains blocked while a submission-blocking check fails.",
         "- Does not generate benchmark observations or alter result values.",
         "",
         "## Failed checks",
@@ -330,13 +372,21 @@ def main() -> None:
     checks = build_checks(root, results_dir, reports_dir, prefixes)
     n_failed_errors = int(((checks["severity"] == "error") & (~checks["passed"])).sum())
     n_failed_warnings = int(((checks["severity"] == "warning") & (~checks["passed"])).sum())
+    failed_submission_blockers = checks[
+        checks["check"].isin(SUBMISSION_BLOCKING_CHECKS) & (~checks["passed"])
+    ]
+    release_ready = n_failed_errors == 0
+    submission_ready = release_ready and failed_submission_blockers.empty
     summary = {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "prefixes": prefixes,
-        "ready": n_failed_errors == 0,
+        "ready": release_ready,
+        "release_ready": release_ready,
+        "submission_ready": submission_ready,
         "n_checks": int(len(checks)),
         "n_failed_errors": n_failed_errors,
         "n_failed_warnings": n_failed_warnings,
+        "n_submission_blockers": int(len(failed_submission_blockers)),
         "note": "Checks are derived from repository files only; no benchmark observations were generated.",
     }
 
@@ -351,6 +401,8 @@ def main() -> None:
         "checks": str(checks_path),
         "summary": str(summary_path),
         "ready": summary["ready"],
+        "release_ready": summary["release_ready"],
+        "submission_ready": summary["submission_ready"],
         "n_checks": summary["n_checks"],
         "n_failed_errors": n_failed_errors,
         "n_failed_warnings": n_failed_warnings,

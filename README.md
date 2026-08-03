@@ -15,6 +15,8 @@ In the included PhysioNet participant summaries ($n=109$), 50% random channel ze
 
 These estimates are conditional on one shuffled cross-validation split and one deterministic channel-mask schedule. The mask seed does not include participant identity, so matched fold/repeat indices reuse the same channel indices across participants when channel order agrees. Alternative splits and mask schedules were not evaluated. These committed estimates therefore describe one fixed perturbation schedule, not the distribution of performance over possible schedules.
 
+**Publication status.** The repository is release-package ready, but it is not yet ready for journal submission. The reported pipelines must first be rerun with participant-specific masks, the resulting tables and manuscript values must be regenerated, a permanent release DOI must be recorded, and the competing-interests declaration must be confirmed by the author. `SUBMISSION_READINESS.md` keeps release packaging and submission readiness as separate statuses.
+
 ## Protocols
 
 - `configs/benchmark.yaml` is the **legacy reproduction protocol** for the committed v0.3 result tables. It deliberately retains the shared cross-participant mask schedule.

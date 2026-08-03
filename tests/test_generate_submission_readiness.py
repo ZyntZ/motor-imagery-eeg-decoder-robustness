@@ -113,11 +113,19 @@ def test_submission_readiness_writes_markdown_status(tmp_path):
     checks = pd.DataFrame([
         {"category": "example", "check": "ok", "severity": "error", "passed": True, "detail": "ok"},
     ])
-    summary = {"ready": True, "n_checks": 1, "n_failed_errors": 0, "n_failed_warnings": 0}
+    summary = {
+        "ready": True,
+        "release_ready": True,
+        "submission_ready": False,
+        "n_checks": 1,
+        "n_failed_errors": 0,
+        "n_failed_warnings": 0,
+    }
     output = tmp_path / "SUBMISSION_READINESS.md"
     generate_submission_readiness.write_markdown(summary, checks, output)
     text = output.read_text(encoding="utf-8")
     assert "Ready for release packaging: `true`" in text
+    assert "Ready for journal submission: `false`" in text
     assert "No failed checks." in text
 
 
@@ -150,3 +158,13 @@ def test_submission_readiness_checks_manuscript_declarations():
     assert declarations.loc["competing_interests_declaration_present", "severity"] == "warning"
     assert not bool(declarations.loc["competing_interests_declaration_present", "passed"])
     assert declarations.loc["permanent_software_doi_present", "severity"] == "warning"
+
+
+def test_submission_readiness_blocks_legacy_shared_mask_results():
+    checks = generate_submission_readiness.build_checks(
+        ROOT, ROOT / "results", ROOT / "reports", generate_submission_readiness.DEFAULT_PREFIXES
+    )
+    row = checks.loc[checks["check"].eq("participant_specific_mask_results_present")].iloc[0]
+    assert row["severity"] == "warning"
+    assert not bool(row["passed"])
+    assert "participant-specific masks" in row["detail"]

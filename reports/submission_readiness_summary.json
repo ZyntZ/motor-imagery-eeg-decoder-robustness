@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-07-22T17:10:50.941447+00:00",
+  "generated_at_utc": "2026-08-03T12:45:27.747277+00:00",
   "prefixes": [
     "BNCI2014-001_BNCI2014_001_all_csp_lda",
     "BNCI2014-001_BNCI2014_001_all_riemann_lr",
@@ -7,8 +7,11 @@
     "PhysionetMI_PhysionetMI_all_csp_lda"
   ],
   "ready": true,
-  "n_checks": 54,
+  "release_ready": true,
+  "submission_ready": false,
+  "n_checks": 55,
   "n_failed_errors": 0,
-  "n_failed_warnings": 2,
+  "n_failed_warnings": 3,
+  "n_submission_blockers": 3,
   "note": "Checks are derived from repository files only; no benchmark observations were generated."
 }
