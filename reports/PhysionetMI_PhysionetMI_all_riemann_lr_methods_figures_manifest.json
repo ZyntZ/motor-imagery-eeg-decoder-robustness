@@ -2,16 +2,16 @@
   "prefix": "PhysionetMI_PhysionetMI_all_riemann_lr",
   "metric": "roc_auc",
   "source_files": [
-    "/workspace/motor-imagery-eeg-decoder-robustness/results/PhysionetMI_PhysionetMI_all_riemann_lr_subject_summary.csv"
+    "results/PhysionetMI_PhysionetMI_all_riemann_lr_subject_summary.csv"
   ],
   "outputs": {
     "pipeline_schematic": {
-      "png": "/workspace/motor-imagery-eeg-decoder-robustness/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.png",
-      "svg": "/workspace/motor-imagery-eeg-decoder-robustness/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.svg"
+      "png": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.png",
+      "svg": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_pipeline_schematic.svg"
     },
     "robustness_degradation": {
-      "png": "/workspace/motor-imagery-eeg-decoder-robustness/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.png",
-      "svg": "/workspace/motor-imagery-eeg-decoder-robustness/reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.svg"
+      "png": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.png",
+      "svg": "reports/PhysionetMI_PhysionetMI_all_riemann_lr_methods_robustness_degradation_roc_auc.svg"
     }
   },
   "note": "Figures are generated from committed participant-level results."

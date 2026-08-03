@@ -9,6 +9,7 @@ This version is resumable at the subject level and supports two stressors:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 import time
@@ -111,6 +112,35 @@ def pipeline_config(config: dict, pipeline_name: str) -> dict:
     return {}
 
 
+
+
+def benchmark_run_signature(
+    config: dict,
+    dataset_name: str,
+    pipeline_name: str,
+    include_reduced_montage: bool,
+    include_region_dropout: bool,
+    include_cross_session: bool,
+) -> str:
+    """Return a stable fingerprint of settings that affect benchmark observations."""
+    payload = {
+        "protocol_version": BENCHMARK_PROTOCOL_VERSION,
+        "dataset": dataset_name,
+        "pipeline": pipeline_name,
+        "pipeline_config": pipeline_config(config, pipeline_name),
+        "random_seed": config.get("random_seed"),
+        "preprocessing": config.get("preprocessing", {}),
+        "stressors": config.get("stressors", {}),
+        "run_options": {
+            "include_reduced_montage": bool(include_reduced_montage),
+            "include_region_dropout": bool(include_region_dropout),
+            "include_cross_session": bool(include_cross_session),
+        },
+    }
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
 def requested_stressors(include_reduced_montage: bool, include_region_dropout: bool, include_cross_session: bool) -> set[str]:
     """Return stressors expected in a checkpoint for the requested run options."""
     needed = {"clean", "channel_dropout"}
@@ -128,6 +158,7 @@ def checkpoint_is_compatible(
     include_region_dropout: bool,
     include_cross_session: bool,
     expected_mask_seed_scope: str | None = None,
+    expected_run_signature: str | None = None,
 ) -> tuple[bool, str]:
     """Check whether an existing checkpoint contains all mandatory requested stressors.
 
@@ -142,6 +173,15 @@ def checkpoint_is_compatible(
     versions = set(df["protocol_version"].dropna().astype(str))
     if versions != {BENCHMARK_PROTOCOL_VERSION}:
         return False, f"protocol version mismatch: found {sorted(versions)}, expected {BENCHMARK_PROTOCOL_VERSION}"
+    if expected_run_signature is not None:
+        if "run_signature" not in df.columns:
+            return False, "missing run_signature column"
+        signatures = set(df["run_signature"].dropna().astype(str))
+        if signatures != {expected_run_signature}:
+            return False, (
+                f"run signature mismatch: found {sorted(signatures)}, "
+                f"expected {expected_run_signature}"
+            )
     if expected_mask_seed_scope is not None:
         if "mask_seed_scope" not in df.columns:
             return False, "missing mask_seed_scope column"
@@ -339,6 +379,16 @@ def run_real_data(
     checkpoint_dir = results_dir / "checkpoints"
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
+    run_signature = benchmark_run_signature(
+        config,
+        dataset_name,
+        pipeline_name,
+        include_reduced_montage,
+        include_region_dropout,
+        include_cross_session,
+    )
+    print(f"Run signature: {run_signature}")
+
     all_rows = []
     failures: list[dict] = []
     max_retries = max(0, int(max_retries))
@@ -358,6 +408,7 @@ def run_real_data(
                 include_region_dropout,
                 include_cross_session,
                 expected_mask_seed_scope=expected_scope,
+                expected_run_signature=run_signature,
             )
             if ok:
                 print(f"Reusing checkpoint: {ckpt}")
@@ -372,6 +423,7 @@ def run_real_data(
                 try:
                     print(f"Loading subject {subject} from {dataset.code} (attempt {attempt}/{attempts_total})...")
                     df = run_one_subject(dataset, paradigm, subject, config, include_reduced_montage, include_region_dropout, include_cross_session, pipeline_name)
+                    df["run_signature"] = run_signature
                     atomic_write_csv(df, ckpt)
                     print(f"  wrote checkpoint {ckpt}")
                     consecutive_failures = 0

@@ -168,3 +168,4 @@ def test_submission_readiness_blocks_legacy_shared_mask_results():
     assert row["severity"] == "warning"
     assert not bool(row["passed"])
     assert "participant-specific masks" in row["detail"]
+    assert "provenance columns absent" in row["findings"]

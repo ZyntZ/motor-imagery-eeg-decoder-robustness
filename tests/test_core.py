@@ -191,7 +191,7 @@ def test_region_dropout_records_protocol_provenance(monkeypatch):
         X, y, ["C3", "Cz", "C4"], subject_id=1,
         region_names=("midline_motor_strip",), n_splits=2,
     )
-    assert set(out["protocol_version"]) == {"0.3.1"}
+    assert set(out["protocol_version"]) == {"0.3.2"}
     assert set(out["mask_seed_scope"]) == {"not_applicable"}
 
 def test_cross_session_uses_sorted_session_labels(monkeypatch):
@@ -207,7 +207,7 @@ def test_cross_session_uses_sorted_session_labels(monkeypatch):
     out = evaluate_subject_cross_session(X, y, metadata, subject_id=1)
     assert set(out["session_train"]) == {"session_1"}
     assert set(out["session_test"]) == {"session_2"}
-    assert set(out["protocol_version"]) == {"0.3.1"}
+    assert set(out["protocol_version"]) == {"0.3.2"}
     assert set(out["mask_seed_scope"]) == {"not_applicable"}
 
 
@@ -232,7 +232,7 @@ def test_dropout_evaluator_records_protocol_and_mask_scope(monkeypatch):
         X, y, subject_id=7, dropout_fractions=(0.0, 0.5),
         repeats_per_fraction=1, n_splits=2, mask_seed_scope="participant",
     )
-    assert set(out["protocol_version"]) == {"0.3.1"}
+    assert set(out["protocol_version"]) == {"0.3.2"}
     assert set(out["mask_seed_scope"]) == {"participant"}
 
 

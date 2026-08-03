@@ -199,6 +199,6 @@ archive-audit: submission-readiness
 	$(PYTHON) scripts/build_release_archive.py --audit-only
 
 release-archive: archive-audit
-	$(PYTHON) scripts/build_release_archive.py --output dist/motor-imagery-eeg-decoder-robustness-v0.3.1.zip
+	$(PYTHON) scripts/build_release_archive.py --output dist/motor-imagery-eeg-decoder-robustness-v0.3.2.zip
 
 publication-check: compile-check test submission-readiness archive-audit

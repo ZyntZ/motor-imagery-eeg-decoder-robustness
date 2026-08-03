@@ -152,7 +152,7 @@ def build_archive(root: Path, output: Path, top_level_name: str | None = None) -
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--root", type=Path, default=Path("."))
-    ap.add_argument("--output", type=Path, default=Path("dist/motor-imagery-eeg-decoder-robustness-v0.3.1.zip"))
+    ap.add_argument("--output", type=Path, default=Path("dist/motor-imagery-eeg-decoder-robustness-v0.3.2.zip"))
     ap.add_argument("--audit-only", action="store_true")
     args = ap.parse_args()
     root = args.root.resolve()

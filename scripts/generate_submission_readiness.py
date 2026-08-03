@@ -281,27 +281,30 @@ def build_checks(root: Path, results_dir: Path, reports_dir: Path, prefixes: lis
             continue
         protocol = pd.read_csv(
             result_path,
-            usecols=lambda col: col in {"protocol_version", "mask_seed_scope"},
+            usecols=lambda col: col in {"protocol_version", "mask_seed_scope", "run_signature"},
         )
-        has_columns = {"protocol_version", "mask_seed_scope"}.issubset(protocol.columns)
+        has_columns = {"protocol_version", "mask_seed_scope", "run_signature"}.issubset(protocol.columns)
         has_participant_scope = has_columns and (
             protocol.loc[protocol["mask_seed_scope"].ne("not_applicable"), "mask_seed_scope"]
             .eq("participant")
             .all()
         )
+        has_single_signature = has_columns and protocol["run_signature"].notna().all() and protocol["run_signature"].nunique() == 1
         protocol_columns_present &= has_columns
-        participant_scope_present &= has_participant_scope
+        participant_scope_present &= has_participant_scope and has_single_signature
         if not has_columns:
             protocol_details.append(f"{prefix}: provenance columns absent")
         elif not has_participant_scope:
             protocol_details.append(f"{prefix}: non-participant mask scope present")
+        elif not has_single_signature:
+            protocol_details.append(f"{prefix}: run signature absent or inconsistent")
     independent_results_present = protocol_columns_present and participant_scope_present
     rows.append(check_row(
         "scientific_readiness",
         "participant_specific_mask_results_present",
         "warning",
         independent_results_present,
-        "All fold-level result tables encode the protocol and participant-specific mask scope"
+        "All fold-level result tables encode the protocol, participant-specific mask scope, and one run signature"
         if independent_results_present
         else "Submission results still use or cannot exclude the legacy shared mask schedule; rerun all reported pipelines with participant-specific masks",
         findings="; ".join(protocol_details),

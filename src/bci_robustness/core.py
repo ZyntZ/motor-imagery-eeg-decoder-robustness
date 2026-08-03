@@ -26,7 +26,7 @@ except Exception as exc:  # pragma: no cover
 
 
 
-BENCHMARK_PROTOCOL_VERSION = "0.3.1"
+BENCHMARK_PROTOCOL_VERSION = "0.3.2"
 
 
 def _stable_subject_seed(random_seed: int, subject_id: str | int) -> int:

@@ -77,3 +77,5 @@ The generated PDF is written to `manuscript/manuscript.pdf`.
 ## Perturbation schedules
 
 The committed tables were generated with `configs/benchmark.yaml`, in which matched fold/repeat indices reuse channel indices across participants when channel order agrees. This is retained only for exact legacy reproduction. New studies should use `configs/benchmark_independent_masks.yaml`; it derives deterministic masks from participant identity, fold, repeat, fraction, and the global seed. Decoder families still receive matched masks for the same participant. A full independent-mask rerun is required before replacing the committed numerical results.
+
+Participant checkpoints include a run signature over all observation-generating settings. A checkpoint with a different or missing signature is recomputed.

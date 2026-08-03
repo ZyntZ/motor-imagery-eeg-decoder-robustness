@@ -78,7 +78,7 @@ def test_refresh_summaries_recovers_missing_results_from_complete_checkpoints(tm
             "stressor": "clean", "montage": "all_channels", "dropout_fraction": 0.0,
             "fold": 1, "repeat": 0, "roc_auc": 0.7, "balanced_accuracy": 0.6,
             "brier_score": 0.2, "ece": 0.1, "n_channels": 64, "n_dropped_channels": 0,
-            "protocol_version": "0.3.1",
+            "protocol_version": "0.3.2",
         }])
         frame.to_csv(checkpoint_dir / f"PhysionetMI_riemann_lr_PhysionetMI_all_riemann_lr_subject-{subject:03d}.csv", index=False)
 
@@ -107,7 +107,7 @@ def test_checkpoint_recovery_refuses_incomplete_subject_set(tmp_path):
         "dataset": "PhysionetMotorImagery", "subject": 1, "pipeline": "riemann_lr",
         "stressor": "clean", "montage": "all_channels", "dropout_fraction": 0.0,
         "fold": 1, "repeat": 0, "roc_auc": 0.7, "balanced_accuracy": 0.6,
-        "n_channels": 64, "n_dropped_channels": 0, "protocol_version": "0.3.1",
+        "n_channels": 64, "n_dropped_channels": 0, "protocol_version": "0.3.2",
     }]).to_csv(checkpoint_dir / "PhysionetMI_riemann_lr_PhysionetMI_all_riemann_lr_subject-001.csv", index=False)
     with pytest.raises(RuntimeError, match="Found 1 unique subject checkpoints, expected 2"):
         module.refresh_summaries(
@@ -387,3 +387,61 @@ def test_checkpoint_compatibility_accepts_matching_mask_scope():
     )
     assert ok
     assert reason == "ok"
+
+
+def test_run_signature_is_stable_and_changes_with_observation_settings():
+    module = load_run_benchmark_module()
+    config = {
+        "random_seed": 42,
+        "preprocessing": {"fmin_hz": 8, "fmax_hz": 32, "resample_hz": 128},
+        "pipelines": [{"name": "csp_lda", "csp_components": 6}],
+        "stressors": {
+            "channel_dropout": {
+                "dropout_fractions": [0.1, 0.2],
+                "repeats_per_fraction": 10,
+                "mask_seed_scope": "participant",
+            }
+        },
+    }
+    first = module.benchmark_run_signature(config, "PhysionetMI", "csp_lda", True, True, True)
+    repeated = module.benchmark_run_signature(config, "PhysionetMI", "csp_lda", True, True, True)
+    changed = {**config, "random_seed": 43}
+    different = module.benchmark_run_signature(changed, "PhysionetMI", "csp_lda", True, True, True)
+    assert first == repeated
+    assert len(first) == 64
+    assert first != different
+
+
+def test_checkpoint_compatibility_requires_matching_run_signature():
+    module = load_run_benchmark_module()
+    import pandas as pd
+    frame = pd.DataFrame({
+        "stressor": ["clean", "channel_dropout"],
+        "protocol_version": [module.BENCHMARK_PROTOCOL_VERSION] * 2,
+        "mask_seed_scope": ["participant"] * 2,
+        "run_signature": ["abc"] * 2,
+    })
+    ok, reason = module.checkpoint_is_compatible(
+        frame, False, False, False,
+        expected_mask_seed_scope="participant",
+        expected_run_signature="def",
+    )
+    assert not ok
+    assert "run signature mismatch" in reason
+
+
+def test_checkpoint_compatibility_rejects_unsigned_checkpoint_when_signature_expected():
+    module = load_run_benchmark_module()
+    import pandas as pd
+    frame = pd.DataFrame({
+        "stressor": ["clean", "channel_dropout"],
+        "protocol_version": [module.BENCHMARK_PROTOCOL_VERSION] * 2,
+        "mask_seed_scope": ["participant"] * 2,
+    })
+    ok, reason = module.checkpoint_is_compatible(
+        frame, False, False, False,
+        expected_mask_seed_scope="participant",
+        expected_run_signature="abc",
+    )
+    assert not ok
+    assert "run_signature" in reason

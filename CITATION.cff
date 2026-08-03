@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this benchmark, cite the archived release and the source datasets referenced in DATA_PROVENANCE.md."
 title: "Motor-Imagery EEG Decoder Robustness Benchmark"
-version: "0.3.1"
+version: "0.3.2"
 license: "BSD-3-Clause"
 type: software
 authors:
