@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-03T19:30:22.241546+00:00",
+  "generated_at_utc": "2026-08-03T21:03:00.490107+00:00",
   "prefixes": [
     "BNCI2014-001_BNCI2014_001_all_csp_lda",
     "BNCI2014-001_BNCI2014_001_all_riemann_lr",
@@ -8,10 +8,10 @@
   ],
   "ready": true,
   "release_ready": true,
-  "submission_ready": false,
+  "submission_ready": true,
   "n_checks": 55,
   "n_failed_errors": 0,
-  "n_failed_warnings": 2,
-  "n_submission_blockers": 2,
+  "n_failed_warnings": 0,
+  "n_submission_blockers": 0,
   "note": "Checks are derived from repository files only; no benchmark observations were generated."
 }

@@ -15,7 +15,7 @@ In the included PhysioNet participant summaries ($n=109$), 50% random channel ze
 
 The PhysioNet results use deterministic participant-specific channel masks. Decoder families receive matched masks within each participant, while mask schedules differ across participants. Estimates remain conditional on one shuffled cross-validation split and one participant-specific mask schedule per participant; sensitivity to alternative splits and schedules was not measured.
 
-**Publication status.** The PhysioNet and BNCI2014-001 reruns are complete. Before submission, the release needs a permanent DOI and the author must add a competing-interests declaration. See `SUBMISSION_READINESS.md`.
+**Publication status.** The PhysioNet and BNCI2014-001 reruns are complete, and release v0.3.2 is archived at [Zenodo](https://doi.org/10.5281/zenodo.21780413). The repository passes its release-packaging and journal-submission readiness checks. See `SUBMISSION_READINESS.md`.
 
 ## Protocols
 

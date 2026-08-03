@@ -5,10 +5,10 @@ This report checks the repository files needed for release and journal submissio
 ## Status
 
 - Ready for release packaging: `true`
-- Ready for journal submission: `false`
+- Ready for journal submission: `true`
 - Checks run: 55
 - Failed errors: 0
-- Failed warnings: 2
+- Failed warnings: 0
 
 ## Scope
 
@@ -16,5 +16,4 @@ The checks cover metadata, provenance, reproducibility, statistical reports, val
 
 ## Failed checks
 
-- `warning` `manuscript_declarations` `competing_interests_declaration_present`: Author confirmation is required before submission
-- `warning` `manuscript_declarations` `permanent_software_doi_present`: Archive the release and add its DOI before submission
+No failed checks.

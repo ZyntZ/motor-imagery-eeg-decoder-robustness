@@ -156,8 +156,9 @@ def test_submission_readiness_checks_manuscript_declarations():
         assert bool(declarations.loc[name, "passed"]), name
         assert declarations.loc[name, "severity"] == "error"
     assert declarations.loc["competing_interests_declaration_present", "severity"] == "warning"
-    assert not bool(declarations.loc["competing_interests_declaration_present", "passed"])
+    assert bool(declarations.loc["competing_interests_declaration_present", "passed"])
     assert declarations.loc["permanent_software_doi_present", "severity"] == "warning"
+    assert bool(declarations.loc["permanent_software_doi_present", "passed"])
 
 
 def test_submission_readiness_accepts_signed_participant_specific_results():
