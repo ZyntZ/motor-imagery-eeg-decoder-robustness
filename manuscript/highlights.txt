@@ -1,5 +1,5 @@
-• Fifty-percent channel dropout reduced ROC-AUC by 0.127 and 0.119.
-• Riemannian logistic regression had higher ROC-AUC under channel dropout.
-• Nine-channel estimates were close to full-montage estimates; equivalence was not tested.
-• The dropout dose-response was nonlinear over the tested fractions.
-• Sensitivity to alternative cross-validation splits and mask schedules remains to be tested.
+• At 50% channel dropout, mean ROC-AUC fell by 0.127 and 0.119.
+• Riemann–LR outperformed CSP–LDA at every tested dropout fraction.
+• Nine-channel results stayed close to full montage; equivalence was not tested.
+• Dropout effects were nonlinear across the tested fractions.
+• Results remain conditional on one cross-validation split and fixed mask schedules.

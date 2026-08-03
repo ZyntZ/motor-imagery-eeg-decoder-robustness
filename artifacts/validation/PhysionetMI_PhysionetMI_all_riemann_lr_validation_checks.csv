@@ -1,5 +1,5 @@
 severity,check,passed,detail,n_rows,n_columns,n_finite,n_missing_or_nonfinite,n_duplicate_rows,key_columns,n_invalid,n_tested,n_mismatch,n_missing_subjects,n_expected,n_actual,n_compared_keys,n_unmatched_keys,n_compared,max_abs_difference
-error,fold_results_required_columns,True,All required columns are present,25070.0,17.0,,,,,,,,,,,,,,
+error,fold_results_required_columns,True,All required columns are present,25070.0,20.0,,,,,,,,,,,,,,
 error,subject_summary_required_columns,True,All required columns are present,1090.0,13.0,,,,,,,,,,,,,,
 error,fold_results_roc_auc_range,True,"roc_auc finite values are within [0.0, 1.0]",,,25070.0,0.0,,,,,,,,,,,,
 error,fold_results_balanced_accuracy_range,True,"balanced_accuracy finite values are within [0.0, 1.0]",,,25070.0,0.0,,,,,,,,,,,,

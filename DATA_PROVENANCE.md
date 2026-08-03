@@ -14,12 +14,12 @@ Raw EEG data are not bundled. Reproduction requires downloading datasets through
 - PhysioNet EEG Motor Movement/Imagery Dataset v1.0.0: open access under the Open Data Commons Attribution License v1.0; dataset DOI: https://doi.org/10.13026/C28G6P.
 - BNCI2014-001: open access through the BNCI Horizon 2020 database under the Creative Commons Attribution-NoDerivatives 4.0 International License; licensor: Institute for Knowledge Discovery, Graz University of Technology.
 - This repository redistributes neither raw EEG nor participant identifiers. The analyses use data obtained through MOABB/MNE and publish derived numerical benchmark outputs.
-- The public PhysioNet page, BNCI Horizon 2020 dataset card, and BNCI2014-001 description reviewed for this release do not state original ethics-committee names, approval identifiers, or consent wording. These details are therefore not inferred. Questions requiring acquisition-level documentation should be directed to the original data custodians.
+- The PhysioNet page, BNCI Horizon 2020 dataset card, and BNCI2014-001 description do not report original ethics-committee names, approval identifiers, or consent wording, so none are stated here. Acquisition-level documentation should be requested from the original data custodians.
 
 
 ## Dataset identifiers in result tables
 
-MOABB exposes the PhysioNet dataset class as `PhysionetMI` and reports its internal dataset code as `PhysionetMotorImagery`. Result filenames use the class alias; the `dataset` column in committed CSV files retains the MOABB code. Both identifiers refer to the same PhysioNet EEG Motor Movement/Imagery dataset.
+MOABB exposes this dataset as `PhysionetMI` but records it internally as `PhysionetMotorImagery`. Result filenames use the class name, while the `dataset` column in CSV files uses the internal code.
 
 ## Full PhysioNet release outputs
 

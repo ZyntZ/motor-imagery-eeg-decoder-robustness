@@ -7,7 +7,7 @@ This repository compares two offline binary motor-imagery decoders:
 
 The evaluation uses PhysioNet EEG Motor Movement/Imagery and BNCI2014-001. It tests intact data, test-time channel zeroing, retraining on 3- and 9-channel montages, and cross-session transfer where session metadata permit it.
 
-**Scope.** Channel zeroing is a software perturbation. It is not a physical model of electrode impedance, bridging, clipping, intermittent contact, cap displacement, or online recalibration. The study concerns offline classification, mostly in healthy participants; it does not measure prosthesis control or clinical performance.
+**Scope.** Channel zeroing simulates complete signal loss at selected electrodes; it does not reproduce impedance noise, bridging, clipping, intermittent contact, cap displacement, or online recalibration. The analyses are offline and use recordings from healthy participants, so they do not address prosthesis control or clinical outcomes.
 
 ## Results reported in the manuscript
 
@@ -15,14 +15,14 @@ In the included PhysioNet participant summaries ($n=109$), 50% random channel ze
 
 The PhysioNet results use deterministic participant-specific channel masks. Decoder families receive matched masks within each participant, while mask schedules differ across participants. Estimates remain conditional on one shuffled cross-validation split and one participant-specific mask schedule per participant; sensitivity to alternative splits and schedules was not measured.
 
-**Publication status.** The PhysioNet and BNCI2014-001 participant-specific reruns are complete. Journal submission remains blocked until a permanent release DOI is recorded and the competing-interests declaration is confirmed by the author. `SUBMISSION_READINESS.md` keeps release packaging and submission readiness as separate statuses.
+**Publication status.** The PhysioNet and BNCI2014-001 reruns are complete. Before submission, the release needs a permanent DOI and the author must add a competing-interests declaration. See `SUBMISSION_READINESS.md`.
 
 ## Protocols
 
 - `configs/benchmark_independent_masks.yaml` is the protocol used for the current PhysioNet results. Its channel masks are deterministic but participant-specific, while matching masks between decoder families within each participant.
 - `configs/benchmark.yaml` retains the legacy shared-mask schedule for exact reproduction of earlier v0.3 outputs only.
 
-Do not combine outputs from these protocols. The runner records a protocol version, mask-seed scope, and run signature, and rejects checkpoints created with different observation-generating settings.
+Outputs from the two protocols must not be mixed. Each checkpoint records its protocol version, mask-seed scope, and run signature; the runner rejects checkpoints whose settings differ from the current run.
 
 ## Check the included outputs
 
@@ -74,4 +74,4 @@ manuscript/              article source and submission figures
 tests/                   unit and integration tests
 ```
 
-Raw EEG is not redistributed. Dataset identifiers and licenses are listed in `DATA_PROVENANCE.md`. The code is released under the BSD 3-Clause License. Source datasets retain their original licenses.
+Raw EEG is not included. Dataset identifiers, access details, and licenses are listed in `DATA_PROVENANCE.md`. The benchmark code uses the BSD 3-Clause License; the source datasets retain their own licenses.

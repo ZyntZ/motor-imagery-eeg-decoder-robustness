@@ -32,7 +32,7 @@ make validate-results
 make compare-physionet-pipelines
 ```
 
-These commands test imports, syntax, unit-level behavior and consistency of the included result tables. They do not independently recreate the fold-level measurements from raw EEG and cannot verify that the committed outputs came from the committed code. A strong reproducibility check requires a clean full rerun and comparison of regenerated tables.
+These checks cover imports, syntax, unit-level behavior, and internal consistency of the committed tables. They do not regenerate fold-level measurements from raw EEG. To verify the committed outputs against the committed code, run the complete benchmark from a clean checkout and compare the regenerated tables.
 
 ## Full benchmark
 
@@ -49,7 +49,7 @@ Long runs write participant checkpoints to `results/checkpoints/`. Checkpoint na
 python scripts/run_benchmark.py   --config configs/benchmark.yaml   --download-and-run   --dataset PhysionetMI   --subjects 29   --include-reduced-montage   --include-region-dropout   --pipeline csp_lda   --max-retries 5   --retry-wait-seconds 60
 ```
 
-Checkpoint reuse is also gated on `mask_seed_scope`, so a participant-specific run cannot silently reuse legacy shared-mask checkpoints. Use separate result directories for protocol variants.
+Checkpoint reuse also checks `mask_seed_scope`, so a participant-specific run cannot reuse a legacy shared-mask checkpoint. Keep separate result directories for each protocol variant.
 
 Use `--skip-failed` only for exploratory runs. It records skipped participants in `*_failed_subjects.csv` and `*_failed_subjects.json`; those outputs are incomplete until the failed participants are rerun.
 

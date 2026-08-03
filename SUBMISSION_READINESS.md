@@ -1,6 +1,6 @@
 # Submission readiness
 
-This file summarizes deterministic repository checks for preparing the benchmark for a methods-journal submission. The checks are derived only from files already present in the repository.
+This report checks the repository files needed for release and journal submission.
 
 ## Status
 
@@ -12,10 +12,7 @@ This file summarizes deterministic repository checks for preparing the benchmark
 
 ## Scope
 
-- Confirms required metadata, provenance, reproducibility, statistical-reporting, validation, result, method-figure, and release-manifest artifacts.
-- Does not judge novelty or editorial fit.
-- Journal submission remains blocked while a submission-blocking check fails.
-- Does not generate benchmark observations or alter result values.
+The checks cover metadata, provenance, reproducibility, statistical reports, validation, figures, results, and the release manifest. They do not assess novelty or journal fit, generate observations, or change result values. Submission is not ready until every blocking check passes.
 
 ## Failed checks
 
