@@ -14,12 +14,14 @@
   <a href="https://github.com/ZyntZ/motor-imagery-eeg-decoder-robustness/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/ZyntZ/motor-imagery-eeg-decoder-robustness?display_name=tag"></a>
   <a href="https://doi.org/10.5281/zenodo.21780413"><img alt="Zenodo DOI" src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21780413-blue"></a>
   <a href="LICENSE"><img alt="BSD 3-Clause License" src="https://img.shields.io/badge/license-BSD--3--Clause-blue"></a>
+  <a href="https://colab.research.google.com/github/ZyntZ/motor-imagery-eeg-decoder-robustness/blob/main/examples/quickstart.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg"></a>
   <img alt="Python 3.11 reference environment" src="https://img.shields.io/badge/reference-Python%203.11-3776AB?logo=python&logoColor=white">
 </p>
 
 <p align="center">
   <a href="#key-result"><strong>Key result</strong></a> ·
   <a href="#benchmark-design"><strong>Benchmark design</strong></a> ·
+  <a href="#one-participant-quickstart"><strong>Run the quickstart</strong></a> ·
   <a href="#quick-validation"><strong>Validate outputs</strong></a> ·
   <a href="#full-reproduction"><strong>Re-run EEG analysis</strong></a> ·
   <a href="#citation"><strong>Citation</strong></a>
@@ -112,6 +114,37 @@ Raw EEG is **not** included in this repository. Data are downloaded through
 Dataset identifiers, access routes, licenses, and redistribution boundaries are
 documented in [`DATA_PROVENANCE.md`](DATA_PROVENANCE.md). Source datasets retain
 their own licenses.
+
+## One-participant quickstart
+
+Run a compact CSP–LDA channel-dropout demonstration on one PhysioNet
+participant without configuring the full benchmark locally:
+
+<p align="center">
+  <a href="https://colab.research.google.com/github/ZyntZ/motor-imagery-eeg-decoder-robustness/blob/main/examples/quickstart.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg"></a>
+</p>
+
+The notebook downloads public EEG data through MOABB, trains on clean data,
+and evaluates deterministic 10%, 30%, and 50% test-time channel dropout. It
+uses two masks per non-zero fraction to keep the demonstration compact. Runtime
+varies with the data download and the execution environment.
+
+This is a usability demonstration, not a reproduction of the 109-participant
+population estimates reported above. For those estimates, use the full
+reproduction commands below.
+
+To run the same quickstart locally after installing the EEG dependencies:
+
+```bash
+python scripts/run_benchmark.py \
+  --config configs/quickstart_physionet.yaml \
+  --download-and-run \
+  --dataset PhysionetMI \
+  --subjects 1 \
+  --pipeline csp_lda \
+  --overwrite \
+  --suffix quickstart
+```
 
 ## Quick validation
 
@@ -207,6 +240,7 @@ handling are documented in
 | Path | Contents |
 |---|---|
 | [`configs/`](configs) | Benchmark parameters and protocol definitions |
+| [`examples/`](examples) | One-participant Colab and local quickstarts |
 | [`src/bci_robustness/`](src/bci_robustness) | Evaluation and summary functions |
 | [`scripts/`](scripts) | Command-line benchmark, analysis, validation, and release tools |
 | [`results/`](results) | Fold-, participant-, and population-level result tables |
@@ -249,6 +283,12 @@ implemented perturbations**. It does not by itself establish:
 The source datasets contain healthy participants. Cross-session outputs are
 available only where session metadata permit them; in the current release,
 cross-session manuscript results are restricted to BNCI2014-001 (`n=9`).
+
+## Contributing
+
+Bug reports, reproducibility checks, dataset adapters, and carefully scoped
+robustness extensions are welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for
+the scientific and software checks used for contributions.
 
 ## License
 
