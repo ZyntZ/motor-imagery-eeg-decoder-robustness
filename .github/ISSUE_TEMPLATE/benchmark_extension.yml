@@ -1,0 +1,55 @@
+name: Benchmark extension
+description: Propose a dataset, decoder, channel-selection method, or robustness stressor.
+title: "[Extension]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing an extension. Please keep the scientific condition and train/test boundary explicit.
+  - type: dropdown
+    id: extension_type
+    attributes:
+      label: Extension type
+      options:
+        - Dataset
+        - Decoder
+        - Channel-selection method
+        - Signal-corruption stressor
+        - Evaluation or statistical method
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Scientific question
+      description: What question would this extension answer, and why is it not answered by the current benchmark?
+    validations:
+      required: true
+  - type: textarea
+    id: protocol
+    attributes:
+      label: Proposed protocol
+      description: Include datasets, participants, train/test timing, evaluation unit, metrics, and comparisons.
+    validations:
+      required: true
+  - type: textarea
+    id: reproducibility
+    attributes:
+      label: Reproducibility plan
+      description: Explain seeds, matched folds or corruption schedules, provenance, and expected outputs.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References or example data
+      description: Add relevant papers, public datasets, hardware behavior, or a minimal example.
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I am willing to help implement or validate this extension.
